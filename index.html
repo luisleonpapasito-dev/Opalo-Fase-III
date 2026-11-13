@@ -1611,5 +1611,186 @@
         });
     </script>
 <div class="tip" id="tip"></div>
+<!-- ===== INTRO: panel de integrantes (pegar justo antes de </body>) ===== -->
+<style>
+#intro { position: fixed; inset: 0; z-index: 99999; overflow: hidden; cursor: pointer; font-family: 'DM Sans', sans-serif; --mx: 0; --my: 0; }
+#intro * { box-sizing: border-box; }
+#intro .iv-bg { position: absolute; inset: 0; background: #EDE9D8 url('assets/textura-papel.jpg') center / cover; }
+#intro .iv-bg::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, transparent 55%, rgba(31,36,27,.16)); }
+#intro .iv-stage { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; transform-origin: center; }
+#intro .iv-l { position: absolute; translate: calc(var(--mx) * var(--dp, 0px)) calc(var(--my) * var(--dp, 0px)); transition: translate .5s cubic-bezier(.2,.7,.2,1); }
+
+/* formas de papel */
+#intro .iv-most { left: 1290px; top: -200px; width: 760px; --dp: -14px; }
+#intro .iv-arco { left: 1330px; top: 270px; width: 680px; --dp: -10px; }
+#intro .iv-most img, #intro .iv-arco img, #intro .iv-hand img { width: 100%; display: block; }
+#intro .iv-most img { transform: translate(700px, -460px) rotate(40deg); animation: ivIn 1.3s 1.25s cubic-bezier(.2,.9,.2,1) forwards; --to: rotate(9deg); }
+#intro .iv-arco img { transform: translate(900px, 100px) rotate(40deg); animation: ivIn 1.4s 1.35s cubic-bezier(.2,.9,.2,1) forwards; --to: rotate(5deg); }
+#intro .iv-hand { left: 1425px; top: 395px; width: 560px; --dp: -26px; }
+#intro .iv-hand img { transform: translateY(760px) rotate(10deg); animation: ivIn 1.5s 1.6s cubic-bezier(.2,.9,.25,1) forwards, ivBreath 6s 3.2s ease-in-out infinite; --to: rotate(0deg); transform-origin: 50% 100%; }
+@keyframes ivIn { to { transform: var(--to); } }
+@keyframes ivBreath { 50% { transform: translateY(-10px) rotate(-1.2deg); } }
+
+/* texto */
+#intro .iv-txt { left: 150px; top: 118px; width: 1300px; --dp: 8px; color: #1F241B; }
+#intro .iv-kick { display: flex; align-items: center; gap: 22px; font: 600 23px 'DM Sans', sans-serif; letter-spacing: .3em; text-transform: uppercase; color: #C4582F; opacity: 0; animation: ivFade .8s 1.7s forwards; }
+#intro .iv-kick::before { content: ""; width: 70px; height: 3px; background: #C4582F; transform-origin: 0 50%; transform: scaleX(0); animation: ivGrow .7s 1.7s cubic-bezier(.2,.8,.2,1) forwards; }
+#intro .iv-h { margin: 26px 0 0; font-family: var(--f-title, 'Noto Serif Display'), serif; font-style: italic; font-weight: 700; font-stretch: 62.5%; font-variation-settings: "wdth" 62.5; font-size: 138px; line-height: .98; color: #1F6B45 !important; letter-spacing: -.01em; }
+#intro .iv-ln { display: block; white-space: nowrap; }
+#intro .iv-w { display: inline-block; overflow: hidden; vertical-align: top; padding: 0 .1em .16em 0; margin-bottom: -.16em; }
+#intro .iv-w > i { display: inline-block; font-style: inherit; transform: translateY(115%) rotate(6deg); transform-origin: 0 100%; animation: ivWord .95s cubic-bezier(.2,.85,.2,1) forwards; animation-delay: calc(1.75s + var(--k) * .085s); }
+@keyframes ivWord { to { transform: none; } }
+#intro .iv-brush { display: block; width: 870px; height: 34px; margin: 6px 0 0 4px; overflow: visible; }
+#intro .iv-brush path { fill: none; stroke: #E8B93A; stroke-width: 13; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: ivDraw .9s 2.55s cubic-bezier(.6,0,.2,1) forwards; }
+#intro .iv-brush path + path { stroke-width: 5; opacity: .7; animation-delay: 2.75s; }
+@keyframes ivDraw { to { stroke-dashoffset: 0; } }
+#intro .iv-sub { margin-top: 14px; font: 500 27px 'DM Sans', sans-serif; color: #4b5540; opacity: 0; animation: ivUp .8s 2.8s forwards; }
+#intro .iv-pres { margin-top: 44px; font: 600 19px 'DM Sans', sans-serif; letter-spacing: .34em; text-transform: uppercase; color: #5b6a3c; opacity: 0; animation: ivUp .7s 2.95s forwards; }
+@keyframes ivFade { to { opacity: 1; } }
+@keyframes ivGrow { to { transform: scaleX(1); } }
+@keyframes ivUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+
+/* tarjetas de integrantes */
+#intro .iv-cards { left: 150px; top: 668px; display: flex; gap: 32px; --dp: 14px; }
+#intro .iv-card { position: relative; width: 398px; transform-origin: 50% -16px; filter: drop-shadow(0 16px 18px rgba(31,36,27,.3)); opacity: 0; animation: ivDrop 1.25s cubic-bezier(.3,.7,.3,1) forwards; animation-delay: var(--d); transition: translate .35s cubic-bezier(.3,1.5,.5,1), rotate .35s; }
+#intro .iv-card:hover { translate: 0 -10px; rotate: calc(var(--r) * -0.6); }
+#intro .iv-paper { padding: 40px 30px 26px; background: #F6F2E3 url('assets/textura-papel.jpg') center / 520px; background-blend-mode: multiply; clip-path: polygon(0 3%, 2% 0, 38% 1.5%, 71% 0, 98% 1%, 100% 5%, 99% 52%, 100% 96%, 97% 100%, 60% 98.5%, 28% 100%, 3% 99%, 0 95%, 1% 48%); }
+#intro .iv-no { font: 700 15px 'DM Sans', sans-serif; letter-spacing: .2em; color: #C4582F; }
+#intro .iv-fn { display: block; margin-top: 4px; font-family: var(--f-title, 'Noto Serif Display'), serif; font-style: italic; font-weight: 700; font-stretch: 62.5%; font-variation-settings: "wdth" 62.5; font-size: 57px; line-height: 1; color: #1F6B45; white-space: nowrap; }
+#intro .iv-sn { display: block; margin-top: 10px; font: 600 19px 'DM Sans', sans-serif; letter-spacing: .16em; text-transform: uppercase; color: #5b6a3c; }
+#intro .iv-tape { position: absolute; left: 50%; top: -30px; width: 170px; margin-left: -85px; rotate: var(--tr, -4deg); pointer-events: none; }
+@keyframes ivDrop { 0% { opacity: 0; transform: translateY(-900px) rotate(calc(var(--r) * 9)); } 1% { opacity: 1; } 55% { opacity: 1; transform: translateY(0) rotate(calc(var(--r) * -3)); } 72% { transform: rotate(calc(var(--r) * 2.4)); } 87% { transform: rotate(calc(var(--r) * .4)); } 100% { opacity: 1; transform: rotate(var(--r)); } }
+
+/* telón verde de papel rasgado */
+#intro .iv-cur { position: absolute; left: 0; top: 0; width: 100%; height: 130vh; transform: translateY(-10vh); will-change: transform; pointer-events: none; }
+#intro .iv-cur svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+#intro.iv-rest .iv-cur { transform: translateY(85vh); transition: transform 1.45s cubic-bezier(.75,0,.2,1); }
+#intro.iv-cover .iv-cur { transform: translateY(-10vh); transition: transform .8s cubic-bezier(.7,0,.25,1); }
+#intro.iv-gone .iv-cur { transform: translateY(-145vh); transition: transform 1s cubic-bezier(.7,0,.3,1); }
+#intro .iv-seed { position: absolute; left: 50%; top: 60vh; width: 18vh; margin: -11vh 0 0 -9vh; transform: scale(0) rotate(-40deg); transform-origin: 45% 95%; animation: ivSeed .8s .12s cubic-bezier(.3,1.5,.5,1) forwards; }
+@keyframes ivSeed { to { transform: scale(1) rotate(0); } }
+
+/* botón */
+#intro .iv-go { left: 0; top: 968px; width: 1920px; display: flex; align-items: center; justify-content: center; gap: 22px; opacity: 0; animation: ivUp .8s 3.9s forwards; color: #F4F0E1; }
+#intro .iv-go b { position: relative; width: 74px; height: 74px; border-radius: 50%; background: #E8B93A; display: grid; place-items: center; box-shadow: 0 6px 0 #B98A12; }
+#intro .iv-go b::before { content: ""; border-left: 22px solid #1F241B; border-top: 14px solid transparent; border-bottom: 14px solid transparent; margin-left: 7px; }
+#intro .iv-go b::after { content: ""; position: absolute; inset: -4px; border-radius: 50%; border: 3px solid #E8B93A; animation: ivRing 2s 4.4s ease-out infinite; opacity: 0; }
+#intro .iv-go span { font-family: var(--f-title, 'Noto Serif Display'), serif; font-style: italic; font-weight: 700; font-stretch: 62.5%; font-variation-settings: "wdth" 62.5; font-size: 50px; line-height: 1; text-shadow: 0 2px 10px rgba(0,0,0,.25); }
+#intro .iv-go small { font: 600 17px 'DM Sans', sans-serif; letter-spacing: .12em; color: #F4F0E1; text-shadow: 0 1px 6px rgba(0,0,0,.55); margin-left: 6px; align-self: flex-end; padding-bottom: 8px; }
+#intro:hover .iv-go b { transform: scale(1.08); transition: transform .3s cubic-bezier(.3,1.6,.5,1); }
+@keyframes ivRing { 0% { transform: scale(1); opacity: .9; } 100% { transform: scale(1.9); opacity: 0; } }
+
+/* hojas */
+#intro .iv-leaf { display: block; background: url('assets/hojas-brote.webp') 0 0 / 526px 556px no-repeat; width: 214px; height: 392px; }
+#intro .iv-leaf.b { width: 312px; height: 378px; background-position: -214px -10px; clip-path: polygon(12px 0, 100% 0, 100% 100%, 0 100%, 0 345px, 12px 330px); }
+#intro .iv-fall { position: absolute; top: 0; perspective: 900px; animation: ivFall linear infinite; pointer-events: none; }
+#intro .iv-tum { scale: var(--s, .3); animation: ivTum ease-in-out infinite alternate; transform-style: preserve-3d; }
+@keyframes ivFall { from { transform: translate3d(0, -420px, 0); } to { transform: translate3d(var(--dx, 200px), 1500px, 0); } }
+@keyframes ivTum { 0% { transform: rotateZ(-25deg) rotateX(0deg) rotateY(0deg); } 30% { transform: rotateZ(28deg) rotateX(48deg) rotateY(22deg); } 60% { transform: rotateZ(-8deg) rotateX(-18deg) rotateY(62deg); } 100% { transform: rotateZ(34deg) rotateX(38deg) rotateY(-28deg); } }
+#intro .iv-amb { z-index: 2; opacity: 0; animation: ivFade 1.2s 1.6s forwards; }
+#intro .iv-fg { opacity: 0; animation: ivFade 1.2s 2s forwards; filter: blur(7px); }
+#intro .iv-gl { position: absolute; left: -380px; pointer-events: none; opacity: 0; }
+#intro .iv-gl > i { scale: var(--s, .4); animation: ivSpin var(--t, 1.4s) var(--dl, 0s) linear infinite; }
+@keyframes ivSpin { to { transform: rotate(var(--gr, 560deg)); } }
+#intro.iv-g1 .iv-gl { animation: ivGust var(--t, 1.4s) var(--dl, 0s) cubic-bezier(.3,.1,.5,1) both; }
+#intro.iv-g2 .iv-gl { animation: ivGust2 var(--t, 1.4s) var(--dl, 0s) cubic-bezier(.3,.1,.5,1) both; }
+@keyframes ivGust { 0% { opacity: 1; transform: translate3d(0, 0, 0); } 100% { opacity: 1; transform: translate3d(2900px, var(--gy, 80px), 0); } }
+@keyframes ivGust2 { 0% { opacity: 1; transform: translate3d(0, 0, 0); } 100% { opacity: 1; transform: translate3d(2900px, var(--gy, 80px), 0); } }
+
+/* salida */
+#intro.iv-out { pointer-events: none; }
+#intro.iv-out .iv-card { animation: ivCardOut .7s cubic-bezier(.6,0,.8,.3) forwards; animation-delay: var(--o); }
+@keyframes ivCardOut { 0% { opacity: 1; transform: rotate(var(--r)); } 25% { opacity: 1; transform: translateY(26px) rotate(calc(var(--r) * -2)); } 100% { opacity: 1; transform: translate(var(--ox), -1100px) rotate(calc(var(--r) * 14)); } }
+#intro.iv-out .iv-w > i { animation: ivWordOut .5s cubic-bezier(.6,0,.9,.4) forwards; animation-delay: calc(var(--k) * .03s); }
+@keyframes ivWordOut { from { transform: none; } to { transform: translateY(-120%) rotate(-5deg); } }
+#intro.iv-out .iv-kick, #intro.iv-out .iv-sub, #intro.iv-out .iv-pres, #intro.iv-out .iv-go, #intro.iv-out .iv-brush { animation: ivBye .35s forwards; }
+@keyframes ivBye { from { opacity: 1; } to { opacity: 0; transform: translateY(-16px); } }
+#intro.iv-out .iv-most img { animation: ivOutA .8s cubic-bezier(.6,0,.9,.4) forwards; }
+#intro.iv-out .iv-arco img { animation: ivOutB .8s cubic-bezier(.6,0,.9,.4) forwards; }
+#intro.iv-out .iv-hand img { animation: ivOutC .7s cubic-bezier(.6,0,.9,.4) forwards; }
+@keyframes ivOutA { from { transform: rotate(9deg); } to { transform: translate(800px, -500px) rotate(50deg); } }
+@keyframes ivOutB { from { transform: rotate(5deg); } to { transform: translate(1000px, -200px) rotate(60deg); } }
+@keyframes ivOutC { from { transform: none; } to { transform: translateY(800px) rotate(12deg); } }
+#intro.iv-swap .iv-bg, #intro.iv-swap .iv-stage { display: none; }
+@media (prefers-reduced-motion: reduce) { #intro *, #intro *::before, #intro *::after { animation-duration: .01s !important; animation-delay: 0s !important; transition-duration: .01s !important; } }
+</style>
+<div id="intro" role="dialog" aria-label="Integrantes del proyecto">
+    <div class="iv-bg"></div>
+    <div class="iv-stage">
+        <div class="iv-l iv-most"><img src="assets/forma-mostaza.webp" alt=""></div>
+        <div class="iv-l iv-arco"><img src="assets/forma-arco-verde.webp" alt=""></div>
+        <div class="iv-l iv-hand"><img src="assets/mano-brote.webp" alt=""></div>
+        <div class="iv-l iv-txt">
+            <div class="iv-kick">Semillero de investigación · Fase III · Ópalo</div>
+            <h1 class="iv-h">
+                <span class="iv-ln"><span class="iv-w" style="--k:0"><i>Contenedores</i></span> <span class="iv-w" style="--k:1"><i>con</i></span></span>
+                <span class="iv-ln"><span class="iv-w" style="--k:2"><i>separación</i></span> <span class="iv-w" style="--k:3"><i>en</i></span> <span class="iv-w" style="--k:4"><i>la</i></span> <span class="iv-w" style="--k:5"><i>fuente</i></span></span>
+            </h1>
+            <svg class="iv-brush" viewBox="0 0 870 34" aria-hidden="true"><path pathLength="1" d="M6 20 C 120 6 260 26 400 15 C 560 3 700 24 864 10"/><path pathLength="1" d="M60 30 C 240 20 420 32 640 22"/></svg>
+            <div class="iv-sub">Comuna 3 · Plaza de Mercado San Francisco · Bucaramanga</div>
+            <div class="iv-pres">Presentan</div>
+        </div>
+        <div class="iv-l iv-cards">
+            <div class="iv-card" style="--r:-2.4deg;--d:3.05s;--o:0s;--ox:-260px;--tr:-5deg"><div class="iv-paper"><span class="iv-no">01</span><span class="iv-fn">Jesús David</span><span class="iv-sn">León Lizarazo</span></div><img class="iv-tape" src="assets/cinta-papel.webp" alt=""></div>
+            <div class="iv-card" style="--r:1.6deg;--d:3.25s;--o:.07s;--ox:40px;--tr:3deg"><div class="iv-paper"><span class="iv-no">02</span><span class="iv-fn">Ana Victoria</span><span class="iv-sn">Díaz Carrillo</span></div><img class="iv-tape" src="assets/cinta-papel.webp" alt=""></div>
+            <div class="iv-card" style="--r:-1.2deg;--d:3.45s;--o:.14s;--ox:300px;--tr:-2deg"><div class="iv-paper"><span class="iv-no">03</span><span class="iv-fn">Edith Dayana</span><span class="iv-sn">Patiño Ruiz</span></div><img class="iv-tape" src="assets/cinta-papel.webp" alt=""></div>
+        </div>
+    </div>
+    <div class="iv-cur">
+        <svg viewBox="0 0 1920 1404" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+                <filter id="ivR" filterUnits="userSpaceOnUse" x="-400" y="-300" width="2720" height="2000"><feTurbulence type="fractalNoise" baseFrequency="0.011" numOctaves="3" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="110" xChannelSelector="R" yChannelSelector="G"/></filter>
+                <filter id="ivA" filterUnits="userSpaceOnUse" x="-400" y="-300" width="2720" height="2000"><feTurbulence type="fractalNoise" baseFrequency="0.011" numOctaves="3" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="110" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency="0.009 0.02" numOctaves="3" seed="11" result="t"/><feColorMatrix in="t" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 16 -8.4" result="m"/><feComposite in="d" in2="m" operator="in"/></filter>
+                <filter id="ivB" filterUnits="userSpaceOnUse" x="-400" y="-300" width="2720" height="2000"><feTurbulence type="fractalNoise" baseFrequency="0.011" numOctaves="3" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="110" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency="0.013 0.03" numOctaves="3" seed="27" result="t"/><feColorMatrix in="t" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 16 -9.6" result="m"/><feComposite in="d" in2="m" operator="in"/></filter>
+            </defs>
+            <path d="M-300 70 C 150 25 560 105 980 60 C 1380 20 1720 100 2220 50 L2220 1345 C 1720 1392 1380 1318 980 1360 C 560 1398 150 1322 -300 1366Z" fill="#1F6B45" filter="url(#ivR)"/>
+            <path d="M-300 70 C 150 25 560 105 980 60 C 1380 20 1720 100 2220 50 L2220 1345 C 1720 1392 1380 1318 980 1360 C 560 1398 150 1322 -300 1366Z" fill="#79A98C" filter="url(#ivA)" opacity=".92"/>
+            <path d="M-300 70 C 150 25 560 105 980 60 C 1380 20 1720 100 2220 50 L2220 1345 C 1720 1392 1380 1318 980 1360 C 560 1398 150 1322 -300 1366Z" fill="#E9E6D3" filter="url(#ivB)" opacity=".9"/>
+        </svg>
+        <img class="iv-seed" src="assets/hojas-brote.webp" alt="">
+    </div>
+    <div class="iv-stage iv-top">
+        <div class="iv-l iv-go"><b></b><span>Comenzar</span><small>clic · Enter · espacio</small></div>
+    </div>
+</div>
+<script>
+(() => {
+    const it = document.getElementById('intro'); if (!it) return;
+    const cover = document.querySelector('.slide.cover');
+    if (/^#([2-9]|1\d)$/.test(location.hash)) { it.remove(); return; }      /* si se abre en otra diapositiva, no aparece */
+    if (cover) cover.classList.remove('active');                              /* la portada espera detrás */
+    const stages = it.querySelectorAll('.iv-stage'), main = stages[0], top = stages[1];
+    const fit = () => { const s = Math.min(innerWidth / 1920, innerHeight / 1080); stages.forEach(st => st.style.transform = `translate(-50%,-50%) scale(${s})`); };
+    fit(); addEventListener('resize', fit);
+    const R = (a, b) => a + Math.random() * (b - a);
+    const leaf = () => `<i class="iv-leaf${Math.random() < .5 ? ' b' : ''}"></i>`;
+    /* hojas que caen despacio (fondo) y dos grandes desenfocadas (primer plano) */
+    for (let i = 0; i < 9; i++) { const d = document.createElement('div'); d.className = 'iv-fall iv-amb'; const dur = R(11, 19);
+        d.style.cssText = `left:${R(-4, 96)}%;--dx:${R(-260, 320).toFixed(0)}px;animation-duration:${dur.toFixed(1)}s;animation-delay:${(-R(0, dur)).toFixed(1)}s`;
+        d.innerHTML = `<div class="iv-tum" style="--s:${R(.16, .34).toFixed(2)};animation-duration:${R(3.5, 6.5).toFixed(1)}s">${leaf()}</div>`; main.insertBefore(d, main.children[2]); }
+    for (let i = 0; i < 2; i++) { const d = document.createElement('div'); d.className = 'iv-fall iv-fg'; const dur = R(8, 11);
+        d.style.cssText = `left:${i ? R(90, 95) : R(-6, -2)}%;--dx:${(i ? R(-160, 20) : R(-20, 160)).toFixed(0)}px;animation-duration:${dur.toFixed(1)}s;animation-delay:${(-R(0, dur)).toFixed(1)}s`;
+        d.innerHTML = `<div class="iv-tum" style="--s:${R(.75, 1.05).toFixed(2)};animation-duration:${R(4, 6).toFixed(1)}s">${leaf()}</div>`; top.appendChild(d); }
+    /* ráfaga de hojas que cruza la pantalla */
+    for (let i = 0; i < 18; i++) { const g = document.createElement('div'); g.className = 'iv-gl';
+        g.style.cssText = `top:${R(-80, 900).toFixed(0)}px;--s:${R(.22, .62).toFixed(2)};--t:${R(1.1, 1.9).toFixed(2)}s;--dl:${R(0, .55).toFixed(2)}s;--gy:${R(-260, 320).toFixed(0)}px;--gr:${(R(300, 900) * (Math.random() < .5 ? -1 : 1)).toFixed(0)}deg`;
+        g.innerHTML = leaf(); top.appendChild(g); }
+    const T = [];
+    T.push(setTimeout(() => it.classList.add('iv-g1'), 650));
+    T.push(setTimeout(() => it.classList.add('iv-rest'), 950));
+    it.addEventListener('mousemove', e => { it.style.setProperty('--mx', (e.clientX / innerWidth - .5).toFixed(3)); it.style.setProperty('--my', (e.clientY / innerHeight - .5).toFixed(3)); });
+    let done = false;
+    const close = () => { if (done) return; done = true; T.forEach(clearTimeout);
+        it.classList.remove('iv-g1'); void it.offsetWidth; it.classList.add('iv-out', 'iv-g2');
+        setTimeout(() => { it.classList.remove('iv-rest'); it.classList.add('iv-cover'); }, 380);
+        setTimeout(() => { it.classList.add('iv-swap'); if (cover) { void cover.offsetWidth; cover.classList.add('active'); }
+            requestAnimationFrame(() => requestAnimationFrame(() => { it.classList.remove('iv-cover'); it.classList.add('iv-gone'); })); }, 1250);
+        setTimeout(() => { removeEventListener('resize', fit); it.remove(); }, 2400); };
+    it.addEventListener('click', close);
+    addEventListener('keydown', e => { if (!document.getElementById('intro')) return; e.stopImmediatePropagation(); if (done) return; e.preventDefault(); if (e.key === 'Enter' || e.key === ' ') close(); }, true);
+})();
+</script>
+<!-- ===== FIN INTRO ===== -->
+
 </body>
 </html>
