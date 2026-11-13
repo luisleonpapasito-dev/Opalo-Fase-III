@@ -518,6 +518,9 @@
 #overview .t { font-size: 1.45rem; font-weight: 700; line-height: 1.2; }
 #overview .close { position: absolute; top: 40px; right: 60px; font-size: 1.5rem; font-weight: 700; color: var(--c-forest); }
 
+.s16 p { font-size: 2.2rem; line-height: 1.45; }
+.s16 .ttl { margin-bottom: 22px; }
+
     </style>
 </head>
 <body>
@@ -1081,8 +1084,9 @@
             <section class="slide"><div class="decor"></div>
                 <div class="content s16">
                     <h2 class="ttl rv">Resultados</h2>
-                    <p class="rv">La comparación directa valida matemáticamente la equivalencia entre el Modelo Exacto (Pyomo/HiGHS) y el Algoritmo Genético, alcanzando exactamente el mismo valor óptimo global ($132,073,831 COP) con un gap del 0.00%.</p>
-                    <p class="rv">Así se consolidan ambos como métodos como estables y eficientes para el tamaño actual de la red de optimización.</p>
+                    <p class="rv">La comparación valida el modelo: el Modelo Exacto (Pyomo/HiGHS) y el Algoritmo Genético alcanzan el mismo óptimo en el caso base, con un valor de la función objetivo de $132,073,831 COP y un gap del 0.00%.</p>
+                    <p class="rv">Ese valor incluye una penalización de $5,000,000 por cada uno de los 24 generadores sin atender ($120,000,000). El costo real de la red es de $12,073,831 COP: $11,331,750 en canecas y $742,081 en transporte.</p>
+                    <p class="rv">El algoritmo genético llegó al óptimo en 6 de 10 corridas (promedio de $135,063,093 COP). Ambos métodos resultan estables y eficientes para el tamaño actual de la red.</p>
                 </div>
             </section>
 
