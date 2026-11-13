@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto 1. Contenedores con separación en la fuente</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Noto+Serif+Display:ital,wdth,wght@1,62.5..100,400..900&display=swap" rel="stylesheet">
+    
+    <!-- KaTeX para matemáticas -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+    <style>
+                :root {
+            /* Paleta de colores ecológica */
+            --c-forest: #1F6B45;
+            --c-olive: #8A9E5A;
+            --c-paper: #EDE9D8;
+            --c-terra: #C4582F;
+            --c-mustard: #E8B93A;
+            --c-dark: #1F241B;
+            --c-alt-blue: #2A7B9B; /* Para la alternativa "Sin separación" basada en el PDF */
+            --c-alt-red: #D36A52; /* Para la tercera alternativa */
+            
+            /* Tipografías */
+            --f-title: 'Noto Serif Display', serif;
+            --f-body: 'DM Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #111;
+            font-family: var(--f-body);
+            color: var(--c-dark);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Contenedor Principal Escalable (16:9) */
+        .presentation-wrapper {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide-deck {
+            width: 1920px;
+            height: 1080px;
+            background-color: var(--c-paper);
+            position: relative;
+            transform-origin: center center;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            /* Textura de papel sutil */
+            flex: none;
+            background-image: url('assets/textura-papel.jpg');
+            background-size: cover;
+            background-color: var(--c-paper);
+        }
+
+        .slide {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            padding: 4rem 7rem 7rem;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            z-index: 1;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 10;
+        }
+
+        /* Decoraciones CSS Globales */
+        .shape-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        /* Tipografía Global */
+        h1, h2, h3, .title-font {
+            font-family: var(--f-title);
+            font-weight: 700;
+            font-style: italic;
+            font-stretch: 62.5%;
+            line-height: 1.1;
+        }
+
+        h1 { font-size: 5.5rem; color: var(--c-forest); margin-bottom: 1rem; }
+        h2 { font-size: 4rem; color: var(--c-forest); margin-bottom: 2rem; }
+        h3 { font-size: 2.5rem; color: var(--c-terra); margin-bottom: 1.5rem; }
+        p, li { font-size: 1.8rem; line-height: 1.5; margin-bottom: 1.2rem; }
+        
+        .text-small { font-size: 1.4rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--c-olive); }
+        .highlight { color: var(--c-terra); font-weight: 700; }
+
+        /* Badges */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            background: var(--c-mustard);
+            color: var(--c-dark);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            transform: rotate(-2deg);
+            box-shadow: 3px 3px 0 var(--c-forest);
+            margin-bottom: 1.5rem;
+        }
+
+        .badge.terra {
+            background: var(--c-terra);
+            color: white;
+            transform: rotate(2deg);
+            box-shadow: 3px 3px 0 var(--c-mustard);
+        }
+
+        /* Layouts Específicos */
+        .layout-center { align-items: center; justify-content: center; text-align: center; }
+        .layout-split { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; height: 100%; align-items: center; }
+        .layout-header-content { display: flex; flex-direction: column; height: 100%; }
+        .content-area { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        
+        ul { padding-left: 2.5rem; }
+        li::marker { color: var(--c-mustard); font-size: 2rem; }
+
+        /* Estilos de Sección "El Modelo" */
+        .model-header {
+            border-left: 8px solid var(--c-mustard);
+            padding-left: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .model-header h2 { margin-bottom: 0.5rem; font-size: 3.5rem;}
+        .model-header .sub { font-size: 2rem; color: var(--c-olive); font-family: var(--f-title); }
+
+        /* Tarjetas */
+        .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+        .card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 2px solid var(--c-paper);
+            box-shadow: 5px 5px 0 var(--c-forest);
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+        }
+        .card-icon {
+            font-size: 3rem;
+            background: var(--c-paper);
+            width: 80px; height: 80px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* Tablas / Listas Matemáticas */
+        .math-list { display: flex; flex-direction: column; gap: 1.2rem; }
+        .math-item { display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: center; font-size: 1.8rem;}
+        .math-term { font-weight: bold; color: var(--c-forest); font-size: 2rem; text-align: right; }
+
+        .equation-grid {
+            display: grid; grid-template-columns: 50px auto 1fr; gap: 1rem 3rem;
+            align-items: center; font-size: 1.6rem;
+        }
+        .eq-num { color: var(--c-olive); font-weight: bold; }
+        .eq-desc { color: var(--c-dark); opacity: 0.8; font-style: italic; }
+        
+        .big-formula-container {
+            flex: 1; display: flex; align-items: center; justify-content: center;
+            font-size: 3.5rem; color: var(--c-forest);
+            background: white; padding: 4rem; border-radius: 20px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+        }
+
+        /* Gráficos Recreados */
+        .chart-section { display: flex; flex-direction: column; gap: 4rem; height: 100%; }
+        .chart-row { display: flex; gap: 4rem; flex: 1; }
+        .chart-panel {
+            flex: 1; background: white; padding: 2rem 3rem; border-radius: 20px;
+            display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .chart-title { text-align: center; font-weight: 700; margin-bottom: 2rem; font-size: 1.6rem;}
+        
+        .bar-container { display: flex; justify-content: space-around; align-items: flex-end; flex: 1; padding-bottom: 1rem; border-bottom: 2px solid var(--c-paper); }
+        .bar-group { display: flex; flex-direction: column; align-items: center; gap: 1rem; width: 120px;}
+        .bar { width: 100%; border-radius: 8px 8px 0 0; position: relative; display: flex; justify-content: center; transition: height 1s ease-out;}
+        .bar-val { position: absolute; top: -35px; font-weight: 700; font-size: 1.8rem; }
+        .bar-label { text-align: center; font-size: 1.4rem; font-weight: 500; margin-top: 1rem; height: 40px;}
+        
+        .color-alt1 { background: var(--c-forest); }
+        .color-alt2 { background: var(--c-alt-blue); }
+        .color-alt3 { background: var(--c-alt-red); }
+
+        .chart-summary {
+            background: rgba(255,255,255,0.8);
+            padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--c-terra);
+            font-weight: 500; font-size: 1.8rem; text-align: center;
+        }
+
+        /* Chart Complejo Slide 15 */
+        .multi-chart-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; flex: 1; }
+        .chart-column-title { text-align: center; font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem; height: 40px; }
+        .line-svg-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+
+        /* Controles de Navegación */
+        .controls {
+            position: absolute; bottom: 2rem; left: 0; width: 100%;
+            display: flex; justify-content: space-between; padding: 0 4rem;
+            align-items: center; z-index: 100;
+        }
+        .btn-nav {
+            background: white; border: none; width: 50px; height: 50px;
+            border-radius: 50%; cursor: pointer; font-size: 1.5rem;
+            color: var(--c-forest); box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s, background 0.2s;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .btn-nav:hover { background: var(--c-mustard); color: var(--c-dark); transform: scale(1.1); }
+        .counter { font-size: 1.5rem; font-weight: 700; font-family: var(--f-body); color: var(--c-forest); background: rgba(255,255,255,0.7); padding: 0.5rem 1.5rem; border-radius: 20px;}
+        .progress-bar { position: absolute; bottom: 0; left: 0; height: 6px; background: var(--c-mustard); transition: width 0.3s ease; z-index: 100; }
+
+        /* Cita pequeña */
+        .citation { font-size: 1rem; opacity: 0.7; margin-top: auto; line-height: 1.3; }
+
+        /* Contenedores de gráficas */
+        .chart-section { flex: 1; min-height: 0; height: auto; gap: 2rem; }
+        .chart-row { min-height: 0; gap: 2.5rem; }
+        .chart-panel { min-height: 0; padding: 1.5rem 2rem; }
+        .chart-title { margin-bottom: 0.5rem; }
+        .chart-wrap { flex: 1; min-height: 0; position: relative; }
+        .chart-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+        .multi-chart-grid { min-height: 0; }
+        .sum-col { display: flex; flex-direction: column; min-height: 0; }
+        .sum-col + .sum-col { border-left: 2px dashed #ddd; padding-left: 1rem; }
+
+        /* Estilo SVG */
+        .c-grid { stroke: #E4DFCB; stroke-width: 1; }
+        .c-axis { stroke: #B9B29A; stroke-width: 2; }
+        .c-tick { font: 500 13px 'DM Sans', sans-serif; fill: #6b705f; }
+        .c-val { font: 700 21px 'DM Sans', sans-serif; fill: #1F241B; text-anchor: middle; }
+        .c-xl { font: 500 16px 'DM Sans', sans-serif; fill: #1F241B; text-anchor: middle; }
+        .c-xl2 { fill: #5b6050; }
+        .c-axtitle { font: 700 14px 'DM Sans', sans-serif; fill: #6b705f; text-anchor: middle; }
+        .c-line { fill: none; stroke: var(--c-terra); stroke-width: 3.5; stroke-linejoin: round; }
+        .c-dot { fill: var(--c-terra); stroke: #fff; stroke-width: 3; }
+        .c-pill { fill: #fff; opacity: 0.92; }
+        .c-linelbl { font: 700 15px 'DM Sans', sans-serif; fill: var(--c-terra); text-anchor: middle; }
+        .bar-rect { transform-box: fill-box; transform-origin: bottom; }
+        .bar-rect.color-alt1 { fill: var(--c-forest); }
+        .bar-rect.color-alt2 { fill: var(--c-alt-blue); }
+        .bar-rect.color-alt3 { fill: var(--c-alt-red); }
+        .slide.active .bar-rect { animation: growBar 0.9s cubic-bezier(.2,.8,.2,1) both; }
+        @keyframes growBar { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+        .chart-legend { display: flex; gap: 2.5rem; justify-content: center; font-size: 1.3rem; font-weight: 500; margin-top: 0.6rem; }
+        .lg-bar { display: inline-block; width: 18px; height: 14px; background: var(--c-alt-blue); border-radius: 3px; margin-right: 0.5rem; }
+        .lg-dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: var(--c-terra); border: 2px solid #fff; box-shadow: 0 0 0 1px var(--c-terra); margin-right: 0.5rem; }
+
+/* ===== PORTADA (diapositiva 1) ===== */
+.slide.cover { padding: 0; display: block; overflow: hidden; }
+.cover .cv-bg, .cover .cv-ell, .cover .cv-arcs { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.cover .cv-ell { filter: drop-shadow(0 22px 26px rgba(0,0,0,.28)); }
+.cv-arcs text { font-family: 'DM Sans', sans-serif; font-weight: 700; fill: #14502F; letter-spacing: 5px; }
+.cv-arcs .cv-arc-1 { font-size: 74px; letter-spacing: 4px; }
+.cv-arcs .cv-3 { font-size: 104px; fill: #C4582F; stroke: #fff; stroke-width: 3px; paint-order: stroke; }
+.cv-arcs .cv-arc-2 { font-size: 44px; }
+.cover .cv-title {
+    position: absolute; left: 50%; top: 655px; width: 1280px; margin: 0;
+    transform: translate(-50%, -50%) rotate(-3deg);
+    text-align: center; color: #fff; font-size: 6.6rem; line-height: 1.02;
+    font-stretch: 62.5%; font-variation-settings: "wdth" 62.5;
+    text-shadow: 0 3px 14px rgba(0,0,0,.28);
+}
+.cv-el { position: absolute; transform: translate3d(var(--px,0px), var(--py,0px), 0); transition: transform .3s ease-out; }
+.cv-el img, .cv-el svg { display: block; width: 100%; height: auto; }
+.slide.active .cv-el > * { animation: cvFloat var(--dur,6s) ease-in-out var(--delay,0s) infinite; }
+.cv-el:hover > * { animation-duration: 2.4s; filter: drop-shadow(0 16px 20px rgba(0,0,0,.4)) saturate(1.12); }
+@keyframes cvFloat { 0%,100% { transform: translateY(0) rotate(var(--rot,0deg)); } 50% { transform: translateY(-14px) rotate(calc(var(--rot,0deg) + 1.4deg)); } }
+.cv-mostaza { left: -70px; top: -80px; width: 680px; --rot: -4deg; }
+.cv-arco    { right: 40px; top: -110px; width: 540px; --rot: 10deg; transform-origin: top; }
+.cv-hojas   { right: 50px; top: 70px; width: 380px; --rot: -6deg; --delay: .6s; --dur: 7s; }
+.cv-bombilla{ left: 90px; top: 250px; width: 255px; --delay: .3s; --dur: 5.5s; }
+.cv-caneca  { left: -70px; bottom: -95px; width: 265px; --dur: 8s; }
+.cv-mano    { right: -10px; bottom: -50px; width: 430px; --delay: 1s; --dur: 6.5s; }
+
+
+/* ===== v2: SISTEMA DE DISEÑO + MOTION ===== */
+.presentation-wrapper { position: fixed; inset: 0; overflow: hidden; display: block; }
+.slide-deck { position: absolute; left: 50%; top: 50%; }
+.slide { padding: 60px 110px 110px; transition: none; }
+.shape-blob { display: none; }
+.content { position: relative; z-index: 3; flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.decor { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+.decor .mass { position: absolute; inset: 0; width: 100%; height: 100%; }
+.content p, .content li { font-size: 2.1rem; line-height: 1.4; margin-bottom: 1rem; }
+.ttl { font-family: var(--f-title); font-style: italic; font-weight: 700; font-stretch: 62.5%; font-variation-settings: "wdth" 62.5; color: var(--c-forest); line-height: .95; margin: 0; }
+.content h3 { font-size: 2.9rem; margin-bottom: 1rem; }
+.sub3 { text-align: center; font-size: 2.3rem !important; color: var(--c-dark) !important; font-family: var(--f-body) !important; font-style: normal !important; font-weight: 700 !important; margin: 0 0 10px !important; }
+.mh { text-align: center; margin-bottom: 22px; }
+.mh h2 { font-size: 7.2rem; margin: 0; }
+.mh .sub { font-family: var(--f-title); font-style: italic; font-size: 2.4rem; color: #5b6a3c; margin-top: 4px; }
+.mh::after { content: ""; display: block; width: 150px; height: 7px; background: var(--c-mustard); border-radius: 4px; margin: 12px auto 0; }
+.slide.active .mh::after { animation: growX .9s .95s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes growX { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* decoración + animaciones de entrada */
+.dc { position: absolute; translate: var(--px,0px) var(--py,0px); transition: translate .35s ease-out; opacity: 0; }
+.dc > * { display: block; width: 100%; height: auto; rotate: var(--r,0deg); scale: var(--sx,1) 1; animation: flt var(--dur,7s) ease-in-out var(--fd,0s) infinite; filter: drop-shadow(0 12px 14px rgba(0,0,0,.2)); }
+.dc.spin > * { animation: spin 14s linear infinite; filter: none; }
+.slide.active .dc { animation: dcIn 1.3s cubic-bezier(.2,1.2,.3,1) calc(var(--delay,0s) + .15s) both; }
+@keyframes dcIn { from { transform: translate(var(--fx,0px), var(--fy,60px)) rotate(var(--er,0deg)) scale(.35); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes flt { 0%,100% { translate: 0 0; } 50% { translate: 0 -14px; } }
+@keyframes spin { to { rotate: calc(var(--r,0deg) + 360deg); } }
+.rv { opacity: 0; }
+.slide.active .rv { animation: rvIn .85s cubic-bezier(.2,.8,.2,1) calc(var(--i,0) * .11s + .5s) both; }
+@keyframes rvIn { from { opacity: 0; transform: translateY(46px); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+.slide.active .ttl.rv { animation-name: ttlIn; animation-duration: 1s; }
+@keyframes ttlIn { from { opacity: 0; clip-path: inset(0 100% 0 0); transform: translateX(-30px); } to { opacity: 1; clip-path: inset(-20% -5% -20% -5%); transform: none; } }
+
+/* S2 */
+.s2 { margin-left: 800px; justify-content: center; gap: 18px; }
+.s2 .ttl { font-size: 6.2rem; margin-bottom: 8px; }
+.s2 p { font-size: 2rem; margin-bottom: .6rem; }
+.s2 h3 { font-size: 2.6rem; margin-bottom: .6rem; }
+.s2 .q { overflow: hidden; }
+.s2 .q img { width: 200px; float: right; margin: 0 0 0 24px; }
+/* S3 / S4 */
+.s34 { display: grid; grid-template-columns: 1fr 720px; gap: 30px; align-items: center; }
+.s34 .ttl { font-size: 7.4rem; margin-bottom: 26px; }
+.s34 ul { padding-left: 2.4rem; display: flex; flex-direction: column; gap: .5rem; }
+.s34 li { font-size: 2.2rem; }
+.fig { position: relative; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.fig .main { height: 520px; width: auto; filter: drop-shadow(0 16px 22px rgba(0,0,0,.25)); rotate: -2deg; }
+.fig .row { display: flex; align-items: center; gap: 18px; }
+.fig .note { font-size: 1.9rem !important; font-weight: 700; color: var(--c-terra); text-align: center; max-width: 620px; margin: 0 !important; }
+.pinabs { position: absolute; left: 10px; top: -20px; width: 140px; rotate: -8deg; filter: drop-shadow(0 10px 12px rgba(0,0,0,.25)); }
+/* El modelo */
+.split { display: grid; grid-template-columns: 1fr 640px; gap: 60px; align-items: center; flex: 1; min-height: 0; }
+.split h3 { font-size: 3rem; }
+.split .imgw { position: relative; display: flex; justify-content: center; }
+.split .imgw .back { position: absolute; width: 640px; top: 50%; left: 50%; translate: -50% -50%; opacity: .95; }
+.split .imgw .front { position: relative; height: 500px; rotate: -2deg; filter: drop-shadow(0 16px 22px rgba(0,0,0,.25)); }
+.bigf { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 2.6rem; color: var(--c-forest); background: rgba(255,255,255,.6); border-radius: 30px; box-shadow: 10px 10px 0 var(--c-olive); margin: 10px 40px 20px; padding: 2rem 2rem; }
+.bigf .katex { font-size: 1.05em; }
+.tm { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.tm h3 { margin-left: 10px; }
+.math-list { display: grid !important; grid-template-columns: 1fr 1fr; grid-auto-flow: column; grid-template-rows: repeat(5, auto); column-gap: 50px; row-gap: 22px; max-width: 100%; margin: 0; width: 100%; overflow: visible; }
+.math-item { display: grid !important; grid-template-columns: 130px 1fr !important; gap: 1.1rem !important; align-items: center !important; font-size: 2rem !important; line-height: 1.25; background: rgba(255,255,255,.5); border-radius: 18px; padding: 10px 18px 10px 4px; }
+.math-term { font-size: 1.15em !important; text-align: right !important; color: var(--c-forest); font-weight: 700; }
+.math-term::after { content: " :"; color: var(--c-olive); }
+.math-item .katex { font-size: 1.25em; }
+.rules { display: grid; grid-template-columns: 640px 1fr; gap: 50px; flex: 1; min-height: 0; align-items: center; }
+.rules .left { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.rules .left h3 { font-size: 2.7rem; text-align: center; margin-bottom: 6px; }
+.rules .left img.huella { height: 380px; border-radius: 22px; box-shadow: 8px 8px 0 var(--c-olive); rotate: -2deg; }
+.rules .left .citation { font-size: 1.15rem; opacity: .85; text-align: center; margin: 4px 0 0; line-height: 1.25; word-break: break-all; }
+.rlist { display: flex; flex-direction: column; gap: 22px; }
+.rule { display: flex; align-items: center; gap: 26px; background: rgba(255,255,255,.62); border-radius: 28px; padding: 16px 30px; box-shadow: 7px 7px 0 var(--c-forest); }
+.rule img { width: 118px; height: 118px; border-radius: 50%; object-fit: cover; flex: none; box-shadow: 0 6px 14px rgba(0,0,0,.18); }
+.rule strong { display: block; font-size: 2.4rem; color: var(--c-forest); }
+.rule span { font-size: 2.1rem; }
+.rs { flex: 1; display: flex; align-items: center; gap: 30px; min-height: 0; }
+.vt { writing-mode: vertical-rl; rotate: 180deg; font-size: 5.2rem; letter-spacing: 6px; text-transform: uppercase; align-self: center; }
+.equation-grid { display: grid !important; grid-template-columns: 76px 700px 1fr !important; gap: 4px 24px !important; align-items: center; flex: 1; font-size: 1.9rem; }
+.equation-grid .katex-display { margin: 0 !important; text-align: left; }
+.equation-grid .katex { font-size: 1.2em !important; }
+.eq-desc { font-size: 2.1rem !important; font-style: normal !important; opacity: 1 !important; color: var(--c-dark); }
+.eq-num { font-size: 2rem !important; }
+.alg { display: grid; grid-template-columns: 600px 1fr; gap: 50px; align-items: center; flex: 1; min-height: 0; }
+.alg .col { position: relative; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.alg .col .back { position: absolute; width: 560px; top: 55%; left: 50%; translate: -50% -50%; }
+.alg .col img.logo { height: 100px; position: relative; }
+.alg .col img.adn { height: 380px; position: relative; }
+.alg p { font-size: 2.2rem; }
+/* resultados */
+.res { margin-left: 540px; }
+.res > .ttl { font-size: 7.2rem; text-align: center; margin-bottom: 14px; }
+.res .chart-summary { font-size: 2.1rem; background: rgba(255,255,255,.75); }
+.full > .ttl { font-size: 7.2rem; text-align: center; margin-bottom: 8px; }
+.s16 { width: 1060px; justify-content: center; }
+.s16 .ttl { font-size: 7rem; margin-bottom: 30px; }
+.s16 p { font-size: 2.5rem; line-height: 1.5; text-align: justify; }
+.gr { margin: 70px auto 0; width: 1340px; height: 450px; border-radius: 50%; background: #87A05B; border: 8px solid #fff; display: grid; place-items: center; rotate: -3deg; box-shadow: 0 24px 40px rgba(0,0,0,.3); }
+.gr h1 { font-size: 13rem; color: #fff; margin: 0; font-stretch: 62.5%; font-variation-settings: "wdth" 62.5; text-shadow: 0 4px 16px rgba(0,0,0,.3); }
+.c-val, .c-tick, .c-xl, .c-axtitle, .c-linelbl { font-family: 'DM Sans', sans-serif; }
+.c-line { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.slide.active .c-line { animation: drawL 1.3s 1.5s ease-out forwards; }
+@keyframes drawL { to { stroke-dashoffset: 0; } }
+.c-dot, .c-linelbl, .c-val { opacity: 0; }
+.slide.active .c-dot, .slide.active .c-linelbl { animation: fadeIn .5s 2.3s both; }
+.slide.active .c-val { animation: fadeIn .4s .6s both; }
+@keyframes fadeIn { to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .dc > *, .dc.spin > * { animation: none !important; } }
+
+.c-val[fill="#fff"] { fill: #fff; }
+.equation-grid .katex-display > .katex { text-align: left !important; }
+.s16 p { text-align: left; }
+.split { grid-template-columns: 1fr 700px; }
+.split p { font-size: 2.5rem; }
+.split h3 { font-size: 3.4rem; }
+.split .imgw .back { width: 720px; }
+.split .imgw .front { height: 580px; }
+.bigf { flex: none; font-size: 3rem; margin: 40px 40px 0; padding: 3.5rem 2rem; }
+.math-list { row-gap: 14px; }
+.math-item { padding: 6px 18px 6px 4px; }
+.tm h3 { margin-bottom: .5rem; }
+.equation-grid { grid-template-columns: 76px 760px 1fr !important; }
+.equation-grid .katex { font-size: 1.3em !important; }
+.eq-desc { font-size: 2.3rem !important; }
+.alg { grid-template-columns: 700px 1fr; }
+.alg .col .back { width: 640px; }
+.alg .col img.logo { height: 130px; }
+.alg .col img.adn { height: 470px; }
+.alg p { font-size: 2.5rem !important; }
+.alg h3 { font-size: 3.6rem !important; }
+.gr { margin-top: 150px; width: 1480px; height: 520px; }
+.gr h1 { font-size: 15rem; }
+
+/* ===== Transición: los objetos salen volando y se agrupan en la nueva diapositiva ===== */
+.slide.active .mass { animation: massIn 1.1s cubic-bezier(.2,.8,.2,1) .05s both; }
+@keyframes massIn { from { transform: translateY(45%); opacity: 0; } to { transform: none; opacity: 1; } }
+.slide.cover.active .cv-el { animation: dcIn 1.4s cubic-bezier(.2,1.2,.3,1) calc(var(--delay,0s) + .1s) backwards; }
+@keyframes dcOut { to { transform: translate(var(--fx,0px), var(--fy,0px)) rotate(var(--er,0deg)) scale(.35); opacity: 0; } }
+@keyframes rvOut { to { opacity: 0; transform: translateY(-40px) scale(.96); filter: blur(7px); } }
+@keyframes massOut { to { transform: translateY(55%); opacity: 0; } }
+@keyframes coverFade { to { opacity: 0; filter: blur(8px); } }
+.slide.active.leaving .dc, .slide.cover.active.leaving .cv-el { animation: dcOut .85s cubic-bezier(.55,0,.85,.35) var(--od,0s) both; }
+.slide.active.leaving .rv, .slide.active.leaving .ttl.rv { animation: rvOut .55s ease-in calc(var(--i,0) * .035s) both; }
+.slide.active.leaving .mass { animation: massOut .85s ease-in both; }
+.slide.cover.active.leaving .cv-bg, .slide.cover.active.leaving .cv-ell, .slide.cover.active.leaving .cv-arcs, .slide.cover.active.leaving .cv-title { animation: coverFade .75s ease-in both; }
+
+/* ===== Gráficas: nueva paleta (bosque · mostaza · terracota) ===== */
+.bar-rect.color-alt1 { fill: url(#gF); }
+.bar-rect.color-alt2 { fill: url(#gM); }
+.bar-rect.color-alt3 { fill: url(#gT); }
+.bar-rect { filter: drop-shadow(0 6px 8px rgba(31,36,27,.22)); }
+.c-val[fill="#1F241B"] { fill: #1F241B; }
+.c-line { stroke: #0F3D3E; stroke-width: 4; }
+.c-dot { fill: #fff; stroke: #0F3D3E; stroke-width: 4; }
+.c-linelbl { fill: #0F3D3E; paint-order: stroke; stroke: #fff; stroke-width: 8px; stroke-linejoin: round; }
+.c-axtitle, .c-tick { fill: #5b6a3c; }
+.chart-panel { background: #FFFDF5; border: 2px solid rgba(138,158,90,.35); }
+.chart-title { color: var(--c-forest); }
+.lg-bar { width: 44px; background: linear-gradient(90deg, #1F6B45 0 33%, #E8B93A 33% 66%, #C4582F 66%); }
+.lg-dot { background: #fff; border: 3px solid #0F3D3E; box-shadow: none; width: 16px; height: 16px; }
+
+/* ===== Gráficas: efecto de carga ===== */
+.slide.active .bar-rect { animation: growBar 1.1s cubic-bezier(.2,1.25,.3,1) both; }
+.c-grid, .c-axis { transform-box: fill-box; transform-origin: left center; }
+.slide.active .c-grid, .slide.active .c-axis { animation: gridIn .9s .3s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes gridIn { from { transform: scaleX(0); opacity: 0; } to { transform: none; opacity: 1; } }
+.slide.active .c-tick, .slide.active .c-axtitle, .slide.active .c-xl { animation: fadeFrom .6s .5s both; }
+@keyframes fadeFrom { from { opacity: 0; } }
+.chart-panel { position: relative; overflow: hidden; }
+.slide.active .chart-panel::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,.8) 50%, transparent 65%); transform: translateX(-120%); animation: shimmer 1.5s .45s ease-out forwards; }
+@keyframes shimmer { to { transform: translateX(120%); } }
+
+    </style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<linearGradient id="gF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2F8A5C"/><stop offset="1" stop-color="#17583A"/></linearGradient><linearGradient id="gM" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4CD5C"/><stop offset="1" stop-color="#DDA524"/></linearGradient><linearGradient id="gT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D9693F"/><stop offset="1" stop-color="#A94521"/></linearGradient>
+<filter id="mfR" filterUnits="userSpaceOnUse" x="-400" y="-400" width="2800" height="1900"><feTurbulence type="fractalNoise" baseFrequency="0.011" numOctaves="3" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="120" xChannelSelector="R" yChannelSelector="G"/></filter>
+<filter id="mfA" filterUnits="userSpaceOnUse" x="-400" y="-400" width="2800" height="1900"><feTurbulence type="fractalNoise" baseFrequency="0.011" numOctaves="3" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="120" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency="0.009 0.02" numOctaves="3" seed="11" result="t"/><feColorMatrix in="t" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 16 -8.4" result="m"/><feComposite in="d" in2="m" operator="in"/></filter>
+<filter id="mfB" filterUnits="userSpaceOnUse" x="-400" y="-400" width="2800" height="1900"><feTurbulence type="fractalNoise" baseFrequency="0.011" numOctaves="3" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="120" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency="0.013 0.03" numOctaves="3" seed="27" result="t"/><feColorMatrix in="t" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 16 -9.6" result="m"/><feComposite in="d" in2="m" operator="in"/></filter>
+</defs></svg>
+    <div class="presentation-wrapper">
+        <div class="slide-deck" id="deck">
+<!-- Diapositiva 1: Portada -->
+            <section class="slide cover active" id="cover">
+                <svg class="cv-bg" viewBox="0 0 1920 1080" preserveAspectRatio="none" aria-hidden="true">
+                    <defs>
+                        <filter id="cvRough" filterUnits="userSpaceOnUse" x="-300" y="0" width="2600" height="1300">
+                <feTurbulence type="fractalNoise" baseFrequency="0.011" numOctaves="3" seed="4" result="n"/>
+                <feDisplacementMap in="SourceGraphic" in2="n" scale="120" xChannelSelector="R" yChannelSelector="G"/>
+                
+            </filter>
+                        <filter id="cvSplatA" filterUnits="userSpaceOnUse" x="-300" y="0" width="2600" height="1300">
+                <feTurbulence type="fractalNoise" baseFrequency="0.011" numOctaves="3" seed="4" result="n"/>
+                <feDisplacementMap in="SourceGraphic" in2="n" scale="120" xChannelSelector="R" yChannelSelector="G" result="d"/>
+                <feTurbulence type="fractalNoise" baseFrequency="0.009 0.02" numOctaves="3" seed="11" result="t"/>
+                <feColorMatrix in="t" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 16 -8.4" result="m"/>
+                <feComposite in="d" in2="m" operator="in"/>
+            </filter>
+                        <filter id="cvSplatB" filterUnits="userSpaceOnUse" x="-300" y="0" width="2600" height="1300">
+                <feTurbulence type="fractalNoise" baseFrequency="0.011" numOctaves="3" seed="4" result="n"/>
+                <feDisplacementMap in="SourceGraphic" in2="n" scale="120" xChannelSelector="R" yChannelSelector="G" result="d"/>
+                <feTurbulence type="fractalNoise" baseFrequency="0.013 0.03" numOctaves="3" seed="27" result="t"/>
+                <feColorMatrix in="t" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 16 -9.6" result="m"/>
+                <feComposite in="d" in2="m" operator="in"/>
+            </filter>
+                    </defs>
+                    <path d="M-200 620 C 100 560 470 670 760 630 C 1040 590 1240 710 1540 660 C 1760 625 1950 585 2120 620 L2120 1250 L-200 1250 Z" fill="#1F6B45" filter="url(#cvRough)"/>
+                    <path d="M-200 620 C 100 560 470 670 760 630 C 1040 590 1240 710 1540 660 C 1760 625 1950 585 2120 620 L2120 1250 L-200 1250 Z" fill="#79A98C" filter="url(#cvSplatA)" opacity=".92"/>
+                    <path d="M-200 620 C 100 560 470 670 760 630 C 1040 590 1240 710 1540 660 C 1760 625 1950 585 2120 620 L2120 1250 L-200 1250 Z" fill="#E9E6D3" filter="url(#cvSplatB)" opacity=".9"/>
+                </svg>
+
+                <div class="cv-el cv-mostaza" data-depth="14"><img src="assets/forma-mostaza.webp" alt=""></div>
+                <div class="cv-el cv-arco" data-depth="10"><img src="assets/forma-arco-verde.webp" alt=""></div>
+
+                <svg class="cv-ell" viewBox="0 0 1920 1080" aria-hidden="true">
+                    <ellipse cx="985" cy="655" rx="720" ry="272" transform="rotate(-3 985 655)" fill="#87A05B" stroke="#fff" stroke-width="8"/>
+                </svg>
+
+                <svg class="cv-arcs" viewBox="0 0 1920 1080" aria-label="Comuna 3, San Francisco. Semillero de gestión de residuos sólidos">
+                    <defs>
+                        <path id="cvArc1" d="M 400 335 C 700 150 1080 120 1390 215"/>
+                        <path id="cvArc2" d="M 350 505 C 700 335 1150 310 1560 425"/>
+                    </defs>
+                    <text class="cv-arc-1"><textPath href="#cvArc1" startOffset="50%" text-anchor="middle">Comuna <tspan class="cv-3">3</tspan>, San Francisco</textPath></text>
+                    <text class="cv-arc-2"><textPath href="#cvArc2" startOffset="50%" text-anchor="middle">Semillero de gestión de residuos sólidos</textPath></text>
+                </svg>
+
+                <h1 class="cv-title">Proyecto 1. Contenedores con separación en la fuente</h1>
+
+                <div class="cv-el cv-hojas" data-depth="26"><img src="assets/hojas-brote.webp" alt=""></div>
+                <div class="cv-el cv-bombilla" data-depth="30"><img src="assets/bombilla-brote.webp" alt=""></div>
+                <div class="cv-el cv-caneca" data-depth="18">
+                    <svg viewBox="0 0 340 560" aria-hidden="true">
+                        <rect x="26" y="44" width="288" height="44" rx="22" fill="#DAD6BC"/>
+                        <path d="M120 44 C120 14 220 14 220 44" fill="none" stroke="#DAD6BC" stroke-width="16" stroke-linecap="round"/>
+                        <path d="M40 96 L300 96 L274 560 L66 560 Z" fill="#DAD6BC"/>
+                        <g stroke="#1F6B45" stroke-width="20" stroke-linecap="round" fill="none">
+                            <path d="M78 130 L92 530"/><path d="M122 130 L126 530"/><path d="M170 130 L170 530"/><path d="M218 130 L214 530"/><path d="M262 130 L248 530"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="cv-el cv-mano" data-depth="22"><img src="assets/mano-brote.webp" alt=""></div>
+            </section>
+
+            <!-- Diapositiva 2: Introducción -->
+            <section class="slide"><div class="decor"></div>
+                <div class="content s2">
+                    <div class="rv">
+                        <h2 class="ttl">Introducción</h2>
+                        <h3>El reto de San Francisco</h3>
+                        <p>No se trata únicamente de recoger los residuos, sino de planificar la ubicación de los contenedores y definir cuántos de cada tipo (verde, blanco y negro) se pueden instalar en el espacio disponible, garantizando que las personas no tengan que recorrer más de 150 metros para depositar sus residuos.</p>
+                        <div class="badge terra">Resolución 2184 de 2019</div>
+                    </div>
+                    <div class="rv q">
+                        <h2 class="ttl">Pregunta problema</h2>
+                        <img src="assets/signo-pregunta.webp" alt="">
+                        <p>¿Dónde ubicar los sitios de contenedores, y cuántos contenedores de cada color poner en cada uno, para atender a los generadores del entorno de la Plaza San Francisco separando orgánicos, aprovechables y no aprovechables?</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Diapositiva 3: Generadores seleccionados -->
+            <section class="slide"><div class="decor"></div>
+                <div class="content s34">
+                    <div>
+                        <h2 class="ttl rv">Generadores seleccionados</h2>
+                        <p class="rv">Con el objetivo de identificar los generadores principales, se consideraron lugares como:</p>
+                        <ul class="rv">
+                            <li>Colegios e Instituciones Educativas como Universidades.</li>
+                            <li>Supermercados como Ara, D1, Más x Menos.</li>
+                            <li>Micromercados, Fruvers y carnicerías.</li>
+                            <li>Clínicas y Droguerías en el mapa.</li>
+                            <li>Otros lugares prominentes como la Fiscalía, Asilo San Rafael, Plazas de Mercado, entre otros.</li>
+                        </ul>
+                    </div>
+                    <div class="fig rv">
+                        <img class="pinabs" src="assets/pin-rojo.webp" alt="">
+                        <img class="main" src="assets/mapa-relieve.webp" alt="">
+                        <img src="assets/geojson-azul.webp" alt="GeoJSON" style="height:70px">
+                        <p class="note">Para el caso de la Universidad Industrial de Santander, se tomaron como puntos generadores las cafeterías de la universidad.</p>
+                        <img src="assets/logo-uis.webp" alt="UIS" style="height:96px">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Diapositiva 4: Puntos candidatos -->
+            <section class="slide"><div class="decor"></div>
+                <div class="content s34">
+                    <div>
+                        <h2 class="ttl rv">Puntos candidatos</h2>
+                        <p class="rv">Así mismo, para los puntos de recolección candidatos se consideraron principalmente:</p>
+                        <ul class="rv">
+                            <li>Parques.</li>
+                            <li>La entrada de la Plaza de Mercado.</li>
+                            <li>Entradas de la Universidad Industrial de Santander.</li>
+                            <li>Otros sitios estratégicos identificados por la cercanía de los generadores.</li>
+                        </ul>
+                    </div>
+                    <div class="fig rv">
+                        <img src="assets/geojson-rojo.webp" alt="GeoJSON" style="height:70px">
+                        <img class="main" src="assets/pin-isla.webp" alt="" style="height:560px">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Diapositiva 5: El modelo - Objetivo -->
+            <section class="slide"><div class="decor"></div>
+                <div class="content">
+                    <div class="mh rv"><h2 class="ttl">El modelo</h2><div class="sub">Optimización Matemática + Algoritmo Genético</div></div>
+                    <div class="split">
+                        <div>
+                            <h3 class="rv">¿Qué se quiere lograr? (La Función Objetivo)</h3>
+                            <div class="badge terra rv" style="font-size:2.2rem">Minimizar el costo</div>
+                            <p class="rv" style="margin-top:1.2rem">Formular un modelo que permite llegar a una posible solución factible mediante algoritmos genéticos y que a su vez, minimice el costo total de implementar la política a evaluar, comparando y analizando distintos escenarios propuestos.</p>
+                        </div>
+                        <div class="imgw rv">
+                            <img class="back" src="assets/forma-mostaza.webp" alt="">
+                            <img class="front" src="assets/balanza.webp" alt="">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Diapositiva 6: Función objetivo -->
+            <section class="slide"><div class="decor"></div>
+                <div class="content">
+                    <div class="mh rv"><h2 class="ttl">El modelo</h2><div class="sub">Optimización Matemática + Algoritmo Genético</div></div>
+                    <h3 class="rv" style="margin-left:40px">Función objetivo</h3>
+                    <div class="bigf rv">
+                        $$ \min \sum_{j\in J}\sum_{r\in R} c_r\, n_{jr} \;+\; C_T \sum_{i\in I}\sum_{j\in J}\left(\sum_{r\in R} q_{ir}\right) d_{ij}\, x_{ij} $$
+                    </div>
+                </div>
+            </section>
+
+            <!-- Diapositiva 7: Terminología -->
+            <section class="slide"><div class="decor"></div>
+                <div class="content">
+                    <div class="mh rv"><h2 class="ttl">El modelo</h2><div class="sub">Optimización Matemática + Algoritmo Genético</div></div>
+                    <div class="tm">
+                        <h3 class="rv">Terminología</h3>
+                        <div class="math-list">
+                            <div class="math-item rv"><div class="math-term">\(I\)</div><div>generadores (comercios que producen residuos)</div></div>
+                            <div class="math-item rv"><div class="math-term">\(J\)</div><div>sitios candidatos para instalar contenedores</div></div>
+                            <div class="math-item rv"><div class="math-term">\(R\)</div><div>flujos de residuo: orgánico, aprovechable y no aprovechable</div></div>
+                            <div class="math-item rv"><div class="math-term">\(C_R\)</div><div>costo de un contenedor del flujo \(r\) (COP)</div></div>
+                            <div class="math-item rv"><div class="math-term">\(C_T\)</div><div>coeficiente de transporte (COP por \(L \times m\))</div></div>
+                            <div class="math-item rv"><div class="math-term">\(q_{ir}\)</div><div>residuo del flujo \(r\) que produce el generador \(i\) (\(L \div \text{día}\))</div></div>
+                            <div class="math-item rv"><div class="math-term">\(d_{ij}\)</div><div>distancia del generador \(i\) al sitio \(j\) (m)</div></div>
+                            <div class="math-item rv"><div class="math-term">\(n_{jr}\)</div><div>contenedores del flujo \(r\) en el sitio \(j\) (variable entera)</div></div>
+                            <div class="math-item rv"><div class="math-term">\(x_{ij}\)</div><div>1 si el generador \(i\) usa el sitio \(j\), 0 si no (variable binaria)</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Diapositiva 8: Reglas del juego -->
+            <section class="slide"><div class="decor"></div>
+                <div class="content">
+                    <div class="mh rv"><h2 class="ttl">El modelo</h2><div class="sub">Optimización Matemática + Algoritmo Genético</div></div>
+                    <div class="rules">
+                        <div class="left rv">
+                            <h3>Las Reglas del Juego (Las Restricciones)</h3>
+                            <img class="huella" src="assets/huella-regla.webp" alt="">
+                            <p class="citation">de Procesos, M. (2021, noviembre 11). Proyecto de Decreto - Estatuto de Servicios Públicos Domiciliarios y las TIC. Portal Alcaldía de Santiago de Cali. https://www.cali.gov.co/planeacion/publicaciones/165080/proyecto-de-decreto-estatuto-de-servicios-publicos-domiciliarios-y-las-tic/</p>
+                        </div>
+                        <div class="rlist">
+                            <div class="rule rv"><img src="assets/icono-diana.webp" alt=""><div><strong>150 metros:</strong> <span>Nadie camina más de esto (dmax).</span></div></div>
+                            <div class="rule rv"><img src="assets/icono-edificio.webp" alt=""><div><strong>p Sitios exactos:</strong> <span>Solo abrimos 10 lugares (y_j).</span></div></div>
+                            <div class="rule rv"><img src="assets/icono-papelera.webp" alt=""><div><strong>3 Colores:</strong> <span>Todo sitio abierto tiene canecas Verde, Blanca y Negra (n_jr).</span></div></div>
+                            <div class="rule rv"><img src="assets/icono-caja.webp" alt=""><div><strong>Espacio limitado:</strong> <span>Máximo 8 canecas por sitio (M).</span></div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Diapositiva 9: Restricciones -->
+            <section class="slide"><div class="decor"></div>
+                <div class="content">
+                    <div class="mh rv"><h2 class="ttl">El modelo</h2><div class="sub">Optimización Matemática + Algoritmo Genético</div></div>
+                    <div class="rs">
+                        <h3 class="vt ttl rv" style="color:var(--c-forest)">Restricciones</h3>
+                        <div class="equation-grid rv">
+                            <div class="eq-num">(1)</div><div>$$ \sum_{j\in J} x_{ij}=1, \quad \forall i $$</div><div class="eq-desc">cada generador va a un sólo sitio</div>
+                            <div class="eq-num">(2)</div><div>$$ x_{ij}\le y_j $$</div><div class="eq-desc">sólo sitios abiertos</div>
+                            <div class="eq-num">(3)</div><div>$$ \sum_{j\in J} y_j=p, \quad y_{j_0}=1 $$</div><div class="eq-desc">se abren p sitios; la plaza siempre está abierta</div>
+                            <div class="eq-num">(4)</div><div>$$ \sum_{i\in I} q_{ir}x_{ij}\le Q_r n_{jr}, \quad \forall j,r $$</div><div class="eq-desc">capacidad por color de contenedor</div>
+                            <div class="eq-num">(5)</div><div>$$ y_j\le n_{jr}, \quad \forall j,r $$</div><div class="eq-desc">al menos un contenedor de cada color</div>
+                            <div class="eq-num">(6)</div><div>$$ \sum_{r\in R} n_{jr}\le M_j y_j $$</div><div class="eq-desc">espacio máximo por sitio</div>
+                            <div class="eq-num">(7)</div><div>$$ x_{ij}=0 \quad \text{si } d_{ij}>D_{max} $$</div><div class="eq-desc">distancia máxima de caminata</div>
+                            <div class="eq-num">(8)</div><div>$$ x_{ij},y_j\in\{0,1\}, \quad n_{jr}\in\mathbb{Z}_{\ge 0} $$</div><div class="eq-desc">naturaleza de las variables</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Diapositiva 10: Algoritmo -->
+            <section class="slide"><div class="decor"></div>
+                <div class="content">
+                    <div class="mh rv"><h2 class="ttl">El modelo</h2><div class="sub">Optimización por medio de Algoritmo Genético</div></div>
+                    <div class="alg">
+                        <div class="col rv">
+                            <img class="back" src="assets/forma-mostaza.webp" alt="">
+                            <img class="logo" src="assets/logo-colab.webp" alt="Colab">
+                            <img class="adn" src="assets/adn-engranaje.webp" alt="">
+                        </div>
+                        <div>
+                            <h3 class="rv" style="font-size:3.2rem">¿Cómo lo resolvemos?</h3>
+                            <p class="rv" style="font-size:2.3rem">El equipo de trabajo eligió realizar una comparación entre el modelo planteado en las sesiones (algoritmo genético) y un método exacto.</p>
+                            <p class="rv" style="font-size:2.3rem">El código se programó en Python y se ejecuta en Google Colab, aprovechando librerías como GeoPandas y Folium para los mapas, y Pyomo con HiGHS para la optimización.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <section class="slide"><div class="decor"></div>
+<div class="content res">
+
+                <h2 class="ttl rv">RESULTADOS</h2>
+                <div class="chart-section rv">
+                    <div class="chart-row">
+                        <!-- Panel 1 -->
+                        <div class="chart-panel">
+                            <div class="chart-title">Costo total<br><span style="font-weight: normal; font-size: 1.4rem;">(millones COP)</span></div>
+                            <div class="bar-container">
+                                <div class="bar-group">
+                                    <div class="bar color-alt1" style="height: 86%;">
+                                        <span class="bar-val">12.07</span>
+                                    </div>
+                                    <div class="bar-label">Alt. 1<br>Con separación</div>
+                                </div>
+                                <div class="bar-group">
+                                    <div class="bar color-alt2" style="height: 45%;">
+                                        <span class="bar-val">6.31</span>
+                                    </div>
+                                    <div class="bar-label">Alt. 2<br>Sin separación</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Panel 2 -->
+                        <div class="chart-panel">
+                            <div class="chart-title">Cobertura<br><span style="font-weight: normal; font-size: 1.4rem;">(% atendidos)</span></div>
+                            <div class="bar-container">
+                                <div class="bar-group">
+                                    <div class="bar color-alt1" style="height: 86%;">
+                                        <span class="bar-val">61.9%</span>
+                                    </div>
+                                    <div class="bar-label">Alt. 1<br>Con separación</div>
+                                </div>
+                                <div class="bar-group">
+                                    <div class="bar color-alt2" style="height: 86%;">
+                                        <span class="bar-val">61.9%</span>
+                                    </div>
+                                    <div class="bar-label">Alt. 2<br>Sin separación</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-summary rv">
+                        • Con separación: $12.07M COP (61.9% cobertura).<br>
+                        • Sin separación: $6.31M COP (61.9% cobertura).
+                    </div>
+                </div>
+            
+
+            <!-- Diapositiva 12: Resultados 2 -->
+</div></section>
+            <section class="slide"><div class="decor"></div>
+<div class="content res">
+
+                <h2 class="ttl rv">RESULTADOS</h2>
+                <div class="chart-section rv">
+                    <div class="chart-row">
+                        <!-- Panel 1 -->
+                        <div class="chart-panel">
+                            <div class="chart-title">Canecas instaladas</div>
+                            <div class="bar-container">
+                                <div class="bar-group">
+                                    <div class="bar color-alt1" style="height: 83%;">
+                                        <span class="bar-val">30</span>
+                                    </div>
+                                    <div class="bar-label">Alt. 1<br>Con separación</div>
+                                </div>
+                                <div class="bar-group">
+                                    <div class="bar color-alt2" style="height: 33%;">
+                                        <span class="bar-val">12</span>
+                                    </div>
+                                    <div class="bar-label">Alt. 2<br>Sin separación</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Panel 2 -->
+                        <div class="chart-panel">
+                            <div class="chart-title">Distancia media<br><span style="font-weight: normal; font-size: 1.4rem;">(m)</span></div>
+                            <div class="bar-container">
+                                <div class="bar-group">
+                                    <div class="bar color-alt1" style="height: 87%;">
+                                        <span class="bar-val">91.5</span>
+                                    </div>
+                                    <div class="bar-label">Alt. 1<br>Con separación</div>
+                                </div>
+                                <div class="bar-group">
+                                    <div class="bar color-alt2" style="height: 87%;">
+                                        <span class="bar-val">91.5</span>
+                                    </div>
+                                    <div class="bar-label">Alt. 2<br>Sin separación</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-summary rv">
+                        La distancia media se mantiene en 91.5 metros en ambos escenarios.
+                    </div>
+                </div>
+            
+
+            <!-- Diapositiva 13: Resultados 3 -->
+</div></section>
+            <section class="slide"><div class="decor"></div>
+<div class="content res">
+
+                <h2 class="ttl rv">RESULTADOS</h2>
+                <h3 class="sub3 rv">Resultados por alternativa — E2 · Sensibilidad al espacio (M)</h3>
+                <div class="chart-section rv">
+                    <div class="chart-row">
+                        <!-- Panel 1 -->
+                        <div class="chart-panel">
+                            <div class="chart-title">Costo total<br><span style="font-weight: normal; font-size: 1.4rem;">(millones COP)</span></div>
+                            <div class="bar-container">
+                                <div class="bar-group">
+                                    <div class="bar color-alt1" style="height: 86%;">
+                                        <span class="bar-val">12.07</span>
+                                    </div>
+                                    <div class="bar-label">Alt. 1<br>M = 3</div>
+                                </div>
+                                <div class="bar-group">
+                                    <div class="bar color-alt2" style="height: 86%;">
+                                        <span class="bar-val">12.07</span>
+                                    </div>
+                                    <div class="bar-label">Alt. 2<br>M = 8 (base)</div>
+                                </div>
+                                <div class="bar-group">
+                                    <div class="bar color-alt3" style="height: 86%;">
+                                        <span class="bar-val">12.07</span>
+                                    </div>
+                                    <div class="bar-label">Alt. 3<br>M = 12</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Panel 2 -->
+                        <div class="chart-panel">
+                            <div class="chart-title">Cobertura<br><span style="font-weight: normal; font-size: 1.4rem;">(% atendidos)</span></div>
+                            <div class="bar-container">
+                                <div class="bar-group">
+                                    <div class="bar color-alt1" style="height: 86%;">
+                                        <span class="bar-val">61.9%</span>
+                                    </div>
+                                    <div class="bar-label">Alt. 1<br>M = 3</div>
+                                </div>
+                                <div class="bar-group">
+                                    <div class="bar color-alt2" style="height: 86%;">
+                                        <span class="bar-val">61.9%</span>
+                                    </div>
+                                    <div class="bar-label">Alt. 2<br>M = 8 (base)</div>
+                                </div>
+                                <div class="bar-group">
+                                    <div class="bar color-alt3" style="height: 86%;">
+                                        <span class="bar-val">61.9%</span>
+                                    </div>
+                                    <div class="bar-label">Alt. 3<br>M = 12</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-summary rv">
+                        Con el espacio mínimo (M=3) o el máximo (M=12), el costo y la cobertura son idénticos.
+                    </div>
+                </div>
+            
+
+            <!-- Diapositiva 14: Resultados 4 -->
+</div></section>
+            <section class="slide"><div class="decor"></div>
+<div class="content res">
+
+                <h2 class="ttl rv">RESULTADOS</h2>
+                <h3 class="sub3 rv">Resultados por alternativa — E3 · Recursos (p sitios abiertos)</h3>
+                <div class="chart-section rv">
+                    <div class="chart-row">
+                        <!-- Panel 1 -->
+                        <div class="chart-panel">
+                            <div class="chart-title">Costo total<br><span style="font-weight: normal; font-size: 1.4rem;">(millones COP)</span></div>
+                            <div class="bar-container">
+                                <div class="bar-group">
+                                    <div class="bar color-alt1" style="height: 53%;">
+                                        <span class="bar-val">9.64</span>
+                                    </div>
+                                    <div class="bar-label">Alt. 1<br>p = 8</div>
+                                </div>
+                                <div class="bar-group">
+                                    <div class="bar color-alt2" style="height: 67%;">
+                                        <span class="bar-val">12.07</span>
+                                    </div>
+                                    <div class="bar-label">Alt. 2<br>p = 10 (base)</div>
+                                </div>
+                                <div class="bar-group">
+                                    <div class="bar color-alt3" style="height: 80%;">
+                                        <span class="bar-val">14.40</span>
+                                    </div>
+                                    <div class="bar-label">Alt. 3<br>p = 12</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Panel 2 -->
+                        <div class="chart-panel">
+                            <div class="chart-title">Cobertura<br><span style="font-weight: normal; font-size: 1.4rem;">(% atendidos)</span></div>
+                            <div class="bar-container">
+                                <div class="bar-group">
+                                    <div class="bar color-alt1" style="height: 65%;">
+                                        <span class="bar-val">52.4%</span>
+                                    </div>
+                                    <div class="bar-label">Alt. 1<br>p = 8</div>
+                                </div>
+                                <div class="bar-group">
+                                    <div class="bar color-alt2" style="height: 77%;">
+                                        <span class="bar-val">61.9%</span>
+                                    </div>
+                                    <div class="bar-label">Alt. 2<br>p = 10 (base)</div>
+                                </div>
+                                <div class="bar-group">
+                                    <div class="bar color-alt3" style="height: 85%;">
+                                        <span class="bar-val">68.3%</span>
+                                    </div>
+                                    <div class="bar-label">Alt. 3<br>p = 12</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-summary rv">
+                        Pasar de 8 a 12 sitios aumenta la cobertura del 52% al 68%, pero cuesta $4.8M COP más.
+                    </div>
+                </div>
+            
+
+            <!-- Diapositiva 15: Resumen final -->
+</div></section>
+            <section class="slide"><div class="decor"></div>
+<div class="content full">
+
+                <h2 class="ttl rv">Resumen final</h2>
+                <h3 class="sub3 rv">Costo total vs Cobertura — las alternativas de cada escenario</h3>
+                
+                <div class="chart-section rv" style="gap: 2rem;">
+                    <div class="chart-panel" style="padding: 1.5rem;">
+                        <div class="multi-chart-grid">
+                            
+                            <!-- E1 -->
+                            <div style="position: relative; display: flex; flex-direction: column;">
+                                <div class="chart-column-title">E1 · Separación en la fuente</div>
+                                <div class="bar-container" style="border: none;">
+                                    <div class="bar-group">
+                                        <div class="bar color-alt2" style="height: 80%;">
+                                            <span class="bar-val" style="font-size: 1.4rem;">12.07</span>
+                                        </div>
+                                        <div class="bar-label">Alt. 1<br>Con separación</div>
+                                    </div>
+                                    <div class="bar-group">
+                                        <div class="bar color-alt2" style="height: 42%;">
+                                            <span class="bar-val" style="font-size: 1.4rem;">6.31</span>
+                                        </div>
+                                        <div class="bar-label">Alt. 2<br>Sin separación</div>
+                                    </div>
+                                </div>
+                                <!-- Overlay de línea (simulado con div posicionado) -->
+                                <div style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none;">
+                                    <div style="position: absolute; top: 45%; left: 25%; width: 50%; height: 3px; background: var(--c-terra);"></div>
+                                    <div style="position: absolute; top: 45%; left: 25%; width: 15px; height: 15px; background: var(--c-terra); border: 3px solid white; border-radius: 50%; transform: translate(-50%, -50%);"></div>
+                                    <div style="position: absolute; top: 45%; left: 75%; width: 15px; height: 15px; background: var(--c-terra); border: 3px solid white; border-radius: 50%; transform: translate(-50%, -50%);"></div>
+                                    <div style="position: absolute; top: 41%; left: 25%; color: var(--c-terra); font-weight: bold; transform: translateX(-50%);">62%</div>
+                                    <div style="position: absolute; top: 41%; left: 75%; color: var(--c-terra); font-weight: bold; transform: translateX(-50%);">62%</div>
+                                </div>
+                            </div>
+
+                            <!-- E2 -->
+                            <div style="position: relative; display: flex; flex-direction: column; border-left: 2px dashed #ddd; padding-left: 1rem;">
+                                <div class="chart-column-title">E2 · Sensibilidad al espacio (M)</div>
+                                <div class="bar-container" style="border: none;">
+                                    <div class="bar-group"><div class="bar color-alt2" style="height: 80%;"><span class="bar-val" style="font-size: 1.4rem;">12.07</span></div><div class="bar-label">Alt. 1<br>M = 3</div></div>
+                                    <div class="bar-group"><div class="bar color-alt2" style="height: 80%;"><span class="bar-val" style="font-size: 1.4rem;">12.07</span></div><div class="bar-label">Alt. 2<br>M = 8 (base)</div></div>
+                                    <div class="bar-group"><div class="bar color-alt2" style="height: 80%;"><span class="bar-val" style="font-size: 1.4rem;">12.07</span></div><div class="bar-label">Alt. 3<br>M = 12</div></div>
+                                </div>
+                                <div style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none;">
+                                    <div style="position: absolute; top: 45%; left: 18%; width: 64%; height: 3px; background: var(--c-terra);"></div>
+                                    <div style="position: absolute; top: 45%; left: 18%; width: 15px; height: 15px; background: var(--c-terra); border: 3px solid white; border-radius: 50%; transform: translate(-50%, -50%);"></div>
+                                    <div style="position: absolute; top: 45%; left: 50%; width: 15px; height: 15px; background: var(--c-terra); border: 3px solid white; border-radius: 50%; transform: translate(-50%, -50%);"></div>
+                                    <div style="position: absolute; top: 45%; left: 82%; width: 15px; height: 15px; background: var(--c-terra); border: 3px solid white; border-radius: 50%; transform: translate(-50%, -50%);"></div>
+                                    <div style="position: absolute; top: 41%; left: 50%; color: var(--c-terra); font-weight: bold; transform: translateX(-50%);">62%</div>
+                                </div>
+                            </div>
+
+                            <!-- E3 -->
+                            <div style="position: relative; display: flex; flex-direction: column; border-left: 2px dashed #ddd; padding-left: 1rem;">
+                                <div class="chart-column-title">E3 · Recursos (p sitios abiertos)</div>
+                                <div class="bar-container" style="border: none;">
+                                    <div class="bar-group"><div class="bar color-alt1" style="height: 64%;"><span class="bar-val" style="font-size: 1.4rem;">9.64</span></div><div class="bar-label">Alt. 1<br>p = 8</div></div>
+                                    <div class="bar-group"><div class="bar color-alt2" style="height: 80%;"><span class="bar-val" style="font-size: 1.4rem;">12.07</span></div><div class="bar-label">Alt. 2<br>p = 10 (base)</div></div>
+                                    <div class="bar-group"><div class="bar color-alt3" style="height: 96%;"><span class="bar-val" style="font-size: 1.4rem;">14.40</span></div><div class="bar-label">Alt. 3<br>p = 12</div></div>
+                                </div>
+                                <div style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none;">
+                                    <svg width="100%" height="100%" preserveAspectRatio="none">
+                                        <line x1="18%" y1="55%" x2="50%" y2="45%" stroke="var(--c-terra)" stroke-width="3"/>
+                                        <line x1="50%" y1="45%" x2="82%" y2="39%" stroke="var(--c-terra)" stroke-width="3"/>
+                                    </svg>
+                                    <div style="position: absolute; top: 55%; left: 18%; width: 15px; height: 15px; background: var(--c-terra); border: 3px solid white; border-radius: 50%; transform: translate(-50%, -50%);"></div>
+                                    <div style="position: absolute; top: 45%; left: 50%; width: 15px; height: 15px; background: var(--c-terra); border: 3px solid white; border-radius: 50%; transform: translate(-50%, -50%);"></div>
+                                    <div style="position: absolute; top: 39%; left: 82%; width: 15px; height: 15px; background: var(--c-terra); border: 3px solid white; border-radius: 50%; transform: translate(-50%, -50%);"></div>
+                                    
+                                    <div style="position: absolute; top: 51%; left: 18%; color: var(--c-terra); font-weight: bold; transform: translateX(-50%);">52%</div>
+                                    <div style="position: absolute; top: 41%; left: 50%; color: var(--c-terra); font-weight: bold; transform: translateX(-50%);">62%</div>
+                                    <div style="position: absolute; top: 35%; left: 82%; color: var(--c-terra); font-weight: bold; transform: translateX(-50%);">68%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-summary rv">
+                        Separar cuesta el doble (E1). El espacio no limita la red (E2). Abrir más sitios sube la cobertura al 68%, pero cuesta $14.4M (E3).
+                    </div>
+                </div>
+</div></section>
+
+            <!-- Diapositiva 16: Conclusión -->
+            <section class="slide"><div class="decor"></div>
+                <div class="content s16">
+                    <h2 class="ttl rv">Resultados</h2>
+                    <p class="rv">La comparación directa valida matemáticamente la equivalencia entre el Modelo Exacto (Pyomo/HiGHS) y el Algoritmo Genético, alcanzando exactamente el mismo valor óptimo global ($132,073,831 COP) con un gap del 0.00%.</p>
+                    <p class="rv">Así se consolidan ambos como métodos como estables y eficientes para el tamaño actual de la red de optimización.</p>
+                </div>
+            </section>
+
+            <!-- Diapositiva 17: Cierre -->
+            <section class="slide"><div class="decor"></div>
+                <div class="content">
+                    <div class="gr rv"><h1 class="ttl" style="color:#fff">¡Gracias!</h1></div>
+                </div>
+            </section>
+
+            <div class="controls">
+                <button class="btn-nav" id="btn-prev">❮</button>
+                <div class="counter" id="counter">1 / 17</div>
+                <button class="btn-nav" id="btn-next">❯</button>
+            </div>
+            <div class="progress-bar" id="progress"></div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            /* ===== PORTADA: parallax con el mouse ===== */
+            (function () {
+                const cover = document.getElementById('cover');
+                if (!cover) return;
+                const els = cover.querySelectorAll('[data-depth]');
+                cover.addEventListener('mousemove', (e) => {
+                    const r = cover.getBoundingClientRect();
+                    const nx = (e.clientX - r.left) / r.width - 0.5;
+                    const ny = (e.clientY - r.top) / r.height - 0.5;
+                    els.forEach(el => {
+                        const d = parseFloat(el.dataset.depth);
+                        el.style.setProperty('--px', (-nx * d).toFixed(1) + 'px');
+                        el.style.setProperty('--py', (-ny * d).toFixed(1) + 'px');
+                    });
+                });
+                cover.addEventListener('mouseleave', () => {
+                    els.forEach(el => { el.style.setProperty('--px', '0px'); el.style.setProperty('--py', '0px'); });
+                });
+            })();
+
+            /* ===== FASE 2C: GRÁFICAS SVG ===== */
+            const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+            function niceAxis(maxVal) {
+                const base = Math.pow(10, Math.floor(Math.log10(maxVal)) - 1);
+                const target = maxVal * 1.08;
+                let step = base;
+                for (const m of [1, 2, 5, 10, 20, 50, 100]) {
+                    step = m * base;
+                    if (Math.ceil(target / step) <= 7) break;
+                }
+                const top = Math.ceil(target / step) * step;
+                const ticks = [];
+                for (let v = 0; v <= top + 1e-9; v += step) ticks.push(Math.round(v * 100) / 100);
+                return { top, ticks };
+            }
+
+                       function buildBarSVG(cfg) {
+                const W = cfg.W || 640, H = cfg.H || 420;
+                const hasLine = !!cfg.line;
+                const m = { l: 84, r: hasLine ? 84 : 16, t: 44, b: 78 }; /* Márgenes ampliados */
+                const pw = W - m.l - m.r, ph = H - m.t - m.b;
+                const { top, ticks } = niceAxis(Math.max(...cfg.bars.map(b => b.v)));
+                const y = v => m.t + ph - (v / top) * ph;
+                const yr = v => m.t + ph - (v / 100) * ph;
+                const band = pw / cfg.bars.length;
+                const bw = Math.min(120, band * 0.56);
+                let s = `<svg class="chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">`;
+                
+                ticks.forEach(t => {
+                    s += `<line class="c-grid" x1="${m.l}" x2="${W - m.r}" y1="${y(t)}" y2="${y(t)}"/>`;
+                    s += `<text class="c-tick" x="${m.l - 10}" y="${y(t) + 5}" text-anchor="end">${t}</text>`;
+                });
+                if (hasLine) {
+                    [0, 20, 40, 60, 80, 100].forEach(t => {
+                        s += `<text class="c-tick" x="${W - m.r + 10}" y="${yr(t) + 5}" text-anchor="start">${t}</text>`;
+                    });
+                }
+                s += `<line class="c-axis" x1="${m.l}" x2="${W - m.r}" y1="${m.t + ph}" y2="${m.t + ph}"/>`;
+                
+                cfg.bars.forEach((b, i) => {
+                    const cx = m.l + band * (i + 0.5), x = cx - bw / 2, yt = y(b.v), yb = m.t + ph, r = 8;
+                    s += `<path class="bar-rect ${b.cls}" style="animation-delay:${0.45 + i * 0.15}s" d="M${x},${yb} L${x},${yt + r} Q${x},${yt} ${x + r},${yt} L${x + bw - r},${yt} Q${x + bw},${yt} ${x + bw},${yt + r} L${x + bw},${yb} Z"/>`;
+                    
+                    /* Etiqueta de la barra: dentro si mide más de 60px, fuera si es más pequeña */
+                    const barHeight = yb - yt;
+                    if (hasLine) { s += `<text class="c-val" x="${cx}" y="${yb - 16}" fill="${b.cls==='color-alt2'?'#1F241B':'#fff'}">${esc(b.txt)}</text>`; } else if (barHeight < 60) {
+                        s += `<text class="c-val" x="${cx}" y="${yt - 10}" fill="#1F241B">${esc(b.txt)}</text>`;
+                    } else {
+                        s += `<text class="c-val" x="${cx}" y="${yt + 34}" fill="${b.cls==='color-alt2'?'#1F241B':'#fff'}">${esc(b.txt)}</text>`;
+                    }
+
+                    b.label.forEach((ln, k) => {
+                        s += `<text class="c-xl${k ? ' c-xl2' : ''}" x="${cx}" y="${m.t + ph + 28 + k * 21}">${esc(ln)}</text>`;
+                    });
+                });
+                
+                if (hasLine) {
+                    const pts = cfg.line.map((p, i) => [m.l + band * (i + 0.5), yr(p.v)]);
+                    s += `<polyline class="c-line" pathLength="1" points="${pts.map(p => p.join(',')).join(' ')}"/>`;
+                    pts.forEach((p, i) => {
+                        s += `<circle class="c-dot" cx="${p[0]}" cy="${p[1]}" r="7"/>`;
+                        
+                        /* Etiqueta de cobertura: arriba del punto, y se sube 26px si choca con la etiqueta de la barra */
+                        let yLineLbl = p[1] - 22;
+                        let barY = y(cfg.bars[i].v);
+                        let barLblY = ((m.t + ph) - barY < 60) ? barY - 10 : barY + 34;
+                        if (false) {
+                            yLineLbl -= 26;
+                        }
+                        s += `<text class="c-linelbl" x="${p[0]}" y="${yLineLbl}">${esc(cfg.line[i].txt)}</text>`;
+                    });
+                }
+                
+                /* Títulos de los ejes desplazados */
+                if (cfg.leftTitle) s += `<text class="c-axtitle" transform="translate(24 ${m.t + ph / 2}) rotate(-90)">${esc(cfg.leftTitle)}</text>`;
+                if (hasLine) s += `<text class="c-axtitle" transform="translate(${W - 24} ${m.t + ph / 2}) rotate(-90)">Cobertura (%)</text>`;
+                
+                return s + '</svg>';
+            }
+
+            // Diapositivas 11 a 14: lee los valores de las barras ya escritas en el HTML y las redibuja
+            function upgradeBarCharts() {
+                document.querySelectorAll('.chart-row .chart-panel').forEach(panel => {
+                    const cont = panel.querySelector('.bar-container');
+                    if (!cont) return;
+                    const bars = [...cont.querySelectorAll('.bar-group')].map(g => {
+                        const txt = g.querySelector('.bar-val').textContent.trim();
+                        const cls = [...g.querySelector('.bar').classList].find(c => c.startsWith('color-alt')) || 'color-alt1';
+                        const label = g.querySelector('.bar-label').innerHTML.split(/<br\s*\/?>/i).map(t => t.trim());
+                        return { v: parseFloat(txt), txt, cls, label };
+                    });
+                    const wrap = document.createElement('div');
+                    wrap.className = 'chart-wrap';
+                    wrap.innerHTML = buildBarSVG({ W: 520, H: 560, bars });
+                    cont.replaceWith(wrap);
+                });
+            }
+
+            // Diapositiva 15: resumen final (barras + línea de cobertura), datos del PDF
+            const SUMMARY_DATA = [
+                { title: 'E1 · Separación en la fuente',
+                  bars: [
+                    { v: 12.07, txt: '12.07', cls: 'color-alt1', label: ['Alt. 1', 'Con separación'] },
+                    { v: 6.31,  txt: '6.31',  cls: 'color-alt2', label: ['Alt. 2', 'Sin separación'] } ],
+                  cov: [ { v: 61.9, txt: '62%' }, { v: 61.9, txt: '62%' } ] },
+                { title: 'E2 · Sensibilidad al espacio (M)',
+                  bars: [
+                    { v: 12.07, txt: '12.07', cls: 'color-alt1', label: ['Alt. 1', 'M = 3'] },
+                    { v: 12.07, txt: '12.07', cls: 'color-alt2', label: ['Alt. 2', 'M = 8 (base)'] },
+                    { v: 12.07, txt: '12.07', cls: 'color-alt3', label: ['Alt. 3', 'M = 12'] } ],
+                  cov: [ { v: 61.9, txt: '62%' }, { v: 61.9, txt: '62%' }, { v: 61.9, txt: '62%' } ] },
+                { title: 'E3 · Recursos (p sitios abiertos)',
+                  bars: [
+                    { v: 9.64,  txt: '9.64',  cls: 'color-alt1', label: ['Alt. 1', 'p = 8'] },
+                    { v: 12.07, txt: '12.07', cls: 'color-alt2', label: ['Alt. 2', 'p = 10 (base)'] },
+                    { v: 14.40, txt: '14.40', cls: 'color-alt3', label: ['Alt. 3', 'p = 12'] } ],
+                  cov: [ { v: 52.4, txt: '52%' }, { v: 61.9, txt: '62%' }, { v: 68.3, txt: '68%' } ] }
+            ];
+
+            function buildSummary() {
+                const grid = document.querySelector('.multi-chart-grid');
+                if (!grid) return;
+                grid.innerHTML = SUMMARY_DATA.map(d =>
+                    `<div class="sum-col"><div class="chart-column-title">${d.title}</div><div class="chart-wrap">${buildBarSVG({ W: 560, H: 560, bars: d.bars, line: d.cov, leftTitle: 'Costo total (M COP)' })}</div></div>`
+                ).join('');
+                const leg = document.createElement('div');
+                leg.className = 'chart-legend';
+                leg.innerHTML = '<span><i class="lg-bar"></i>Costo total (M COP)</span><span><i class="lg-dot"></i>Cobertura (%)</span>';
+                grid.parentElement.appendChild(leg);
+            }
+            upgradeBarCharts();
+            buildSummary();
+            renderMathInElement(document.body, { delimiters: [ {left: "$$", right: "$$", display: true}, {left: "\\(", right: "\\)", display: false} ], throwOnError: false });
+
+            /* ===== v2: DECORACIÓN, MOVIMIENTO Y TRANSICIONES ===== */
+            const MASS = {
+                low:    'M-200 985 C 200 950 600 1020 1000 980 C 1400 945 1700 1020 2120 970 L2120 1300 L-200 1300Z',
+                left:   'M-300 -200 L 500 -200 C 560 150 440 380 520 620 C 580 820 470 960 520 1300 L-300 1300Z',
+                big:    'M-200 700 C 100 640 470 750 760 710 C 1040 670 1240 790 1540 740 C 1760 705 1950 665 2120 700 L2120 1300 L-200 1300Z'
+            };
+            const massSVG = k => `<svg class="mass" viewBox="0 0 1920 1080" preserveAspectRatio="none" aria-hidden="true">
+                <path d="${MASS[k]}" fill="#1F6B45" filter="url(#mfR)"/>
+                <path d="${MASS[k]}" fill="#79A98C" filter="url(#mfA)" opacity=".92"/>
+                <path d="${MASS[k]}" fill="#E9E6D3" filter="url(#mfB)" opacity=".9"/></svg>`;
+            const starSVG = () => { let p = ''; for (let i = 0; i < 24; i++) { const a = i * Math.PI / 12, r = i % 2 ? 24 : 50; p += (i ? 'L' : 'M') + (50 + r * Math.sin(a)).toFixed(1) + ' ' + (50 - r * Math.cos(a)).toFixed(1); }
+                return `<svg viewBox="0 0 100 100"><path d="${p}Z" fill="#B7D244"/></svg>`; };
+            const canecaSVG = () => { const c = document.querySelector('.cv-caneca svg'); return c ? c.outerHTML : ''; };
+            const I = (n, c, o = {}) => ({ i: n, c, ...o });
+            const STAR = (c, o = {}) => ({ s: 1, c, ...o });
+            const CAN = (c, o = {}) => ({ k: 1, c, ...o });
+            const CORN = [
+                I('hojas-brote', 'left:-50px;top:-40px;width:230px', { r: -22, sx: -1, d: 18, f: '-200px,-120px' }),
+                I('hojas-brote', 'right:-50px;top:-40px;width:230px', { r: 22, d: 18, f: '200px,-120px', dl: .1 }),
+                I('forma-naranja', 'left:-140px;top:-130px;width:270px', { r: -30, d: 8, f: '-150px,-150px' }),
+                I('forma-azul-ondas', 'right:-60px;top:-170px;width:150px', { r: 150, d: 8, f: '150px,-150px' }),
+                { m: 'low' }
+            ];
+            const RES = [
+                { m: 'left' },
+                I('forma-arco-verde', 'left:-90px;top:-100px;width:300px', { r: -10, d: 8, f: '-150px,-150px' }),
+                CAN('left:70px;top:130px;width:330px', { d: 18, r: -3, f: '-200px,0px' }),
+                I('mano-brote', 'left:20px;top:690px;width:420px', { d: 28, r: 4, dl: .25, f: '-200px,200px' }),
+                I('cinta-papel', 'left:190px;top:900px;width:320px', { r: -18, d: 10 }),
+                STAR('left:360px;top:60px;width:150px', { d: 14, spin: 1 }),
+                            I('flechas-reciclaje', 'right:60px;top:30px;width:120px', { r: 20, d: 16 })
+            ];
+            const DECOR = {
+                2: [{ m: 'left' },
+                    I('bombilla-brote', 'left:70px;top:100px;width:470px', { d: 26, r: -3, f: '-300px,0px' }),
+                    I('mano-brote', 'left:330px;top:600px;width:420px', { d: 34, r: 6, dl: .25, f: '-200px,200px' }),
+                    STAR('left:90px;top:70px;width:120px', { d: 14, spin: 1 }),
+                    I('forma-arco-verde', 'right:-80px;top:-100px;width:380px', { r: 15, d: 10, f: '0px,-220px' }),
+                    I('cinta-papel', 'right:-30px;bottom:40px;width:360px', { r: -14, d: 8 })],
+                3: [{ m: 'low' },
+                    I('forma-mostaza', 'left:1130px;top:170px;width:660px', { r: -8, d: 8 }),
+                    I('forma-naranja', 'left:-120px;top:-110px;width:300px', { r: -12, d: 8, f: '-150px,-150px' }),
+                    I('forma-arco-verde', 'right:-60px;top:-80px;width:340px', { r: 12, d: 10, f: '0px,-200px' }),
+                    I('hojas-brote', 'left:760px;top:880px;width:190px', { r: -15, sx: -1, d: 22 }),
+                    STAR('left:1000px;top:40px;width:110px', { d: 14, spin: 1 }),
+                    I('cinta-papel', 'left:640px;top:20px;width:300px', { r: 8, d: 6 })],
+                4: [{ m: 'low' },
+                    I('forma-arco-verde', 'left:1180px;top:200px;width:560px', { r: 4, d: 8 }),
+                    I('forma-naranja', 'left:-120px;top:-110px;width:300px', { r: -12, d: 8, f: '-150px,-150px' }),
+                    CAN('left:1030px;top:640px;width:220px', { d: 20, r: -4 }),
+                    I('flechas-reciclaje', 'left:1620px;top:300px;width:150px', { r: 20, d: 16 }),
+                    STAR('left:1050px;top:120px;width:150px', { d: 14, spin: 1 }),
+                    I('cinta-papel', 'left:600px;top:10px;width:300px', { r: -6, d: 6 }),
+                    I('hojas-brote', 'left:30px;top:850px;width:200px', { r: -15, sx: -1, d: 22 })],
+                5: CORN, 6: CORN, 7: CORN, 8: CORN, 9: CORN, 10: CORN,
+                11: RES, 12: RES, 13: RES, 14: RES,
+                15: [{ m: 'low' },
+                    I('forma-arco-verde', 'left:-90px;top:-110px;width:320px', { r: -10, d: 8, f: '-150px,-150px' }),
+                    I('forma-mostaza', 'right:-140px;top:-110px;width:440px', { r: 10, d: 8, f: '150px,-150px' }),
+                    STAR('right:300px;top:30px;width:120px', { d: 14, spin: 1 }),
+                    I('hojas-brote', 'left:1500px;top:850px;width:190px', { r: 10, d: 22 })],
+                16: [{ m: 'low' },
+                    I('forma-arco-verde', 'left:1180px;top:170px;width:640px', { r: 3, d: 8, f: '200px,0px' }),
+                    I('caneca-llena', 'left:1230px;top:330px;width:480px', { d: 18, f: '200px,100px' }),
+                    I('grafico-torta', 'left:1560px;top:70px;width:270px', { d: 26, r: 6, f: '100px,-200px' }),
+                    I('cinta-papel', 'left:1160px;top:250px;width:380px', { r: -16, d: 6 }),
+                    I('cinta-papel', 'left:1500px;top:800px;width:360px', { r: 14, d: 6 }),
+                    STAR('left:1060px;top:90px;width:150px', { d: 14, spin: 1 }),
+                    I('forma-naranja', 'left:-130px;top:-120px;width:290px', { r: -25, d: 8, f: '-150px,-150px' }),
+                    I('hojas-brote', 'left:30px;top:850px;width:210px', { r: -15, sx: -1, d: 22 })],
+                17: [{ m: 'big' },
+                    I('forma-mostaza', 'left:520px;top:700px;width:900px', { r: -2, d: 8, f: '0px,300px' }),
+                    I('mano-brote', 'left:770px;top:690px;width:420px', { d: 30, r: 0, dl: .3, f: '0px,300px' }),
+                    I('bolsa-reciclaje', 'left:260px;top:790px;width:190px', { d: 22, r: -4, dl: .2 }),
+                    CAN('left:-40px;top:700px;width:290px', { d: 18, r: 2, f: '-250px,0px' }),
+                    I('hojas-brote', 'left:-40px;top:-40px;width:300px', { r: -22, sx: -1, d: 18, f: '-200px,-120px' }),
+                    I('hojas-brote', 'right:-30px;top:-30px;width:300px', { r: 22, d: 18, f: '200px,-120px', dl: .1 }),
+                    I('hojas-brote', 'left:1560px;top:700px;width:300px', { r: 10, d: 26, f: '250px,100px', dl: .2 }),
+                    STAR('left:1500px;top:560px;width:130px', { d: 14, spin: 1 }),
+                    STAR('left:160px;top:520px;width:90px', { d: 14, spin: 1 })]
+            };
+            const allSlides = document.querySelectorAll('.slide');
+            const fly = (el, k) => { const cx = el.offsetLeft + el.offsetWidth / 2 - 960, cy = el.offsetTop + el.offsetHeight / 2 - 540, l = Math.hypot(cx, cy) || 1;
+                el.style.setProperty('--fx', (cx / l * 1600).toFixed(0) + 'px'); el.style.setProperty('--fy', (cy / l * 1600).toFixed(0) + 'px');
+                el.style.setProperty('--er', (((k * 67) % 280) - 140) + 'deg'); el.style.setProperty('--od', ((k % 5) * .05) + 's'); };
+            allSlides.forEach((sl, idx) => {
+                const dec = sl.querySelector('.decor'); const items = DECOR[idx + 1];
+                if (dec && items) {
+                    items.forEach(it => {
+                        if (it.m) { dec.insertAdjacentHTML('beforeend', massSVG(it.m)); return; }
+                        const w = document.createElement('div'); w.className = 'dc' + (it.spin ? ' spin' : '');
+                        w.style.cssText = it.c; w.dataset.depth = it.d || 12;
+                        w.style.setProperty('--delay', (it.dl || 0) + 's');
+                        w.innerHTML = it.i ? `<img src="assets/${it.i}.webp" alt="">` : it.s ? starSVG() : canecaSVG();
+                        const inner = w.firstElementChild; inner.style.setProperty('--r', (it.r || 0) + 'deg');
+                        if (it.sx) inner.style.setProperty('--sx', it.sx);
+                        inner.style.setProperty('--dur', (5.5 + (idx * 7 % 4)) + 's'); inner.style.setProperty('--fd', ((idx % 3) * .4) + 's');
+                        dec.appendChild(w); fly(w, idx * 7 + dec.children.length);
+                    });
+                }
+                sl.querySelectorAll('.rv').forEach((el, k) => el.style.setProperty('--i', k));
+                if (sl.classList.contains('cover')) sl.querySelectorAll('.cv-el').forEach((el, k) => fly(el, k + 3));
+            });
+            /* parallax suave en todas las diapositivas */
+            document.getElementById('deck').addEventListener('mousemove', (e) => {
+                const act = document.querySelector('.slide.active:not(.cover)'); if (!act) return;
+                const r = act.getBoundingClientRect(); const nx = (e.clientX - r.left) / r.width - .5, ny = (e.clientY - r.top) / r.height - .5;
+                act.querySelectorAll('.dc').forEach(el => { const d = parseFloat(el.dataset.depth) * 1.6; el.style.setProperty('--px', (-nx * d).toFixed(1) + 'px'); el.style.setProperty('--py', (-ny * d).toFixed(1) + 'px'); });
+            });
+
+            /* contadores: los valores de las gráficas "cargan" de 0 al valor final */
+            function runCounters(sl) {
+                let vi = 0;
+                sl.querySelectorAll('.c-val, .c-linelbl').forEach(t => {
+                    if (!t.dataset.f) t.dataset.f = t.textContent.trim();
+                    const m = t.dataset.f.match(/^([\d.]+)(%?)$/); if (!m) return;
+                    const target = parseFloat(m[1]), dec = (m[1].split('.')[1] || '').length, suf = m[2];
+                    const delay = t.classList.contains('c-val') ? 600 + (vi++) * 150 : 2300, dur = t.classList.contains('c-val') ? 1100 : 700;
+                    cancelAnimationFrame(t._raf); t.textContent = (0).toFixed(dec) + suf;
+                    const t0 = performance.now() + delay;
+                    const step = now => { const k = Math.min(1, Math.max(0, (now - t0) / dur)), e = 1 - Math.pow(1 - k, 3);
+                        t.textContent = (target * e).toFixed(dec) + suf; if (k < 1) t._raf = requestAnimationFrame(step); };
+                    t._raf = requestAnimationFrame(step);
+                });
+            }
+
+            // Lógica de Navegación con transición "wipe"
+            const slides = document.querySelectorAll('.slide');
+            const totalSlides = slides.length;
+            let currentSlide = 0, locked = false;
+            const btnPrev = document.getElementById('btn-prev');
+            const btnNext = document.getElementById('btn-next');
+            const counter = document.getElementById('counter');
+            const progress = document.getElementById('progress');
+
+            function updateSlide() {
+                slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+                counter.innerText = `${currentSlide + 1} / ${totalSlides}`;
+                runCounters(slides[currentSlide]);
+                progress.style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+                btnPrev.style.opacity = currentSlide === 0 ? '0.3' : '1';
+                btnNext.style.opacity = currentSlide === totalSlides - 1 ? '0.3' : '1';
+            }
+            function goTo(n) {
+                if (locked || n < 0 || n >= totalSlides || n === currentSlide) return;
+                locked = true;
+                const old = slides[currentSlide];
+                old.classList.add('leaving');
+                setTimeout(() => { old.classList.remove('leaving'); currentSlide = n; updateSlide(); }, 900);
+                setTimeout(() => { locked = false; }, 1900);
+            }
+            const nextSlide = () => goTo(currentSlide + 1);
+            const prevSlide = () => goTo(currentSlide - 1);
+            btnNext.addEventListener('click', nextSlide);
+            btnPrev.addEventListener('click', prevSlide);
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') nextSlide();
+                if (e.key === 'ArrowLeft' || e.key === 'PageUp') prevSlide();
+                if (e.key === 'Home') goTo(0);
+                if (e.key === 'End') goTo(totalSlides - 1);
+                if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
+            });
+            window.__goTo = n => { currentSlide = n; updateSlide(); }; /* utilidad de prueba */
+
+            // Escalado 16:9 responsive
+            const wrapper = document.querySelector('.presentation-wrapper');
+            const deck = document.getElementById('deck');
+            function scalePresentation() {
+                const scale = Math.min(wrapper.clientWidth / 1920, wrapper.clientHeight / 1080);
+                deck.style.transform = `translate(-50%, -50%) scale(${scale})`;
+            }
+            window.addEventListener('resize', scalePresentation);
+            scalePresentation();
+            updateSlide();
+
+        });
+    </script>
+</body>
+</html>
