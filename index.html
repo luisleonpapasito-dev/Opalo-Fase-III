@@ -1850,7 +1850,6 @@
 @keyframes ivOutB { from { transform: rotate(5deg); } to { transform: translate(1000px, -200px) rotate(60deg); } }
 @keyframes ivOutC { from { transform: none; } to { transform: translateY(800px) rotate(12deg); } }
 #intro.iv-swap .iv-bg, #intro.iv-swap .iv-stage { display: none; }
-#intro:not(.iv-play) *, #intro:not(.iv-play) *::before, #intro:not(.iv-play) *::after { animation-play-state: paused !important; }
 @media (prefers-reduced-motion: reduce) { #intro *, #intro *::before, #intro *::after { animation-duration: .01s !important; animation-delay: 0s !important; transition-duration: .01s !important; } }
 </style>
 <div id="intro" role="dialog" aria-label="Integrantes del proyecto">
@@ -1914,15 +1913,11 @@
     for (let i = 0; i < 18; i++) { const g = document.createElement('div'); g.className = 'iv-gl';
         g.style.cssText = `top:${R(-80, 900).toFixed(0)}px;--s:${R(.22, .62).toFixed(2)};--t:${R(1.1, 1.9).toFixed(2)}s;--dl:${R(0, .55).toFixed(2)}s;--gy:${R(-260, 320).toFixed(0)}px;--gr:${(R(300, 900) * (Math.random() < .5 ? -1 : 1)).toFixed(0)}deg`;
         g.innerHTML = leaf(); top.appendChild(g); }
-    let done = false;
     const T = [];
-    /* espera a que el deck termine de armarse (follaje, gráficas) para que la intro arranque fluida */
-    const start = () => requestAnimationFrame(() => requestAnimationFrame(() => { if (done) return;
-        it.classList.add('iv-play');
-        T.push(setTimeout(() => it.classList.add('iv-g1'), 650));
-        T.push(setTimeout(() => it.classList.add('iv-rest'), 950)); }));
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => setTimeout(start, 60)); else start();
+    T.push(setTimeout(() => it.classList.add('iv-g1'), 650));
+    T.push(setTimeout(() => it.classList.add('iv-rest'), 950));
     it.addEventListener('mousemove', e => { it.style.setProperty('--mx', (e.clientX / innerWidth - .5).toFixed(3)); it.style.setProperty('--my', (e.clientY / innerHeight - .5).toFixed(3)); });
+    let done = false;
     const close = () => { if (done) return; done = true; T.forEach(clearTimeout);
         it.classList.remove('iv-g1'); void it.offsetWidth; it.classList.add('iv-out', 'iv-g2');
         setTimeout(() => { it.classList.remove('iv-rest'); it.classList.add('iv-cover'); }, 380);
