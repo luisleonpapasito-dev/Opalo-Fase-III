@@ -1,0 +1,2199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_d958748a7c40b15ec9e06ba9a5da11c3 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    <h4 style='position:fixed;top:10px;left:60px;z-index:9999;background:white;padding:6px 10px;border:1px solid grey;border-radius:5px'>Caso base · p = 10 · M = 8 · con separación</h4>
+    
+            <div class="folium-map" id="map_d958748a7c40b15ec9e06ba9a5da11c3" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_d958748a7c40b15ec9e06ba9a5da11c3 = L.map(
+                "map_d958748a7c40b15ec9e06ba9a5da11c3",
+                {
+                    center: [7.134930123809524, -73.12450304761904],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 16,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_45a93c3a0884c2bb127107cd3b93e7e5 = L.tileLayer(
+                "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 17,
+  "maxNativeZoom": 17,
+  "noWrap": false,
+  "attribution": "Map data: \u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors, \u003ca href=\"http://viewfinderpanoramas.org\"\u003eSRTM\u003c/a\u003e | Map style: \u0026copy; \u003ca href=\"https://opentopomap.org\"\u003eOpenTopoMap\u003c/a\u003e (\u003ca href=\"https://creativecommons.org/licenses/by-sa/3.0/\"\u003eCC-BY-SA\u003c/a\u003e)",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_45a93c3a0884c2bb127107cd3b93e7e5.addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_03df2cdf38a62af8300048ddbe924983 = L.polyline(
+                [[7.134890999999998, -73.124233], [7.134949999999999, -73.12465]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_ed72275eb87285448c80cc833a154040 = L.polyline(
+                [[7.1389749999999985, -73.122225], [7.139500000000001, -73.1212]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_384d8b2a8a7db8d29919caa94b043fe1 = L.polyline(
+                [[7.1406969999999985, -73.127313], [7.1398, -73.1272]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_dcebc7e2f7c4a31d47b8e59c462efdf1 = L.polyline(
+                [[7.139618, -73.127291], [7.1398, -73.1272]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_59fb4d61b6b084b7f2e6b62f51bc8ba6 = L.polyline(
+                [[7.139589999999999, -73.126261], [7.1398, -73.1272]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_84584cd5df42285bfcb488259fddeb6f = L.polyline(
+                [[7.136526999999999, -73.124732], [7.136549999999999, -73.12575]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_a56bbfef9743cb8be460b63852c4de1a = L.polyline(
+                [[7.133893999999998, -73.123972], [7.134949999999999, -73.12465]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_b69951b3e28df320a0acf3a04f7e495b = L.polyline(
+                [[7.133697, -73.12488], [7.134949999999999, -73.12465]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_a6307d9b9cb76b63d091816fb1e4855b = L.polyline(
+                [[7.130952999999999, -73.123541], [7.132000000000001, -73.1235]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_2ae03157a78aa7880b4642d2a3255d66 = L.polyline(
+                [[7.139532999999999, -73.135058], [7.140850000000001, -73.1348]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_a25ab92e8518c14854fafa75abd276aa = L.polyline(
+                [[7.141389, -73.134951], [7.140850000000001, -73.1348]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_ebd4cf817ca03fc0d4ca74c8e28d4257 = L.polyline(
+                [[7.141222999999998, -73.134015], [7.140850000000001, -73.1348]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_c8ab4718792e674dec229929baf7123c = L.polyline(
+                [[7.131548999999999, -73.120215], [7.131099999999999, -73.11985]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_54b1003fa05cca6f9158e07e97151be6 = L.polyline(
+                [[7.131029, -73.119908], [7.131099999999999, -73.11985]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_1d286772acc7e89bc40273de43419c92 = L.polyline(
+                [[7.134256999999999, -73.118639], [7.13375, -73.11975]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_20f9ddf782362f415ec3db88e31ecf8e = L.polyline(
+                [[7.128469999999999, -73.121717], [7.1276, -73.1221]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_82fa3b3a4c800ef99f0b9d710d307df4 = L.polyline(
+                [[7.135475999999997, -73.120003], [7.13675, -73.12005]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_dd58d31ed12ca6a0766705fb7d9eac81 = L.polyline(
+                [[7.131882, -73.12230400000001], [7.132000000000001, -73.1235]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_9af1d3092814977cbdbeb3ad677ae656 = L.polyline(
+                [[7.134901999999999, -73.12527], [7.134949999999999, -73.12465]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_eee08e295cc7f0e7e0cb7d22ebbafe20 = L.polyline(
+                [[7.127665999999999, -73.122166], [7.1276, -73.1221]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_6450fe24b25fcc8c2fe82e170c6ca799 = L.polyline(
+                [[7.126767000000001, -73.122731], [7.1276, -73.1221]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_1d49e890860a1f12f20f5a922c768818 = L.polyline(
+                [[7.133651000000002, -73.119697], [7.13375, -73.11975]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_854b43761c4c7ae78b697f2aa879f8ae = L.polyline(
+                [[7.140402999999999, -73.13401], [7.140850000000001, -73.1348]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_4c4cd7759babfa1b9267e989a1845af1 = L.polyline(
+                [[7.13596, -73.120144], [7.13675, -73.12005]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_84ce7b0151db74cfac4432a35407223c = L.polyline(
+                [[7.136669, -73.11998], [7.13675, -73.12005]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_f8e8cdd18ce880b5a2f493d0ee4ff949 = L.polyline(
+                [[7.1402540000000005, -73.121727], [7.139500000000001, -73.1212]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_4036f4923976e1568ef37bbc79ecb601 = L.polyline(
+                [[7.139524, -73.120705], [7.139500000000001, -73.1212]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_79b9290f19cefee95fb1dec903394733 = L.polyline(
+                [[7.136461999999998, -73.125807], [7.136549999999999, -73.12575]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_c94617a06b9f3d8f8ea3b91e71297b1d = L.polyline(
+                [[7.130092000000002, -73.119753], [7.131099999999999, -73.11985]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_475b5bf8976e72d0bf54e12d95fa4c42 = L.polyline(
+                [[7.135356, -73.12639], [7.136549999999999, -73.12575]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_d32c6dbc149c08b5e616d1f47b2e8d49 = L.polyline(
+                [[7.140499999999999, -73.1355], [7.140850000000001, -73.1348]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_07f7a4b8525185b3aed1f4ad045f8b74 = L.polyline(
+                [[7.1323170000000005, -73.124559], [7.132000000000001, -73.1235]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_9d5db4b18aae2d05f7b0710442524503 = L.polyline(
+                [[7.134039, -73.124583], [7.134949999999999, -73.12465]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_e4e47b80c2106cf74a98953bc815f4a3 = L.polyline(
+                [[7.136148000000001, -73.124098], [7.134949999999999, -73.12465]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_15540e2af971a588ed6face6dadd231e = L.polyline(
+                [[7.135766000000001, -73.124037], [7.134949999999999, -73.12465]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_abbcc6a23be400e5be3eb54731821723 = L.polyline(
+                [[7.135641000000001, -73.124006], [7.134949999999999, -73.12465]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_1c39450f7adde73c63d676d89053083f = L.polyline(
+                [[7.127370999999999, -73.121409], [7.1276, -73.1221]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_6036cc6cf993f68b734808d5736f84c9 = L.polyline(
+                [[7.136192999999999, -73.119386], [7.13675, -73.12005]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var poly_line_caf7e76ada83084c7628ff0cb9ce6623 = L.polyline(
+                [[7.133503, -73.120402], [7.13375, -73.11975]],
+                {"bubblingMouseEvents": true, "color": "#636363", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "#636363", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 1.5}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var circle_marker_0275176aaec1aa1b6e00ad04edd1081b = L.circleMarker(
+                [7.13404, -73.119684],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_0275176aaec1aa1b6e00ad04edd1081b.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Parque del Sena
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c6425987b6db7328efe533ee38e08a6a = L.circleMarker(
+                [7.136955000000001, -73.12187000000002],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_c6425987b6db7328efe533ee38e08a6a.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Parque Estación UIS Cra 26
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_010a8ac0c37b463131d2696b7395d6d7 = L.circleMarker(
+                [7.134890999999998, -73.124233],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_010a8ac0c37b463131d2696b7395d6d7.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Plaza de mercado<br>→ Parque frente a Plaza de Mercado (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_09b4bf78be72c6fc31a4c18f74638c8c = L.circleMarker(
+                [7.1312359999999995, -73.125032],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_09b4bf78be72c6fc31a4c18f74638c8c.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Parque San Francisco
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_bc2b17bf6a85882e426858bce92fb26e = L.circleMarker(
+                [7.1355699999999995, -73.130508],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cb181d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_bc2b17bf6a85882e426858bce92fb26e.bindTooltip(
+                `<div>
+                     <b>⚠️ Sin atender:</b> Colegio del Sagrado Corazón Cra 15
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_da0a5b803efa9f7fbe4eea3ebb4bf704 = L.circleMarker(
+                [7.136015000000001, -73.129062],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cb181d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_da0a5b803efa9f7fbe4eea3ebb4bf704.bindTooltip(
+                `<div>
+                     <b>⚠️ Sin atender:</b> Institución Educativa Comuneros
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_59288101a03fef6a0ba22647e436c5ae = L.circleMarker(
+                [7.136863999999999, -73.128336],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cb181d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_59288101a03fef6a0ba22647e436c5ae.bindTooltip(
+                `<div>
+                     <b>⚠️ Sin atender:</b> Universidad Santo Tomás
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0637a76ca650511b152c87deac8788a1 = L.circleMarker(
+                [7.138462, -73.124222],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cb181d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_0637a76ca650511b152c87deac8788a1.bindTooltip(
+                `<div>
+                     <b>⚠️ Sin atender:</b> UDI
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_dacc5192c0c5e380c2130c309adb247d = L.circleMarker(
+                [7.1389749999999985, -73.122225],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_dacc5192c0c5e380c2130c309adb247d.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Colegio Santander<br>→ Plazoleta UIS Central
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_57d4fe2610aeebbadd4ab4a5c30617fd = L.circleMarker(
+                [7.138249000000002, -73.118973],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cb181d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_57d4fe2610aeebbadd4ab4a5c30617fd.bindTooltip(
+                `<div>
+                     <b>⚠️ Sin atender:</b> Instituto Dámaso Zapata
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b0f5d82a720e39472e8765e85f164518 = L.circleMarker(
+                [7.126013999999999, -73.123399],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cb181d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_b0f5d82a720e39472e8765e85f164518.bindTooltip(
+                `<div>
+                     <b>⚠️ Sin atender:</b> Colegio de la Santísima Trinidad
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cf7c43c89dfa936762438ef2db579858 = L.circleMarker(
+                [7.129137000000003, -73.125125],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cb181d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_cf7c43c89dfa936762438ef2db579858.bindTooltip(
+                `<div>
+                     <b>⚠️ Sin atender:</b> Colegio del Sagrado Corazón Cra 20
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f369b87a8d5c420288349e1c14f3a09e = L.circleMarker(
+                [7.128546, -73.127608],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cb181d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_f369b87a8d5c420288349e1c14f3a09e.bindTooltip(
+                `<div>
+                     <b>⚠️ Sin atender:</b> Colegio Americano
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_809794dc957ab2b2f0d05cbbdb212c91 = L.circleMarker(
+                [7.1406969999999985, -73.127313],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_809794dc957ab2b2f0d05cbbdb212c91.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Insitución Educativa Santander C<br>→ Nodo_102
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_82dfbbd7d5732f85704f01372ece919b = L.circleMarker(
+                [7.139618, -73.127291],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_82dfbbd7d5732f85704f01372ece919b.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Colegio Libertad Norte<br>→ Nodo_102
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fcb631fe126be7d1ccfcee2a60801df4 = L.circleMarker(
+                [7.139589999999999, -73.126261],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_fcb631fe126be7d1ccfcee2a60801df4.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Colegio Carumunda Hermano<br>→ Nodo_102
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_998c1b0640427a8a00386f14ee343294 = L.circleMarker(
+                [7.136622999999999, -73.12918],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_998c1b0640427a8a00386f14ee343294.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Parque Cristo Rey
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_205d279eda3a864f99896b080ef83fd0 = L.circleMarker(
+                [7.136526999999999, -73.124732],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_205d279eda3a864f99896b080ef83fd0.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Colegio Yaití<br>→ Punto Promoción Social (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_239c7ccfd384e5ee0b35230740c2c0ce = L.circleMarker(
+                [7.133893999999998, -73.123972],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_239c7ccfd384e5ee0b35230740c2c0ce.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Ara Cll 14<br>→ Parque frente a Plaza de Mercado (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7b739cad22e7ff76a14776f32b73d120 = L.circleMarker(
+                [7.133697, -73.12488],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_7b739cad22e7ff76a14776f32b73d120.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> D1 Cll 14<br>→ Parque frente a Plaza de Mercado (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a9d12d2ab38e69398be77174de93ec93 = L.circleMarker(
+                [7.130952999999999, -73.123541],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_a9d12d2ab38e69398be77174de93ec93.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Colegio Franciscano del Virrey Solís<br>→ Esquina Cra 22 con Cll 16 (Virrey Solís / Merkaqui)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_77c84e2dcbe0f7fb3c549707f30057f0 = L.circleMarker(
+                [7.137744, -73.120361],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_77c84e2dcbe0f7fb3c549707f30057f0.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Caballo de Bolívar
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_506f57cd74d25c689632cbb118db1720 = L.circleMarker(
+                [7.139532999999999, -73.135058],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_506f57cd74d25c689632cbb118db1720.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Instituto Club Unión A<br>→ Esquina Cll 3 con Cra 13 (San Rafael / Club Unión)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3a0a4effbe5e3cd9a3c3dfa881fa781b = L.circleMarker(
+                [7.141389, -73.134951],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_3a0a4effbe5e3cd9a3c3dfa881fa781b.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Instituto Club Unión B<br>→ Esquina Cll 3 con Cra 13 (San Rafael / Club Unión)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4778e05c3dc9b67f9b2595a6a3740815 = L.circleMarker(
+                [7.141222999999998, -73.134015],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_4778e05c3dc9b67f9b2595a6a3740815.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Asilo San Rafael<br>→ Esquina Cll 3 con Cra 13 (San Rafael / Club Unión)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_559a49bf1adef6af42434caefc440f48 = L.circleMarker(
+                [7.128456, -73.119604],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cb181d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_559a49bf1adef6af42434caefc440f48.bindTooltip(
+                `<div>
+                     <b>⚠️ Sin atender:</b> Más x Menos Cra 27
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f369d14d64173957ee7b174cfba64c8a = L.circleMarker(
+                [7.125287999999999, -73.125155],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cb181d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_f369d14d64173957ee7b174cfba64c8a.bindTooltip(
+                `<div>
+                     <b>⚠️ Sin atender:</b> Fiscalía
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e02550ca30419ce8b22ac294bbf3082d = L.circleMarker(
+                [7.131548999999999, -73.120215],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_e02550ca30419ce8b22ac294bbf3082d.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Colegio Iberamericano<br>→ Punto Ara Cra 27 (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fc02a8f01a1fbe5161feee1078c09c11 = L.circleMarker(
+                [7.131029, -73.119908],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_fc02a8f01a1fbe5161feee1078c09c11.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Ara Cra 27<br>→ Punto Ara Cra 27 (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a84f9477f4b282fc9a7d9e8f6fdff0c0 = L.circleMarker(
+                [7.132937000000001, -73.120236],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_a84f9477f4b282fc9a7d9e8f6fdff0c0.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Parque del Niño Dios
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_44d3ba09bf5872af7b5bcb818b34e60a = L.circleMarker(
+                [7.141434, -73.133174],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cb181d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_44d3ba09bf5872af7b5bcb818b34e60a.bindTooltip(
+                `<div>
+                     <b>⚠️ Sin atender:</b> Más x Menos Cll3
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3d73c9a2d798125db06b0fe666366803 = L.circleMarker(
+                [7.134256999999999, -73.118639],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_3d73c9a2d798125db06b0fe666366803.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Ara Av Eduardo Santos<br>→ Esquina Sena Av. 27 (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3d5fa90b4c4def698db1bce098689185 = L.circleMarker(
+                [7.138902, -73.137857],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cb181d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_3d5fa90b4c4def698db1bce098689185.bindTooltip(
+                `<div>
+                     <b>⚠️ Sin atender:</b> Residencia el Cinar
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8e6fd1d8f7d110a89855ea80ef315581 = L.circleMarker(
+                [7.137518000000001, -73.133263],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_8e6fd1d8f7d110a89855ea80ef315581.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Parque San Rafael
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fe37672950c0257f8bb34add885b4004 = L.circleMarker(
+                [7.141750000000001, -73.119487],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cb181d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_fe37672950c0257f8bb34add885b4004.bindTooltip(
+                `<div>
+                     <b>⚠️ Sin atender:</b> Bienestar Estudiantil UIS
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_85f2dc37da4ffc4c4889a254b4c21b01 = L.circleMarker(
+                [7.139971999999999, -73.12312],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_85f2dc37da4ffc4c4889a254b4c21b01.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> UIS Portería Cra 25
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2dd268e7fccb7656a45828dc2a50e968 = L.circleMarker(
+                [7.131383999999998, -73.126357],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cb181d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_2dd268e7fccb7656a45828dc2a50e968.bindTooltip(
+                `<div>
+                     <b>⚠️ Sin atender:</b> Unidad Residencial Grand Boulevar
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b89f6198e864b58470840f5dfb7417ae = L.circleMarker(
+                [7.128469999999999, -73.121717],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_b89f6198e864b58470840f5dfb7417ae.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Supermercado La 21<br>→ Nodo_103
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2acf19f2a6110edb3dd9de75f45a94a1 = L.circleMarker(
+                [7.135475999999997, -73.120003],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_2acf19f2a6110edb3dd9de75f45a94a1.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Supermercado el Opon<br>→ Punto Clínica La Merced (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_686c9cd433ef9661c485590dc1b9c463 = L.circleMarker(
+                [7.131882, -73.12230400000001],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_686c9cd433ef9661c485590dc1b9c463.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Gran Frutiver San Francisco<br>→ Esquina Cra 22 con Cll 16 (Virrey Solís / Merkaqui)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_62464901fd170382115c1e8c946a49a2 = L.circleMarker(
+                [7.134901999999999, -73.12527],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_62464901fd170382115c1e8c946a49a2.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Supermercado MegaRedil<br>→ Parque frente a Plaza de Mercado (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_24cf8b82b73213a0e594acd6f8b63cad = L.circleMarker(
+                [7.128366999999998, -73.126705],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cb181d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_24cf8b82b73213a0e594acd6f8b63cad.bindTooltip(
+                `<div>
+                     <b>⚠️ Sin atender:</b> Multiservicio Miguelauto
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b23dab707095cab649495c472d3fdb97 = L.circleMarker(
+                [7.127665999999999, -73.122166],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_b23dab707095cab649495c472d3fdb97.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Concentración San Ignacio de Loyola<br>→ Nodo_103
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7fe2af1533bb1de0c5761728595a224c = L.circleMarker(
+                [7.126767000000001, -73.122731],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_7fe2af1533bb1de0c5761728595a224c.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Colegio de la Santísima Trinidad B<br>→ Nodo_103
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3d6743a4f6a75839a5c5f1d92c12aa6d = L.circleMarker(
+                [7.133651000000002, -73.119697],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_3d6743a4f6a75839a5c5f1d92c12aa6d.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Sena<br>→ Esquina Sena Av. 27 (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_16dd1043ff21992756cfb942351ae404 = L.circleMarker(
+                [7.140402999999999, -73.13401],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_16dd1043ff21992756cfb942351ae404.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Droguería Olímpica<br>→ Esquina Cll 3 con Cra 13 (San Rafael / Club Unión)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0b51f407db8f541f42482a46005db8d6 = L.circleMarker(
+                [7.13596, -73.120144],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_0b51f407db8f541f42482a46005db8d6.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Droguería Milagro de Dios<br>→ Punto Clínica La Merced (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_46b51e3e7978cc83120e7e5650885f37 = L.circleMarker(
+                [7.136669, -73.11998],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_46b51e3e7978cc83120e7e5650885f37.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Clínica la Merced<br>→ Punto Clínica La Merced (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c1115e933b78598fce5335e39dcf4668 = L.circleMarker(
+                [7.137350999999997, -73.12257],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_c1115e933b78598fce5335e39dcf4668.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Parque Estación UIS Cra 25
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7f9c18ea99699e37160423475caf8edf = L.circleMarker(
+                [7.1412650000000015, -73.12104],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cb181d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_7f9c18ea99699e37160423475caf8edf.bindTooltip(
+                `<div>
+                     <b>⚠️ Sin atender:</b> Cafetería Central UIS
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d80560f6cc415489e78f35e9d58abe3e = L.circleMarker(
+                [7.1402540000000005, -73.121727],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_d80560f6cc415489e78f35e9d58abe3e.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Cafetería Camilo Torres<br>→ Plazoleta UIS Central
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f26732131c6ea47a7106f8e85c7799b5 = L.circleMarker(
+                [7.139524, -73.120705],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_f26732131c6ea47a7106f8e85c7799b5.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Cafeteria Ciencias Humanas<br>→ Plazoleta UIS Central
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7300b57b1d0184878fa7578d5f368437 = L.circleMarker(
+                [7.140540999999999, -73.117825],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cb181d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_7300b57b1d0184878fa7578d5f368437.bindTooltip(
+                `<div>
+                     <b>⚠️ Sin atender:</b> Cafetería Canchas UIS
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_81156a88b42c3c2c3fff740db557bb86 = L.circleMarker(
+                [7.139449000000001, -73.117663],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cb181d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_81156a88b42c3c2c3fff740db557bb86.bindTooltip(
+                `<div>
+                     <b>⚠️ Sin atender:</b> Cafetería Coliseo UIS
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_96ee3645d72306d53d21145b7de58aaf = L.circleMarker(
+                [7.136461999999998, -73.125807],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_96ee3645d72306d53d21145b7de58aaf.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Institución Educativa Promoción Social<br>→ Punto Promoción Social (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1a419579aa3cc534517d1296766dbe24 = L.circleMarker(
+                [7.133300000000002, -73.1221],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_1a419579aa3cc534517d1296766dbe24.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Parque de las Banderas
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_11c3e17fe83fe851576d64bd2a7cebcf = L.circleMarker(
+                [7.130092000000002, -73.119753],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_11c3e17fe83fe851576d64bd2a7cebcf.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Uniminuto<br>→ Punto Ara Cra 27 (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0c2aefeece4cf1cc70a836c1ddeee543 = L.circleMarker(
+                [7.135356, -73.12639],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_0c2aefeece4cf1cc70a836c1ddeee543.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Colegio Centro Piloto Simón Bolívar<br>→ Punto Promoción Social (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e24b50e2cb23921727cc5feb24e9abf6 = L.circleMarker(
+                [7.134835000000001, -73.118264],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_e24b50e2cb23921727cc5feb24e9abf6.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Oxxo
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_6ec8ded54cda75c119b823cd22f8d40d = L.marker(
+                [7.139500000000001, -73.1212],
+                {
+}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var icon_1cb0b3ad480deff9e5deae6085bf6844 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_6ec8ded54cda75c119b823cd22f8d40d.bindTooltip(
+                `<div>
+                     <b>⭐ Plazoleta UIS Central</b><br>Atiende 3 generadores<br>Canecas: 3 (Verde 1, Blanco 1, Negro 1)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6ec8ded54cda75c119b823cd22f8d40d.setIcon(icon_1cb0b3ad480deff9e5deae6085bf6844);
+            
+    
+            var circle_marker_e6fc26f01bc2409be8b61c3bcf00721d = L.circleMarker(
+                [7.140199999999998, -73.1245],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_e6fc26f01bc2409be8b61c3bcf00721d.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Parque de la 25
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_eceea9e9d30ba0b835363f7ddfdd7898 = L.circleMarker(
+                [7.142000000000001, -73.13600000000001],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_eceea9e9d30ba0b835363f7ddfdd7898.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Parque del Barrio Club Unión
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_28b354a70b32224a481f47da3a0c3187 = L.circleMarker(
+                [7.140499999999999, -73.1355],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_28b354a70b32224a481f47da3a0c3187.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Club Unión<br>→ Esquina Cll 3 con Cra 13 (San Rafael / Club Unión)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e807a092b42530884763480c59fbe89a = L.circleMarker(
+                [7.1323170000000005, -73.124559],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_e807a092b42530884763480c59fbe89a.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Supermercado Mas x Menos Cra 23<br>→ Esquina Cra 22 con Cll 16 (Virrey Solís / Merkaqui)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4a32b51773ec97261e85f3a83c3ffc66 = L.circleMarker(
+                [7.135806, -73.121945],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cb181d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_4a32b51773ec97261e85f3a83c3ffc66.bindTooltip(
+                `<div>
+                     <b>⚠️ Sin atender:</b> Supermercado Merkaqui BGA
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6c520ba7d2f74a47b19924cd4f0259af = L.circleMarker(
+                [7.1315, -73.1298],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cb181d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_6c520ba7d2f74a47b19924cd4f0259af.bindTooltip(
+                `<div>
+                     <b>⚠️ Sin atender:</b> Ara Cll 17
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f624bb3353473fb6360cca7cca1a3aa6 = L.circleMarker(
+                [7.134039, -73.124583],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_f624bb3353473fb6360cca7cca1a3aa6.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Carnicería CARNES Novisan !!!<br>→ Parque frente a Plaza de Mercado (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4d65403ef6fe83568da7a0ea8ce179a6 = L.circleMarker(
+                [7.136148000000001, -73.124098],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_4d65403ef6fe83568da7a0ea8ce179a6.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Carnylacteos<br>→ Parque frente a Plaza de Mercado (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_98d2e2d6ae41512a361e35eb952ab9f2 = L.circleMarker(
+                [7.135766000000001, -73.124037],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_98d2e2d6ae41512a361e35eb952ab9f2.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Mangos Peña y Sanchez<br>→ Parque frente a Plaza de Mercado (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_06c8b99782d33fff6ac44f880fc63778 = L.circleMarker(
+                [7.135641000000001, -73.124006],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_06c8b99782d33fff6ac44f880fc63778.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Mega Fruver San Francisco<br>→ Parque frente a Plaza de Mercado (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3b868b8ab39cd16cf8ce5bfd1fd2bece = L.circleMarker(
+                [7.135731999999997, -73.123527],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cb181d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_3b868b8ab39cd16cf8ce5bfd1fd2bece.bindTooltip(
+                `<div>
+                     <b>⚠️ Sin atender:</b> Insupan
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a5cb6bcebc470c1d2f04888348ef6491 = L.circleMarker(
+                [7.127370999999999, -73.121409],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_a5cb6bcebc470c1d2f04888348ef6491.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Oxxo San Francisco<br>→ Nodo_103
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f227cb65d45857b26af86fd4af575d6c = L.circleMarker(
+                [7.136192999999999, -73.119386],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_f227cb65d45857b26af86fd4af575d6c.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Mercateo Micromercado & Mecato<br>→ Punto Clínica La Merced (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_70ee0a1dba67e528273223a56fd3ff47 = L.circleMarker(
+                [7.133503, -73.120402],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6550d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_70ee0a1dba67e528273223a56fd3ff47.bindTooltip(
+                `<div>
+                     <b>♻️ Generador:</b> Corporación ESSA Club La Chispa<br>→ Esquina Sena Av. 27 (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d50ee5c538c45f882f4f1df56cc46d18 = L.circleMarker(
+                [7.138608999999999, -73.129853],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cb181d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_d50ee5c538c45f882f4f1df56cc46d18.bindTooltip(
+                `<div>
+                     <b>⚠️ Sin atender:</b> Rapifritos MAC
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_720b7dd395d4af79316a1fb47dea6c15 = L.circleMarker(
+                [7.1379090000000005, -73.129925],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cb181d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_720b7dd395d4af79316a1fb47dea6c15.bindTooltip(
+                `<div>
+                     <b>⚠️ Sin atender:</b> Mercafull
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3831239cac869123d8948ad4e96f8f44 = L.circleMarker(
+                [7.131599999999999, -73.128183],
+                {"bubblingMouseEvents": true, "color": "white", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#cb181d", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_3831239cac869123d8948ad4e96f8f44.bindTooltip(
+                `<div>
+                     <b>⚠️ Sin atender:</b> D1 San José K
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_66a445aff9bb9696eeb89a55ea42e253 = L.marker(
+                [7.134949999999999, -73.12465],
+                {
+}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var icon_d17a616d6cba05c41484cfc471147a2b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_66a445aff9bb9696eeb89a55ea42e253.bindTooltip(
+                `<div>
+                     <b>⭐ Parque frente a Plaza de Mercado (nuevo candidato)</b><br>Atiende 8 generadores<br>Canecas: 3 (Verde 1, Blanco 1, Negro 1)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_66a445aff9bb9696eeb89a55ea42e253.setIcon(icon_d17a616d6cba05c41484cfc471147a2b);
+            
+    
+            var circle_marker_808f8f6cbeca04ff893d6fcd6af062aa = L.circleMarker(
+                [7.136837999999999, -73.12824300000001],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_808f8f6cbeca04ff893d6fcd6af062aa.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Andén Universidad Santo Tomás (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_520a82ce84f64b3b9dc7a6f2782aec8d = L.circleMarker(
+                [7.13835, -73.1243],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_520a82ce84f64b3b9dc7a6f2782aec8d.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Esquina UDI Cra 25 (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c56a8880ff6ca9cd99f6d2faa8324ce8 = L.circleMarker(
+                [7.125400000000002, -73.1251],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_c56a8880ff6ca9cd99f6d2faa8324ce8.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Punto Fiscalía Cra 20 (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a0ecb21b7d9312f9692ecf96f307ca09 = L.circleMarker(
+                [7.128549999999998, -73.11965],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_a0ecb21b7d9312f9692ecf96f307ca09.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Andén Más x Menos Cra 27 (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_9d1cfaa2409ba0a70a6f3bc62b664c99 = L.marker(
+                [7.13375, -73.11975],
+                {
+}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var icon_3177a10af6a0ba1c8eb49251fa10de04 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_9d1cfaa2409ba0a70a6f3bc62b664c99.bindTooltip(
+                `<div>
+                     <b>⭐ Esquina Sena Av. 27 (nuevo candidato)</b><br>Atiende 3 generadores<br>Canecas: 3 (Verde 1, Blanco 1, Negro 1)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_9d1cfaa2409ba0a70a6f3bc62b664c99.setIcon(icon_3177a10af6a0ba1c8eb49251fa10de04);
+            
+    
+            var marker_c89562016b117d142e3869f2a7245759 = L.marker(
+                [7.13675, -73.12005],
+                {
+}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var icon_ff3260997d086d0709278ba06905b398 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_c89562016b117d142e3869f2a7245759.bindTooltip(
+                `<div>
+                     <b>⭐ Punto Clínica La Merced (nuevo candidato)</b><br>Atiende 4 generadores<br>Canecas: 3 (Verde 1, Blanco 1, Negro 1)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c89562016b117d142e3869f2a7245759.setIcon(icon_ff3260997d086d0709278ba06905b398);
+            
+    
+            var circle_marker_cd18f30e9c72e1b4414917faf6362a96 = L.circleMarker(
+                [7.1317020000000015, -73.126431],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_cd18f30e9c72e1b4414917faf6362a96.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Andén Grand Boulevar (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a610a73eee3a6b231f0c9edf29c1a33c = L.circleMarker(
+                [7.134949999999999, -73.12535],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_a610a73eee3a6b231f0c9edf29c1a33c.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Esquina Megaredil (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_6431e7bda0d32bb9f4c723fba4a7ce78 = L.marker(
+                [7.131099999999999, -73.11985],
+                {
+}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var icon_323fb66ceaab14bfcf9f79eeb1a20586 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_6431e7bda0d32bb9f4c723fba4a7ce78.bindTooltip(
+                `<div>
+                     <b>⭐ Punto Ara Cra 27 (nuevo candidato)</b><br>Atiende 3 generadores<br>Canecas: 3 (Verde 1, Blanco 1, Negro 1)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6431e7bda0d32bb9f4c723fba4a7ce78.setIcon(icon_323fb66ceaab14bfcf9f79eeb1a20586);
+            
+    
+            var circle_marker_e5249541ac3de1276dd4f87369210bd0 = L.circleMarker(
+                [7.128928999999998, -73.127315],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_e5249541ac3de1276dd4f87369210bd0.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Andén Colegio Americano (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_aa4ce4297b6700e1780985c759fbcbe9 = L.circleMarker(
+                [7.1261, -73.12335],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_aa4ce4297b6700e1780985c759fbcbe9.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Punto Santísima Trinidad (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3c681e2a8e9906fcc7ee0230ff3f93b6 = L.circleMarker(
+                [7.13835, -73.1189],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_3c681e2a8e9906fcc7ee0230ff3f93b6.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Esquina Instituto Dámaso Zapata (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_65230125abb8cd3a1f69400fdf5d4bb6 = L.circleMarker(
+                [7.1389, -73.1223],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_65230125abb8cd3a1f69400fdf5d4bb6.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Andén Colegio Santander (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_dcbcfa9b9a3b6872a1099909bf281230 = L.marker(
+                [7.136549999999999, -73.12575],
+                {
+}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var icon_ad94f400bc3979875d79475a9d50298e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_dcbcfa9b9a3b6872a1099909bf281230.bindTooltip(
+                `<div>
+                     <b>⭐ Punto Promoción Social (nuevo candidato)</b><br>Atiende 3 generadores<br>Canecas: 3 (Verde 1, Blanco 1, Negro 1)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_dcbcfa9b9a3b6872a1099909bf281230.setIcon(icon_ad94f400bc3979875d79475a9d50298e);
+            
+    
+            var circle_marker_a2376a41ec4dc8d1bb279728c4a6710d = L.circleMarker(
+                [7.141349999999999, -73.1211],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_a2376a41ec4dc8d1bb279728c4a6710d.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Esquina Cafetería Central UIS (nuevo candidato)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_4889f41e28543a31e36094bcd2ab2701 = L.marker(
+                [7.140850000000001, -73.1348],
+                {
+}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var icon_edd39952d96f326b89d26d3f96d39a3f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_4889f41e28543a31e36094bcd2ab2701.bindTooltip(
+                `<div>
+                     <b>⭐ Esquina Cll 3 con Cra 13 (San Rafael / Club Unión)</b><br>Atiende 5 generadores<br>Canecas: 3 (Verde 1, Blanco 1, Negro 1)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4889f41e28543a31e36094bcd2ab2701.setIcon(icon_edd39952d96f326b89d26d3f96d39a3f);
+            
+    
+            var circle_marker_79aff4c19378a0461aff022e96f89494 = L.circleMarker(
+                [7.130499999999998, -73.1265],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_79aff4c19378a0461aff022e96f89494.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Esquina Cra 20 con Cll 17 (Grand Boulevar)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2031b0a4438266716ff8804ce3fed861 = L.circleMarker(
+                [7.1251500000000005, -73.1251],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_2031b0a4438266716ff8804ce3fed861.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Andén Cra 20 con Cll 24 (Sector Fiscalía)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e0305782516d152530c5777964ade1fb = L.circleMarker(
+                [7.12845, -73.1196],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_e0305782516d152530c5777964ade1fb.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Esquina Cra 27 con Cll 21 (Más x Menos Cra 27)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3701dfc59dab514e94c286215597d2a6 = L.circleMarker(
+                [7.141300000000002, -73.1205],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_3701dfc59dab514e94c286215597d2a6.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Esquina Cra 25 con Cll 9 (Campus UIS / Cafeterías)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_aa6dd72c8dc162ddf3b2550e2a88a4ff = L.circleMarker(
+                [7.137499999999999, -73.126],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_aa6dd72c8dc162ddf3b2550e2a88a4ff.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Esquina Cra 18 con Cll 11 (UDI / Comuneros / USTA)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f3061295cdb3a195c03f308d5b504633 = L.circleMarker(
+                [7.135100000000001, -73.1302],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_f3061295cdb3a195c03f308d5b504633.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Esquina Cra 15 con Cll 14 (Sagrado Corazón Cra 15)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_62bec4200ac6c273801bf405a36f1b63 = L.marker(
+                [7.132000000000001, -73.1235],
+                {
+}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var icon_be5fef4126aa1f6acc3f03fd7f0d0ff8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_62bec4200ac6c273801bf405a36f1b63.bindTooltip(
+                `<div>
+                     <b>⭐ Esquina Cra 22 con Cll 16 (Virrey Solís / Merkaqui)</b><br>Atiende 3 generadores<br>Canecas: 3 (Verde 1, Blanco 1, Negro 1)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_62bec4200ac6c273801bf405a36f1b63.setIcon(icon_be5fef4126aa1f6acc3f03fd7f0d0ff8);
+            
+    
+            var circle_marker_b8da91fd575afb5025ee89c1ab6dd2f2 = L.circleMarker(
+                [7.135699999999999, -73.1235],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_b8da91fd575afb5025ee89c1ab6dd2f2.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Nodo_101
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_a5792dc99fface299fd95fba7fa5d80f = L.marker(
+                [7.1398, -73.1272],
+                {
+}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var icon_ef840fe983375378460d92cbaabdbbd6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_a5792dc99fface299fd95fba7fa5d80f.bindTooltip(
+                `<div>
+                     <b>⭐ Nodo_102</b><br>Atiende 3 generadores<br>Canecas: 3 (Verde 1, Blanco 1, Negro 1)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a5792dc99fface299fd95fba7fa5d80f.setIcon(icon_ef840fe983375378460d92cbaabdbbd6);
+            
+    
+            var marker_964b8e5618b675f87ead0bf4e61fe26e = L.marker(
+                [7.1276, -73.1221],
+                {
+}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            var icon_ca7e213cd9bb7df2edd8311d513a45d6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_964b8e5618b675f87ead0bf4e61fe26e.bindTooltip(
+                `<div>
+                     <b>⭐ Nodo_103</b><br>Atiende 4 generadores<br>Canecas: 3 (Verde 1, Blanco 1, Negro 1)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_964b8e5618b675f87ead0bf4e61fe26e.setIcon(icon_ca7e213cd9bb7df2edd8311d513a45d6);
+            
+    
+            var circle_marker_758d9eb51dc91fb27eed80d294e23d76 = L.circleMarker(
+                [7.1273, -73.1214],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdbdbd", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1}
+            ).addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+            circle_marker_758d9eb51dc91fb27eed80d294e23d76.bindTooltip(
+                `<div>
+                     <b>Candidato (no elegido):</b> Nodo_104
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            tile_layer_45a93c3a0884c2bb127107cd3b93e7e5.addTo(map_d958748a7c40b15ec9e06ba9a5da11c3);
+        
+    
+                marker_6ec8ded54cda75c119b823cd22f8d40d.setIcon(icon_1cb0b3ad480deff9e5deae6085bf6844);
+            
+    
+                marker_66a445aff9bb9696eeb89a55ea42e253.setIcon(icon_d17a616d6cba05c41484cfc471147a2b);
+            
+    
+                marker_9d1cfaa2409ba0a70a6f3bc62b664c99.setIcon(icon_3177a10af6a0ba1c8eb49251fa10de04);
+            
+    
+                marker_c89562016b117d142e3869f2a7245759.setIcon(icon_ff3260997d086d0709278ba06905b398);
+            
+    
+                marker_6431e7bda0d32bb9f4c723fba4a7ce78.setIcon(icon_323fb66ceaab14bfcf9f79eeb1a20586);
+            
+    
+                marker_dcbcfa9b9a3b6872a1099909bf281230.setIcon(icon_ad94f400bc3979875d79475a9d50298e);
+            
+    
+                marker_4889f41e28543a31e36094bcd2ab2701.setIcon(icon_edd39952d96f326b89d26d3f96d39a3f);
+            
+    
+                marker_62bec4200ac6c273801bf405a36f1b63.setIcon(icon_be5fef4126aa1f6acc3f03fd7f0d0ff8);
+            
+    
+                marker_a5792dc99fface299fd95fba7fa5d80f.setIcon(icon_ef840fe983375378460d92cbaabdbbd6);
+            
+    
+                marker_964b8e5618b675f87ead0bf4e61fe26e.setIcon(icon_ca7e213cd9bb7df2edd8311d513a45d6);
+            
+</script>
+</html>
