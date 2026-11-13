@@ -479,6 +479,45 @@
 .slide.active .chart-panel::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,.8) 50%, transparent 65%); transform: translateX(-120%); animation: shimmer 1.5s .45s ease-out forwards; }
 @keyframes shimmer { to { transform: translateX(120%); } }
 
+/* ===== Modo instantáneo (salto directo) ===== */
+.instant .slide.active :where(.dc,.rv,.mass,.bar-rect,.c-line,.c-grid,.c-axis,.c-tick,.c-axtitle,.c-xl,.c-val,.c-dot,.c-linelbl),
+.instant .slide.cover.active .cv-el { animation-duration: 0s !important; animation-delay: 0s !important; }
+.instant .slide.active .chart-panel::after, .instant .slide.active .mh::after { animation: none !important; }
+
+/* ===== Interactividad ===== */
+.content { pointer-events: none; }
+.chart-panel, .tap { pointer-events: auto; }
+.tap { cursor: pointer; }
+.dc, .slide.cover .cv-el { pointer-events: auto; cursor: pointer; }
+.dc:hover > *, .cv-el:hover > * { filter: drop-shadow(0 18px 22px rgba(0,0,0,.32)) brightness(1.05); }
+.bp { position: absolute; z-index: 150; pointer-events: none; }
+.chart-svg .bar-rect { cursor: pointer; transition: filter .2s, opacity .2s; }
+.chart-svg:hover .bar-rect { opacity: .55; }
+.chart-svg .bar-rect:hover { opacity: 1; filter: brightness(1.1) drop-shadow(0 10px 14px rgba(31,36,27,.35)); }
+.tip { position: fixed; z-index: 999; pointer-events: none; background: #1F241B; color: #fff; font: 600 19px 'DM Sans', sans-serif; padding: 8px 16px; border-radius: 12px; transform: translate(-50%, -140%); opacity: 0; transition: opacity .12s; white-space: nowrap; box-shadow: 0 8px 20px rgba(0,0,0,.3); }
+.tip.on { opacity: 1; }
+.math-item.tap, .rule.tap { transition: background .25s, color .25s, transform .25s; }
+.math-item.tap:hover, .rule.tap:hover { transform: translateY(-3px); }
+.math-item.on { background: var(--c-forest); color: #fff; }
+.math-item.on .math-term { color: #fff; }
+.math-item.on .math-term::after { color: var(--c-mustard); }
+.rule.on { background: #FBE7A1; }
+.counter { cursor: pointer; }
+.counter:hover { background: var(--c-mustard); }
+.hint { position: absolute; left: 50%; bottom: 100px; translate: -50% 0; z-index: 120; background: rgba(255,255,255,.88); color: var(--c-forest); font-weight: 700; font-size: 1.5rem; padding: 10px 28px; border-radius: 40px; box-shadow: 0 6px 16px rgba(0,0,0,.18); opacity: 0; pointer-events: none; }
+.slide.cover.active ~ .hint { animation: hintA 9s 2s both; }
+@keyframes hintA { 0%,100% { opacity: 0; transform: translateY(14px); } 8%,88% { opacity: 1; transform: none; } }
+#overview { position: absolute; inset: 0; z-index: 300; background: rgba(237,233,216,.97); display: none; padding: 70px 110px; }
+#overview.open { display: block; animation: fadeIn .25s both; }
+#overview h2 { font-size: 4.4rem; margin-bottom: 26px; }
+#overview .grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; }
+#overview button { font-family: var(--f-body); text-align: left; background: #fff; border: 3px solid transparent; border-radius: 20px; padding: 18px 20px; cursor: pointer; box-shadow: 6px 6px 0 var(--c-olive); transition: transform .2s, box-shadow .2s, border-color .2s; min-height: 150px; display: flex; flex-direction: column; justify-content: space-between; color: var(--c-dark); }
+#overview button:hover { transform: translateY(-5px) rotate(-1deg); box-shadow: 8px 10px 0 var(--c-forest); }
+#overview button.cur { border-color: var(--c-terra); }
+#overview .n { font-family: var(--f-title); font-style: italic; font-weight: 700; font-size: 3.4rem; color: var(--c-forest); line-height: 1; }
+#overview .t { font-size: 1.45rem; font-weight: 700; line-height: 1.2; }
+#overview .close { position: absolute; top: 40px; right: 60px; font-size: 1.5rem; font-weight: 700; color: var(--c-forest); }
+
     </style>
 </head>
 <body>
@@ -1060,6 +1099,8 @@
                 <button class="btn-nav" id="btn-next">❯</button>
             </div>
             <div class="progress-bar" id="progress"></div>
+            <div class="hint">Toca los objetos · G: índice · F: pantalla completa</div>
+            <div id="overview"><h2 class="ttl">Índice</h2><div class="close">Esc para cerrar</div><div class="grid"></div></div>
         </div>
     </div>
     <script>
@@ -1127,7 +1168,7 @@
                 
                 cfg.bars.forEach((b, i) => {
                     const cx = m.l + band * (i + 0.5), x = cx - bw / 2, yt = y(b.v), yb = m.t + ph, r = 8;
-                    s += `<path class="bar-rect ${b.cls}" style="animation-delay:${0.45 + i * 0.15}s" d="M${x},${yb} L${x},${yt + r} Q${x},${yt} ${x + r},${yt} L${x + bw - r},${yt} Q${x + bw},${yt} ${x + bw},${yt + r} L${x + bw},${yb} Z"/>`;
+                    s += `<path class="bar-rect ${b.cls}" data-tip="${esc(b.label.join(' · '))}: ${esc(b.txt)}${cfg.line ? ' · cobertura ' + esc(cfg.line[i].txt) : ''}" style="animation-delay:${0.45 + i * 0.15}s" d="M${x},${yb} L${x},${yt + r} Q${x},${yt} ${x + r},${yt} L${x + bw - r},${yt} Q${x + bw},${yt} ${x + bw},${yt + r} L${x + bw},${yb} Z"/>`;
                     
                     /* Etiqueta de la barra: dentro si mide más de 60px, fuera si es más pequeña */
                     const barHeight = yb - yt;
@@ -1331,14 +1372,14 @@
             });
 
             /* contadores: los valores de las gráficas "cargan" de 0 al valor final */
-            function runCounters(sl) {
+            function runCounters(sl, instant) {
                 let vi = 0;
                 sl.querySelectorAll('.c-val, .c-linelbl').forEach(t => {
                     if (!t.dataset.f) t.dataset.f = t.textContent.trim();
                     const m = t.dataset.f.match(/^([\d.]+)(%?)$/); if (!m) return;
                     const target = parseFloat(m[1]), dec = (m[1].split('.')[1] || '').length, suf = m[2];
                     const delay = t.classList.contains('c-val') ? 600 + (vi++) * 150 : 2300, dur = t.classList.contains('c-val') ? 1100 : 700;
-                    cancelAnimationFrame(t._raf); t.textContent = (0).toFixed(dec) + suf;
+                    cancelAnimationFrame(t._raf); if (instant) { t.textContent = t.dataset.f; return; } t.textContent = (0).toFixed(dec) + suf;
                     const t0 = performance.now() + delay;
                     const step = now => { const k = Math.min(1, Math.max(0, (now - t0) / dur)), e = 1 - Math.pow(1 - k, 3);
                         t.textContent = (target * e).toFixed(dec) + suf; if (k < 1) t._raf = requestAnimationFrame(step); };
@@ -1346,47 +1387,108 @@
                 });
             }
 
-            // Lógica de Navegación con transición "wipe"
+            /* ===== Interactividad: clic en objetos, barras, tarjetas ===== */
+            const deckEl = document.getElementById('deck');
+            deckEl.querySelectorAll('.rule,.math-item,.badge,.fig .main,.fig img.pinabs,.split .front,.alg .adn,.alg .logo,.rules .huella,.s2 .q img,.fig .row img,.gr').forEach(el => el.classList.add('tap'));
+            const COLS = ['#1F6B45', '#8A9E5A', '#E8B93A', '#C4582F', '#B7D244', '#79A98C'];
+            function burst(cx, cy, n) {
+                const r = deckEl.getBoundingClientRect(), sc = r.width / 1920, x = (cx - r.left) / sc, y = (cy - r.top) / sc;
+                for (let i = 0; i < n; i++) {
+                    const s = document.createElement('i'); s.className = 'bp';
+                    const sz = 12 + Math.random() * 18, leaf = Math.random() < .55;
+                    s.style.cssText = `left:${x}px;top:${y}px;width:${sz}px;height:${leaf ? sz * 1.5 : sz}px;background:${COLS[i % COLS.length]};border-radius:${leaf ? '0 90% 0 90%' : '50%'}`;
+                    deckEl.appendChild(s);
+                    const a = Math.random() * Math.PI * 2, d = 140 + Math.random() * 300, dx = Math.cos(a) * d, dy = Math.sin(a) * d, rot = (Math.random() - .5) * 720;
+                    s.animate([
+                        { transform: 'translate(-50%,-50%) scale(.2)', opacity: 1 },
+                        { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) rotate(${rot / 2}deg) scale(1)`, opacity: 1, offset: .55 },
+                        { transform: `translate(calc(-50% + ${dx * 1.1}px), calc(-50% + ${dy * 1.1 + 160}px)) rotate(${rot}deg) scale(.6)`, opacity: 0 }
+                    ], { duration: 900 + Math.random() * 500, easing: 'cubic-bezier(.2,.8,.3,1)' }).onfinish = () => s.remove();
+                }
+            }
+            function pop(el) {
+                el.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.22,.8)' }, { transform: 'scale(.92,1.14)' }, { transform: 'scale(1.06)' }, { transform: 'scale(1)' }], { duration: 650, easing: 'ease-out' });
+            }
+            deckEl.addEventListener('click', (e) => {
+                const t = e.target.closest('.dc, .cv-el, .tap, .bar-rect'); if (!t) return;
+                if (t.matches('.dc, .cv-el')) { pop(t.firstElementChild); burst(e.clientX, e.clientY, 20); }
+                else if (t.matches('.bar-rect')) { pop(t); burst(e.clientX, e.clientY, 10); }
+                else { pop(t); burst(e.clientX, e.clientY, 12); if (t.matches('.math-item, .rule')) t.classList.toggle('on'); }
+            });
+            /* tooltip de barras */
+            const tip = document.getElementById('tip');
+            deckEl.addEventListener('mousemove', (e) => {
+                const b = e.target.closest && e.target.closest('.bar-rect');
+                if (b && b.dataset.tip) { tip.textContent = b.dataset.tip; tip.style.left = e.clientX + 'px'; tip.style.top = e.clientY + 'px'; tip.classList.add('on'); }
+                else tip.classList.remove('on');
+            });
+
+            // Navegación: transición larga, pero un segundo clic salta directo
             const slides = document.querySelectorAll('.slide');
             const totalSlides = slides.length;
-            let currentSlide = 0, locked = false;
+            const TITLES = ['Portada', 'Introducción', 'Generadores seleccionados', 'Puntos candidatos', 'El modelo · Objetivo', 'Función objetivo', 'Terminología', 'Reglas del juego', 'Restricciones', 'Algoritmo genético', 'Resultados · Costo y cobertura', 'Resultados · Canecas y distancia', 'E2 · Sensibilidad al espacio', 'E3 · Recursos (p sitios)', 'Resumen final', 'Conclusión', '¡Gracias!'];
+            let currentSlide = 0, target = 0, locked = false, timers = [];
             const btnPrev = document.getElementById('btn-prev');
             const btnNext = document.getElementById('btn-next');
             const counter = document.getElementById('counter');
             const progress = document.getElementById('progress');
+            const overview = document.getElementById('overview');
+            const h0 = parseInt((location.hash || '').slice(1), 10);
+            if (h0 >= 1 && h0 <= totalSlides) currentSlide = target = h0 - 1;
 
-            function updateSlide() {
+            overview.querySelector('.grid').innerHTML = TITLES.map((t, i) => `<button data-i="${i}"><span class="n">${i + 1}</span><span class="t">${t}</span></button>`).join('');
+
+            function updateSlide(instant) {
                 slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
                 counter.innerText = `${currentSlide + 1} / ${totalSlides}`;
-                runCounters(slides[currentSlide]);
                 progress.style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
                 btnPrev.style.opacity = currentSlide === 0 ? '0.3' : '1';
                 btnNext.style.opacity = currentSlide === totalSlides - 1 ? '0.3' : '1';
+                overview.querySelectorAll('button').forEach((b, i) => b.classList.toggle('cur', i === currentSlide));
+                try { history.replaceState(null, '', '#' + (currentSlide + 1)); } catch (e) {}
+                runCounters(slides[currentSlide], instant);
+            }
+            function clearT() { timers.forEach(clearTimeout); timers = []; }
+            function jump(n) {
+                deckEl.classList.add('instant'); clearT();
+                slides.forEach(s => s.classList.remove('leaving'));
+                currentSlide = target = n; locked = false; updateSlide(true);
             }
             function goTo(n) {
-                if (locked || n < 0 || n >= totalSlides || n === currentSlide) return;
-                locked = true;
-                const old = slides[currentSlide];
-                old.classList.add('leaving');
-                setTimeout(() => { old.classList.remove('leaving'); currentSlide = n; updateSlide(); }, 900);
-                setTimeout(() => { locked = false; }, 1900);
+                n = Math.max(0, Math.min(totalSlides - 1, n));
+                if (locked) { jump(n); return; }          /* segundo clic: salta la animación */
+                if (n === currentSlide) return;
+                deckEl.classList.remove('instant'); locked = true; target = n;
+                const old = slides[currentSlide]; old.classList.add('leaving');
+                timers.push(setTimeout(() => { old.classList.remove('leaving'); currentSlide = n; updateSlide(); }, 900));
+                timers.push(setTimeout(() => { locked = false; }, 1900));
             }
-            const nextSlide = () => goTo(currentSlide + 1);
-            const prevSlide = () => goTo(currentSlide - 1);
+            const nextSlide = () => goTo((locked ? target : currentSlide) + 1);
+            const prevSlide = () => goTo((locked ? target : currentSlide) - 1);
+            const openIdx = (v) => { document.getElementById('tip').classList.remove('on'); overview.classList.toggle('open', v); };
             btnNext.addEventListener('click', nextSlide);
             btnPrev.addEventListener('click', prevSlide);
+            counter.addEventListener('click', () => openIdx(!overview.classList.contains('open')));
+            overview.addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) jump(+b.dataset.i); openIdx(false); });
             document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') openIdx(false);
+                if (e.key === 'g' || e.key === 'G') openIdx(!overview.classList.contains('open'));
+                if (overview.classList.contains('open')) return;
                 if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') nextSlide();
                 if (e.key === 'ArrowLeft' || e.key === 'PageUp') prevSlide();
                 if (e.key === 'Home') goTo(0);
                 if (e.key === 'End') goTo(totalSlides - 1);
                 if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
             });
-            window.__goTo = n => { currentSlide = n; updateSlide(); }; /* utilidad de prueba */
+            /* deslizar en pantallas táctiles */
+            let sx = null;
+            deckEl.addEventListener('pointerdown', e => { sx = e.pointerType === 'touch' ? e.clientX : null; });
+            deckEl.addEventListener('pointerup', e => { if (sx === null) return; const dx = e.clientX - sx; sx = null; if (dx < -70) nextSlide(); else if (dx > 70) prevSlide(); });
+            window.__goTo = n => { currentSlide = target = n; updateSlide(true); }; /* utilidad de prueba */
 
             // Escalado 16:9 responsive
             const wrapper = document.querySelector('.presentation-wrapper');
-            const deck = document.getElementById('deck');
+            const deck = deckEl;
             function scalePresentation() {
                 const scale = Math.min(wrapper.clientWidth / 1920, wrapper.clientHeight / 1080);
                 deck.style.transform = `translate(-50%, -50%) scale(${scale})`;
@@ -1397,5 +1499,6 @@
 
         });
     </script>
+<div class="tip" id="tip"></div>
 </body>
 </html>
