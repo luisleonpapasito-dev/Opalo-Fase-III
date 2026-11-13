@@ -589,6 +589,34 @@
 .anx .tm { justify-content: flex-start; margin-top: 30px; }
 .anx .math-list { row-gap: 8px; } .anx .math-item { font-size: 1.75rem !important; padding: 4px 18px 4px 4px; }
 
+/* v7: ilustraciones FO */
+.fo-bins { height: 170px; }
+.fo-art { position: relative; height: 170px; }
+.fo-art img { position: absolute; }
+.fo-trip .t-gen { left: 6%; top: 26px; width: 110px; mix-blend-mode: multiply; border-radius: 14px; }
+.fo-trip .t-path { position: absolute; inset: 0; width: 100%; height: 100%; }
+.fo-trip .t-bin { right: 4%; top: 18px; width: 108px; mix-blend-mode: multiply; }
+.fo-trip .t-bag { width: 54px; left: 0; top: 0; offset-path: path("M78 112 C 120 60 175 140 226 92"); offset-rotate: 0deg; offset-anchor: 50% 80%; animation: foBag 3s cubic-bezier(.45,0,.3,1) infinite; filter: drop-shadow(0 6px 4px rgba(31,36,27,.25)); }
+@keyframes foBag { 0% { offset-distance: 0%; opacity: 0; transform: scale(.7); } 10% { opacity: 1; transform: scale(1); } 80% { offset-distance: 100%; opacity: 1; transform: scale(1); } 92%, 100% { offset-distance: 100%; opacity: 0; transform: scale(.4); } }
+.fo-trip .t-lbl { position: absolute; left: 0; right: 0; bottom: -2px; text-align: center; font: 600 15px 'DM Sans'; color: #5b6a3c; }
+.fo-pen .p-bin { left: 50%; top: 2px; width: 168px; margin-left: -110px; filter: drop-shadow(0 10px 8px rgba(31,36,27,.22)); transform-origin: 50% 100%; }
+.slide.active .fo-pen .p-bin { animation: foShake 3.2s 2.2s ease-in-out infinite; }
+@keyframes foShake { 0%, 70%, 100% { transform: rotate(0); } 74% { transform: rotate(-3deg); } 78% { transform: rotate(3deg); } 82% { transform: rotate(-2deg); } 86% { transform: rotate(1deg); } }
+.fo-pen .p-pin { left: 50%; top: -8px; width: 58px; margin-left: 40px; transform-origin: 50% 100%; filter: drop-shadow(0 8px 5px rgba(0,0,0,.25)); }
+.slide.active .fo-pen .p-pin { animation: foPin .8s 1.6s cubic-bezier(.3,1.6,.5,1) both; }
+@keyframes foPin { from { transform: translateY(-80px) scale(.6); opacity: 0; } to { transform: none; opacity: 1; } }
+.fo-pen .p-stamp { position: absolute; left: 50%; top: 104px; margin-left: 22px; padding: 4px 12px 5px; border: 3px solid #cb181d; border-radius: 8px; color: #cb181d; font: 800 17px/1.05 'DM Sans'; text-transform: uppercase; letter-spacing: .06em; text-align: center; transform: rotate(-9deg); background: rgba(255,255,255,.6); mix-blend-mode: multiply; }
+.fo-pen .p-stamp small { display: block; font-size: 13px; letter-spacing: .1em; }
+.slide.active .fo-pen .p-stamp { animation: foStamp .5s 2s cubic-bezier(.2,1.8,.4,1) both; }
+@keyframes foStamp { from { transform: rotate(-9deg) scale(2.2); opacity: 0; } to { transform: rotate(-9deg) scale(1); opacity: 1; } }
+.instant .slide.active .fo-pen .p-pin, .instant .slide.active .fo-pen .p-stamp { animation: none; }
+.fo-card { background: #FAF8F0; } .fo-card:hover, .fo-card.sel { background: #fff; }
+.fo-trip { width: 300px; margin: 0 auto; }
+.fo-trip .t-gen { left: -6px; top: 22px; width: 104px; }
+.fo-trip .t-bin { right: -8px; top: 16px; width: 100px; }
+.fo-trip { transform: scale(1.22); transform-origin: 50% 40%; }
+.fo-trip .t-lbl { bottom: 4px; font-size: 13px; }
+
     </style>
 </head>
 <body>
@@ -758,12 +786,61 @@
                     <div class="fo-row">
                         <div class="fo-card k0 rv" data-k="0">
                             <div class="fo-n">1</div>
-                            <svg class="fo-ico" viewBox="0 0 300 170" aria-hidden="true">
-                                <ellipse cx="150" cy="158" rx="130" ry="9" fill="#1F241B" opacity=".12"/>
-                                <g class="bin b1"><rect x="40" y="58" width="62" height="96" rx="9" fill="#2F8A5C"/><rect x="34" y="46" width="74" height="16" rx="6" fill="#1F6B45"/><path d="M57 80v56M71 80v56M85 80v56" stroke="#fff" stroke-opacity=".35" stroke-width="4" stroke-linecap="round"/></g>
-                                <g class="bin b2"><rect x="119" y="58" width="62" height="96" rx="9" fill="#F7F4E8" stroke="#BDB79E" stroke-width="3"/><rect x="113" y="46" width="74" height="16" rx="6" fill="#E3DDC6" stroke="#BDB79E" stroke-width="3"/><path d="M136 80v56M150 80v56M164 80v56" stroke="#BDB79E" stroke-width="4" stroke-linecap="round"/></g>
-                                <g class="bin b3"><rect x="198" y="58" width="62" height="96" rx="9" fill="#2E302A"/><rect x="192" y="46" width="74" height="16" rx="6" fill="#1F241B"/><path d="M215 80v56M229 80v56M243 80v56" stroke="#fff" stroke-opacity=".25" stroke-width="4" stroke-linecap="round"/></g>
-                            </svg>
+                            <svg class="fo-ico fo-bins" viewBox="0 0 300 170" aria-hidden="true"><defs>
+<linearGradient id="bg0b" x1="0" x2="1"><stop offset="0" stop-color="#0F4A2C"/><stop offset=".18" stop-color="#1F7A4A"/><stop offset=".34" stop-color="#5CC08A"/><stop offset=".46" stop-color="#1F7A4A"/><stop offset=".85" stop-color="#0F4A2C"/><stop offset="1" stop-color="#0F4A2C"/></linearGradient>
+<linearGradient id="bg0l" x1="0" x2="1"><stop offset="0" stop-color="#0F4A2C"/><stop offset=".3" stop-color="#2A8C57"/><stop offset=".55" stop-color="#5CC08A"/><stop offset="1" stop-color="#0F4A2C"/></linearGradient>
+<linearGradient id="bg0s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".28"/><stop offset=".25" stop-color="#000" stop-opacity="0"/></linearGradient>
+</defs>
+<g transform="translate(22 0)"><g class="bin b1">
+<ellipse cx="38" cy="160" rx="40" ry="6" fill="#1F241B" opacity=".22"/>
+<circle cx="14" cy="152" r="7" fill="#1b1c19"/><circle cx="14" cy="152" r="2.6" fill="#777"/>
+<path d="M2 34 H74 L67 146 Q66 152 60 152 H16 Q10 152 9 146 Z" fill="url(#bg0b)"/>
+<path d="M2 34 H74 L73.4 44 H2.6 Z" fill="url(#bg0s)"/>
+<path d="M18 56 L21 136 M30 56 L31.5 138 M46 56 L44.5 138 M58 56 L55 136" stroke="#B9F0CF" stroke-opacity=".35" stroke-width="3" stroke-linecap="round"/>
+<path d="M19 57 L22 137 M31 57 L32.5 139 M47 57 L45.5 139 M59 57 L56 137" stroke="#000" stroke-opacity=".18" stroke-width="2" stroke-linecap="round"/>
+<path d="M13 40 Q14 90 18 142" stroke="#fff" stroke-opacity=".28" stroke-width="4" fill="none" stroke-linecap="round"/>
+<rect x="-2" y="22" width="80" height="15" rx="5" fill="url(#bg0l)"/>
+<rect x="-2" y="33" width="80" height="4" rx="2" fill="#000" opacity=".22"/>
+<path d="M2 25 H74" stroke="#fff" stroke-opacity=".35" stroke-width="2" stroke-linecap="round"/>
+<rect x="26" y="14" width="24" height="9" rx="4" fill="#0F4A2C"/><rect x="29" y="16" width="18" height="3" rx="1.5" fill="#fff" opacity=".2"/>
+<g transform="translate(38 92)" opacity=".9"><circle r="13" fill="#E8F6EC" opacity=".9"/><path d="M-5 4 C -6 -4 0 -9 7 -8 C 8 -1 3 5 -5 4 Z M -5 4 L 3 -3" fill="none" stroke="#0F4A2C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></g>
+</g></g><defs>
+<linearGradient id="bg1b" x1="0" x2="1"><stop offset="0" stop-color="#A9A390"/><stop offset=".18" stop-color="#E4DFCC"/><stop offset=".34" stop-color="#FFFFFF"/><stop offset=".46" stop-color="#E4DFCC"/><stop offset=".85" stop-color="#A9A390"/><stop offset="1" stop-color="#A9A390"/></linearGradient>
+<linearGradient id="bg1l" x1="0" x2="1"><stop offset="0" stop-color="#A9A390"/><stop offset=".3" stop-color="#F2EEE0"/><stop offset=".55" stop-color="#FFFFFF"/><stop offset="1" stop-color="#A9A390"/></linearGradient>
+<linearGradient id="bg1s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".28"/><stop offset=".25" stop-color="#000" stop-opacity="0"/></linearGradient>
+</defs>
+<g transform="translate(112 0)"><g class="bin b2">
+<ellipse cx="38" cy="160" rx="40" ry="6" fill="#1F241B" opacity=".22"/>
+<circle cx="14" cy="152" r="7" fill="#1b1c19"/><circle cx="14" cy="152" r="2.6" fill="#777"/>
+<path d="M2 34 H74 L67 146 Q66 152 60 152 H16 Q10 152 9 146 Z" fill="url(#bg1b)"/>
+<path d="M2 34 H74 L73.4 44 H2.6 Z" fill="url(#bg1s)"/>
+<path d="M18 56 L21 136 M30 56 L31.5 138 M46 56 L44.5 138 M58 56 L55 136" stroke="#FFFFFF" stroke-opacity=".35" stroke-width="3" stroke-linecap="round"/>
+<path d="M19 57 L22 137 M31 57 L32.5 139 M47 57 L45.5 139 M59 57 L56 137" stroke="#000" stroke-opacity=".18" stroke-width="2" stroke-linecap="round"/>
+<path d="M13 40 Q14 90 18 142" stroke="#fff" stroke-opacity=".28" stroke-width="4" fill="none" stroke-linecap="round"/>
+<rect x="-2" y="22" width="80" height="15" rx="5" fill="url(#bg1l)"/>
+<rect x="-2" y="33" width="80" height="4" rx="2" fill="#000" opacity=".22"/>
+<path d="M2 25 H74" stroke="#fff" stroke-opacity=".35" stroke-width="2" stroke-linecap="round"/>
+<rect x="26" y="14" width="24" height="9" rx="4" fill="#A9A390"/><rect x="29" y="16" width="18" height="3" rx="1.5" fill="#fff" opacity=".2"/>
+<g transform="translate(38 92)" opacity=".9"><circle r="13" fill="#1F6B45" opacity=".9"/><path d="M-5 4 C -6 -4 0 -9 7 -8 C 8 -1 3 5 -5 4 Z M -5 4 L 3 -3" fill="none" stroke="#A9A390" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></g>
+</g></g><defs>
+<linearGradient id="bg2b" x1="0" x2="1"><stop offset="0" stop-color="#0B0C0A"/><stop offset=".18" stop-color="#2B2D28"/><stop offset=".34" stop-color="#5C5F57"/><stop offset=".46" stop-color="#2B2D28"/><stop offset=".85" stop-color="#0B0C0A"/><stop offset="1" stop-color="#0B0C0A"/></linearGradient>
+<linearGradient id="bg2l" x1="0" x2="1"><stop offset="0" stop-color="#0B0C0A"/><stop offset=".3" stop-color="#3A3C36"/><stop offset=".55" stop-color="#5C5F57"/><stop offset="1" stop-color="#0B0C0A"/></linearGradient>
+<linearGradient id="bg2s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".28"/><stop offset=".25" stop-color="#000" stop-opacity="0"/></linearGradient>
+</defs>
+<g transform="translate(202 0)"><g class="bin b3">
+<ellipse cx="38" cy="160" rx="40" ry="6" fill="#1F241B" opacity=".22"/>
+<circle cx="14" cy="152" r="7" fill="#1b1c19"/><circle cx="14" cy="152" r="2.6" fill="#777"/>
+<path d="M2 34 H74 L67 146 Q66 152 60 152 H16 Q10 152 9 146 Z" fill="url(#bg2b)"/>
+<path d="M2 34 H74 L73.4 44 H2.6 Z" fill="url(#bg2s)"/>
+<path d="M18 56 L21 136 M30 56 L31.5 138 M46 56 L44.5 138 M58 56 L55 136" stroke="#9A9D94" stroke-opacity=".35" stroke-width="3" stroke-linecap="round"/>
+<path d="M19 57 L22 137 M31 57 L32.5 139 M47 57 L45.5 139 M59 57 L56 137" stroke="#000" stroke-opacity=".18" stroke-width="2" stroke-linecap="round"/>
+<path d="M13 40 Q14 90 18 142" stroke="#fff" stroke-opacity=".28" stroke-width="4" fill="none" stroke-linecap="round"/>
+<rect x="-2" y="22" width="80" height="15" rx="5" fill="url(#bg2l)"/>
+<rect x="-2" y="33" width="80" height="4" rx="2" fill="#000" opacity=".22"/>
+<path d="M2 25 H74" stroke="#fff" stroke-opacity=".35" stroke-width="2" stroke-linecap="round"/>
+<rect x="26" y="14" width="24" height="9" rx="4" fill="#0B0C0A"/><rect x="29" y="16" width="18" height="3" rx="1.5" fill="#fff" opacity=".2"/>
+<g transform="translate(38 92)" opacity=".9"><circle r="13" fill="#E9E6D3" opacity=".9"/><path d="M-5 4 C -6 -4 0 -9 7 -8 C 8 -1 3 5 -5 4 Z M -5 4 L 3 -3" fill="none" stroke="#0B0C0A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></g>
+</g></g></svg>
                             <h4>Canecas</h4>
                             <p>Cada sitio abierto lleva al menos una verde, una blanca y una negra. Se paga cada caneca instalada.</p>
                             <div class="fo-f">costo × número de canecas</div>
@@ -772,13 +849,13 @@
                         <div class="fo-op rv">+</div>
                         <div class="fo-card k1 rv" data-k="1">
                             <div class="fo-n">2</div>
-                            <svg class="fo-ico" viewBox="0 0 300 170" aria-hidden="true">
-                                <path id="foPath" class="fo-route" d="M58 120 C 110 40 190 150 240 70" fill="none" stroke="#C9A43A" stroke-width="5" stroke-dasharray="10 9" stroke-linecap="round"/>
-                                <circle cx="58" cy="120" r="22" fill="#e6550d"/><path d="M47 122 h22 v12 h-22z M45 122 l13 -11 l13 11" fill="#fff"/>
-                                <circle cx="240" cy="70" r="24" fill="#1F6B45"/><path d="M240 54 l5 10 11 1.5 -8 7.5 2 11 -10 -5.5 -10 5.5 2 -11 -8 -7.5 11 -1.5z" fill="#E8B93A"/>
-                                <circle r="9" fill="#E8B93A" stroke="#fff" stroke-width="3"><animateMotion dur="2.4s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines=".4 0 .2 1"><mpath href="#foPath"/></animateMotion></circle>
-                                <text x="150" y="160" text-anchor="middle" class="fo-t">litros × metros</text>
-                            </svg>
+                            <div class="fo-ico fo-art fo-trip">
+                                <img class="t-gen" src="assets/icono-edificio.webp" alt="">
+                                <svg class="t-path" viewBox="0 0 300 170" aria-hidden="true"><path id="foPath" class="fo-route" d="M78 112 C 120 60 175 140 226 92" fill="none" stroke="#C9A43A" stroke-width="4" stroke-dasharray="2 10" stroke-linecap="round"/><path d="M78 112 C 120 60 175 140 226 92" fill="none" stroke="#C9A43A" stroke-width="12" stroke-opacity=".12" stroke-linecap="round"/></svg>
+                                <img class="t-bag" src="assets/bolsa-reciclaje.webp" alt="">
+                                <img class="t-bin" src="assets/icono-papelera.webp" alt="">
+                                <span class="t-lbl">litros × metros</span>
+                            </div>
                             <h4>Transporte</h4>
                             <p>Cuanto más residuo y más lejos lo lleva un generador, más cuesta. Se valora a 1,5 COP por litro·metro.</p>
                             <div class="fo-f">1,5 × litros × distancia</div>
@@ -787,14 +864,11 @@
                         <div class="fo-op rv">+</div>
                         <div class="fo-card k2 rv" data-k="2">
                             <div class="fo-n">3</div>
-                            <svg class="fo-ico" viewBox="0 0 300 170" aria-hidden="true">
-                                <circle class="fo-ring" cx="120" cy="88" r="66" fill="#1F6B45" fill-opacity=".08" stroke="#1F6B45" stroke-width="3" stroke-dasharray="7 7"/>
-                                <line x1="120" y1="88" x2="186" y2="88" stroke="#1F6B45" stroke-width="2.5"/><text x="150" y="80" text-anchor="middle" class="fo-t" style="font-size:15px">150 m</text>
-                                <circle cx="120" cy="88" r="15" fill="#1F6B45"/>
-                                <circle cx="82" cy="60" r="9" fill="#e6550d"/><circle cx="96" cy="128" r="9" fill="#e6550d"/><circle cx="150" cy="122" r="9" fill="#e6550d"/>
-                                <g class="fo-out"><circle cx="252" cy="58" r="17" fill="#cb181d"/><text x="252" y="66" text-anchor="middle" fill="#fff" style="font:800 23px 'DM Sans'">!</text></g>
-                                <g class="fo-out o2"><circle cx="236" cy="138" r="13" fill="#cb181d"/></g>
-                            </svg>
+                            <div class="fo-ico fo-art fo-pen">
+                                <img class="p-bin" src="assets/caneca-llena.webp" alt="">
+                                <img class="p-pin" src="assets/pin-rojo.webp" alt="">
+                                <span class="p-stamp">Sin servicio<small>&gt; 150 m</small></span>
+                            </div>
                             <h4>Penalización</h4>
                             <p>Si un generador no tiene sitio a menos de 150 m, queda sin atender y el modelo suma $5 M por cada uno.</p>
                             <div class="fo-f">$5 M × generadores sin atender</div>
@@ -1533,6 +1607,22 @@
                 if (b && b.dataset.tip) { tip.textContent = b.dataset.tip; tip.style.left = e.clientX + 'px'; tip.style.top = e.clientY + 'px'; tip.classList.add('on'); }
                 else tip.classList.remove('on');
             });
+
+            /* v8: objetos (png) levitando en todas las diapositivas */
+            (function levitar() {
+                const SKIP = /forma-|mapa-relieve|textura/;
+                document.querySelectorAll('.slide img').forEach((im, k) => {
+                    if (im.closest('.decor, .dc, .mp-frame, .fo-trip, #intro')) return;
+                    if (SKIP.test(im.getAttribute('src') || '')) return;
+                    const cs = getComputedStyle(im);
+                    if (cs.translate && cs.translate !== 'none') return;
+                    const amp = 8 + (k * 7 % 9), dur = 4200 + (k * 853 % 2600), rot = cs.rotate && cs.rotate !== 'none' ? null : ((k % 2 ? 1 : -1) * (0.8 + (k % 3) * 0.4));
+                    const f = rot === null
+                        ? [{ translate: '0 0' }, { translate: `0 -${amp}px` }, { translate: '0 0' }]
+                        : [{ translate: '0 0', rotate: '0deg' }, { translate: `0 -${amp}px`, rotate: `${rot}deg` }, { translate: '0 0', rotate: '0deg' }];
+                    im.animate(f, { duration: dur, iterations: Infinity, easing: 'ease-in-out', delay: -(k * 617 % dur) });
+                });
+            })();
 
             // Navegación: transición larga, pero un segundo clic salta directo
             const slides = document.querySelectorAll('.slide');
