@@ -520,6 +520,74 @@
 
 .s16 p { font-size: 2.2rem; line-height: 1.45; }
 .s16 .ttl { margin-bottom: 22px; }
+/* ===== v6: FO visual, mapa, anexo ===== */
+.fo2 .mh { margin-bottom: 14px; } .fo2 .mh h2 { font-size: 6.4rem; } .fo2 .mh .sub { font-size: 2.2rem; }
+.fo-row { display: grid; grid-template-columns: 1fr 70px 1fr 70px 1fr; align-items: stretch; gap: 0; margin: 4px 10px 0; }
+.fo-op { align-self: center; text-align: center; font: 700 5rem/1 var(--f-title); color: var(--c-olive); }
+.fo-card { pointer-events: auto; cursor: pointer; position: relative; background: rgba(255,255,255,.72); border-radius: 30px; padding: 18px 28px 20px; box-shadow: 9px 9px 0 var(--kc); --kc: #1F6B45; transition: transform .3s, box-shadow .3s, background .3s; display: flex; flex-direction: column; }
+.fo-card.k1 { --kc: #DDA524; } .fo-card.k2 { --kc: #C4582F; }
+.fo-card:hover, .fo-card.sel { transform: translateY(-8px); box-shadow: 12px 16px 0 var(--kc); background: #fff; }
+.fo-n { position: absolute; top: -20px; left: -16px; width: 56px; height: 56px; border-radius: 50%; background: var(--kc); color: #fff; font: 800 2rem/56px 'DM Sans'; text-align: center; }
+.fo-ico { width: 100%; height: 165px; overflow: visible; }
+.fo-t { font: 600 16px 'DM Sans'; fill: #5b6a3c; }
+.fo-card h4 { font: 700 italic 3.4rem/1 var(--f-title); font-stretch: 62.5%; font-variation-settings: "wdth" 62.5; color: var(--kc); margin: 6px 0 6px; }
+.fo-card.k1 h4 { color: #B98A12; }
+.fo-card p { font-size: 1.65rem !important; line-height: 1.35; margin-bottom: 10px !important; flex: 1; }
+.fo-f { font: 600 1.55rem 'DM Sans'; color: #fff; background: var(--kc); border-radius: 12px; padding: 6px 12px; align-self: flex-start; }
+.fo-v { display: flex; align-items: baseline; gap: 14px; margin-top: 10px; }
+.fo-v .cnt { font: 800 3.6rem/1 'DM Sans'; color: var(--c-dark); }
+.fo-v small { font-size: 1.5rem; color: #6b6a5a; }
+.fo-total { display: flex; align-items: center; gap: 26px; margin: 26px 10px 0; }
+.fo-bar { flex: 1; height: 64px; display: flex; border-radius: 16px; overflow: hidden; background: rgba(255,255,255,.55); box-shadow: 6px 6px 0 rgba(31,36,27,.18); }
+.fo-bar i { display: flex; align-items: center; justify-content: center; width: 0; height: 100%; transition: filter .3s, opacity .3s; }
+.slide.active .fo-bar i { animation: foGrow 1s cubic-bezier(.2,.8,.2,1) both; }
+.slide.active .fo-bar .s0 { animation-delay: 1.4s; } .slide.active .fo-bar .s1 { animation-delay: 1.9s; } .slide.active .fo-bar .s2 { animation-delay: 2.3s; animation-duration: 1.4s; }
+@keyframes foGrow { from { width: 0; } to { width: var(--w); } }
+.instant .slide.active .fo-bar i { animation: none; width: var(--w); }
+.fo-bar .s0 { background: linear-gradient(#2F8A5C, #17583A); } .fo-bar .s1 { background: linear-gradient(#F4CD5C, #DDA524); } .fo-bar .s2 { background: linear-gradient(#D9693F, #A94521); }
+.fo-bar b { color: #fff; font: 700 1.7rem 'DM Sans'; white-space: nowrap; }
+.fo2.hl .fo-bar i { opacity: .35; } .fo2.hl0 .fo-bar .s0, .fo2.hl1 .fo-bar .s1, .fo2.hl2 .fo-bar .s2 { opacity: 1; filter: brightness(1.12) saturate(1.2); }
+.fo-eq { font: 800 3.4rem 'DM Sans'; color: var(--c-forest); white-space: nowrap; min-width: 400px; }
+.fo-cap { text-align: center; font-size: 1.85rem !important; margin: 16px 0 0 !important; color: #3b4332; }
+.slide.active .bin { animation: binIn .7s cubic-bezier(.3,1.6,.5,1) both; transform-box: fill-box; transform-origin: 50% 100%; }
+.slide.active .bin.b1 { animation-delay: .9s; } .slide.active .bin.b2 { animation-delay: 1.05s; } .slide.active .bin.b3 { animation-delay: 1.2s; }
+@keyframes binIn { from { transform: translateY(-60px) scale(.4); opacity: 0; } to { transform: none; opacity: 1; } }
+.fo-route { animation: dash 1.2s linear infinite; } @keyframes dash { to { stroke-dashoffset: -38; } }
+.fo-out { animation: outP 1.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; } .fo-out.o2 { animation-delay: .5s; }
+@keyframes outP { 50% { transform: scale(1.25); } }
+.fo-ring { animation: ring 3s ease-in-out infinite; transform-box: fill-box; transform-origin: center; } @keyframes ring { 50% { transform: scale(1.04); } }
+/* mapa */
+.mapa { flex-direction: row; gap: 44px; align-items: stretch; }
+.mp-side { width: 560px; flex: none; display: flex; flex-direction: column; gap: 18px; }
+.mapa .ttl { font-size: 6.8rem; }
+.mp-esc { background: var(--c-forest); color: #fff; border-radius: 26px; padding: 18px 24px; box-shadow: 8px 8px 0 var(--c-mustard); }
+.mp-esc .k { font-size: 1.5rem; text-transform: uppercase; letter-spacing: .08em; opacity: .8; }
+.mp-esc .v { font: 700 italic 3.6rem/1.05 var(--f-title); font-stretch: 62.5%; font-variation-settings: "wdth" 62.5; margin: 2px 0 10px; }
+.mp-esc .chips { display: flex; flex-wrap: wrap; gap: 8px; } .mp-esc .chips span { font-size: 1.45rem; background: rgba(255,255,255,.16); border-radius: 30px; padding: 3px 14px; }
+.mp-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.mp-stats div { background: rgba(255,255,255,.7); border-radius: 18px; padding: 10px 6px; text-align: center; }
+.mp-stats b { display: block; font: 800 3rem/1 'DM Sans'; color: var(--c-forest); } .mp-stats div:nth-child(4) b { color: #cb181d; }
+.mp-stats span { font-size: 1.25rem; color: #555; }
+.mp-ley { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.mp-ley li { font-size: 1.6rem !important; margin: 0 !important; display: flex; align-items: center; gap: 12px; }
+.mp-ley i { width: 18px; height: 18px; border-radius: 50%; display: inline-block; flex: none; }
+.mp-ley i.star { width: 28px; height: 28px; background: #72AF26; color: #fff; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); font-style: normal; font-size: 15px; line-height: 28px; text-align: center; }
+.mp-ley i.ln { width: 30px; height: 0; border-radius: 0; border-top: 3px dashed #636363; }
+.mp-note { font-size: 1.55rem !important; color: #4b5540; margin: 0 !important; }
+.mp-frame { pointer-events: auto; position: relative; flex: 1; border-radius: 26px; overflow: hidden; background: #E3DFCB; box-shadow: 12px 12px 0 var(--c-olive); border: 6px solid #fff; margin-bottom: 8px; }
+.mp-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; opacity: 0; transition: opacity .6s; }
+.mp-frame.ok iframe { opacity: 1; }
+.mp-ph { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; color: #5b6a3c; }
+.mp-ph img { width: 360px; opacity: .8; } .mp-ph p { font-size: 1.8rem !important; text-align: center; }
+.mp-open { position: absolute; right: 14px; bottom: 14px; z-index: 2; background: var(--c-forest); color: #fff; text-decoration: none; font: 600 1.4rem 'DM Sans'; padding: 8px 16px; border-radius: 30px; box-shadow: 0 4px 12px rgba(0,0,0,.25); }
+/* anexo */
+.anx .math-list { grid-template-rows: repeat(6, auto); row-gap: 10px; }
+.anx .math-item { font-size: 1.85rem !important; }
+.anx-tag { position: absolute; top: 0; right: 0; background: var(--c-terra); color: #fff; font: 700 1.5rem 'DM Sans'; letter-spacing: .1em; padding: 6px 18px; border-radius: 30px; }
+.mp-side { width: 600px; gap: 16px; } .mapa .ttl { font-size: 5.6rem; white-space: nowrap; }
+.mp-ley li { font-size: 1.5rem !important; } .mp-ley { gap: 4px; }
+.anx .tm { justify-content: flex-start; margin-top: 30px; }
+.anx .math-list { row-gap: 8px; } .anx .math-item { font-size: 1.75rem !important; padding: 4px 18px 4px 4px; }
 
     </style>
 </head>
@@ -568,13 +636,13 @@
                     <ellipse cx="985" cy="655" rx="720" ry="272" transform="rotate(-3 985 655)" fill="#87A05B" stroke="#fff" stroke-width="8"/>
                 </svg>
 
-                <svg class="cv-arcs" viewBox="0 0 1920 1080" aria-label="Comuna 3, San Francisco. Semillero de gestión de residuos sólidos">
+                <svg class="cv-arcs" viewBox="0 0 1920 1080" aria-label="Comuna 3, San Francisco. Semillero de investigación · Fase III · Ópalo">
                     <defs>
                         <path id="cvArc1" d="M 400 335 C 700 150 1080 120 1390 215"/>
                         <path id="cvArc2" d="M 350 505 C 700 335 1150 310 1560 425"/>
                     </defs>
                     <text class="cv-arc-1"><textPath href="#cvArc1" startOffset="50%" text-anchor="middle">Comuna <tspan class="cv-3">3</tspan>, San Francisco</textPath></text>
-                    <text class="cv-arc-2"><textPath href="#cvArc2" startOffset="50%" text-anchor="middle">Semillero de gestión de residuos sólidos</textPath></text>
+                    <text class="cv-arc-2"><textPath href="#cvArc2" startOffset="50%" text-anchor="middle">Semillero de investigación · Fase III · Ópalo</textPath></text>
                 </svg>
 
                 <h1 class="cv-title">Proyecto 1. Contenedores con separación en la fuente</h1>
@@ -595,7 +663,7 @@
             </section>
 
             <!-- Diapositiva 2: Introducción -->
-            <section class="slide"><div class="decor"></div>
+            <section class="slide" data-d="2"><div class="decor"></div>
                 <div class="content s2">
                     <div class="rv">
                         <h2 class="ttl">Introducción</h2>
@@ -612,7 +680,7 @@
             </section>
 
             <!-- Diapositiva 3: Generadores seleccionados -->
-            <section class="slide"><div class="decor"></div>
+            <section class="slide" data-d="3"><div class="decor"></div>
                 <div class="content s34">
                     <div>
                         <h2 class="ttl rv">Generadores seleccionados</h2>
@@ -636,7 +704,7 @@
             </section>
 
             <!-- Diapositiva 4: Puntos candidatos -->
-            <section class="slide"><div class="decor"></div>
+            <section class="slide" data-d="4"><div class="decor"></div>
                 <div class="content s34">
                     <div>
                         <h2 class="ttl rv">Puntos candidatos</h2>
@@ -656,7 +724,7 @@
             </section>
 
             <!-- Diapositiva 5: El modelo - Objetivo -->
-            <section class="slide"><div class="decor"></div>
+            <section class="slide" data-d="5"><div class="decor"></div>
                 <div class="content">
                     <div class="mh rv"><h2 class="ttl">El modelo</h2><div class="sub">Optimización Matemática + Algoritmo Genético</div></div>
                     <div class="split">
@@ -674,39 +742,76 @@
             </section>
 
             <!-- Diapositiva 6: Función objetivo -->
-            <section class="slide"><div class="decor"></div>
+            <section class="slide" data-d="6"><div class="decor"></div>
                 <div class="content">
                     <div class="mh rv"><h2 class="ttl">El modelo</h2><div class="sub">Optimización Matemática + Algoritmo Genético</div></div>
                     <h3 class="rv" style="margin-left:40px">Función objetivo</h3>
                     <div class="bigf rv">
-                        $$ \min \sum_{j\in J}\sum_{r\in R} c_r\, n_{jr} \;+\; C_T \sum_{i\in I}\sum_{j\in J}\left(\sum_{r\in R} q_{ir}\right) d_{ij}\, x_{ij} $$
+                        $$ \min\; \underbrace{\textcolor{#1F6B45}{\sum_{j\in J}\sum_{r\in R} c_r\, n_{jr}}}_{\text{canecas}} \;+\; \underbrace{\textcolor{#B98A12}{C_T \sum_{i\in I}\sum_{j\in J}\Big(\sum_{r\in R} q_{ir}\Big) d_{ij}\, x_{ij}}}_{\text{transporte}} \;+\; \underbrace{\textcolor{#C4582F}{P \sum_{i\in I} u_i}}_{\text{sin atender}} $$
                     </div>
                 </div>
             </section>
-
-            <!-- Diapositiva 7: Terminología -->
-            <section class="slide"><div class="decor"></div>
-                <div class="content">
-                    <div class="mh rv"><h2 class="ttl">El modelo</h2><div class="sub">Optimización Matemática + Algoritmo Genético</div></div>
-                    <div class="tm">
-                        <h3 class="rv">Terminología</h3>
-                        <div class="math-list">
-                            <div class="math-item rv"><div class="math-term">\(I\)</div><div>generadores (comercios que producen residuos)</div></div>
-                            <div class="math-item rv"><div class="math-term">\(J\)</div><div>sitios candidatos para instalar contenedores</div></div>
-                            <div class="math-item rv"><div class="math-term">\(R\)</div><div>flujos de residuo: orgánico, aprovechable y no aprovechable</div></div>
-                            <div class="math-item rv"><div class="math-term">\(C_R\)</div><div>costo de un contenedor del flujo \(r\) (COP)</div></div>
-                            <div class="math-item rv"><div class="math-term">\(C_T\)</div><div>coeficiente de transporte (COP por \(L \times m\))</div></div>
-                            <div class="math-item rv"><div class="math-term">\(q_{ir}\)</div><div>residuo del flujo \(r\) que produce el generador \(i\) (\(L \div \text{día}\))</div></div>
-                            <div class="math-item rv"><div class="math-term">\(d_{ij}\)</div><div>distancia del generador \(i\) al sitio \(j\) (m)</div></div>
-                            <div class="math-item rv"><div class="math-term">\(n_{jr}\)</div><div>contenedores del flujo \(r\) en el sitio \(j\) (variable entera)</div></div>
-                            <div class="math-item rv"><div class="math-term">\(x_{ij}\)</div><div>1 si el generador \(i\) usa el sitio \(j\), 0 si no (variable binaria)</div></div>
+            <!-- NUEVA: cómo se construye la función objetivo -->
+            <section class="slide" data-d="fo"><div class="decor"></div>
+                <div class="content fo2">
+                    <div class="mh rv"><h2 class="ttl">¿Qué minimiza el modelo?</h2><div class="sub">La función objetivo, pieza por pieza · caso base</div></div>
+                    <div class="fo-row">
+                        <div class="fo-card k0 rv" data-k="0">
+                            <div class="fo-n">1</div>
+                            <svg class="fo-ico" viewBox="0 0 300 170" aria-hidden="true">
+                                <ellipse cx="150" cy="158" rx="130" ry="9" fill="#1F241B" opacity=".12"/>
+                                <g class="bin b1"><rect x="40" y="58" width="62" height="96" rx="9" fill="#2F8A5C"/><rect x="34" y="46" width="74" height="16" rx="6" fill="#1F6B45"/><path d="M57 80v56M71 80v56M85 80v56" stroke="#fff" stroke-opacity=".35" stroke-width="4" stroke-linecap="round"/></g>
+                                <g class="bin b2"><rect x="119" y="58" width="62" height="96" rx="9" fill="#F7F4E8" stroke="#BDB79E" stroke-width="3"/><rect x="113" y="46" width="74" height="16" rx="6" fill="#E3DDC6" stroke="#BDB79E" stroke-width="3"/><path d="M136 80v56M150 80v56M164 80v56" stroke="#BDB79E" stroke-width="4" stroke-linecap="round"/></g>
+                                <g class="bin b3"><rect x="198" y="58" width="62" height="96" rx="9" fill="#2E302A"/><rect x="192" y="46" width="74" height="16" rx="6" fill="#1F241B"/><path d="M215 80v56M229 80v56M243 80v56" stroke="#fff" stroke-opacity=".25" stroke-width="4" stroke-linecap="round"/></g>
+                            </svg>
+                            <h4>Canecas</h4>
+                            <p>Cada sitio abierto lleva al menos una verde, una blanca y una negra. Se paga cada caneca instalada.</p>
+                            <div class="fo-f">costo × número de canecas</div>
+                            <div class="fo-v"><span class="cnt" data-to="11.33" data-dec="2" data-pre="$" data-suf=" M" data-dl="1500"></span><small>30 canecas</small></div>
+                        </div>
+                        <div class="fo-op rv">+</div>
+                        <div class="fo-card k1 rv" data-k="1">
+                            <div class="fo-n">2</div>
+                            <svg class="fo-ico" viewBox="0 0 300 170" aria-hidden="true">
+                                <path id="foPath" class="fo-route" d="M58 120 C 110 40 190 150 240 70" fill="none" stroke="#C9A43A" stroke-width="5" stroke-dasharray="10 9" stroke-linecap="round"/>
+                                <circle cx="58" cy="120" r="22" fill="#e6550d"/><path d="M47 122 h22 v12 h-22z M45 122 l13 -11 l13 11" fill="#fff"/>
+                                <circle cx="240" cy="70" r="24" fill="#1F6B45"/><path d="M240 54 l5 10 11 1.5 -8 7.5 2 11 -10 -5.5 -10 5.5 2 -11 -8 -7.5 11 -1.5z" fill="#E8B93A"/>
+                                <circle r="9" fill="#E8B93A" stroke="#fff" stroke-width="3"><animateMotion dur="2.4s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines=".4 0 .2 1"><mpath href="#foPath"/></animateMotion></circle>
+                                <text x="150" y="160" text-anchor="middle" class="fo-t">litros × metros</text>
+                            </svg>
+                            <h4>Transporte</h4>
+                            <p>Cuanto más residuo y más lejos lo lleva un generador, más cuesta. Se valora a 1,5 COP por litro·metro.</p>
+                            <div class="fo-f">1,5 × litros × distancia</div>
+                            <div class="fo-v"><span class="cnt" data-to="0.74" data-dec="2" data-pre="$" data-suf=" M" data-dl="1750"></span><small>91 m en promedio</small></div>
+                        </div>
+                        <div class="fo-op rv">+</div>
+                        <div class="fo-card k2 rv" data-k="2">
+                            <div class="fo-n">3</div>
+                            <svg class="fo-ico" viewBox="0 0 300 170" aria-hidden="true">
+                                <circle class="fo-ring" cx="120" cy="88" r="66" fill="#1F6B45" fill-opacity=".08" stroke="#1F6B45" stroke-width="3" stroke-dasharray="7 7"/>
+                                <line x1="120" y1="88" x2="186" y2="88" stroke="#1F6B45" stroke-width="2.5"/><text x="150" y="80" text-anchor="middle" class="fo-t" style="font-size:15px">150 m</text>
+                                <circle cx="120" cy="88" r="15" fill="#1F6B45"/>
+                                <circle cx="82" cy="60" r="9" fill="#e6550d"/><circle cx="96" cy="128" r="9" fill="#e6550d"/><circle cx="150" cy="122" r="9" fill="#e6550d"/>
+                                <g class="fo-out"><circle cx="252" cy="58" r="17" fill="#cb181d"/><text x="252" y="66" text-anchor="middle" fill="#fff" style="font:800 23px 'DM Sans'">!</text></g>
+                                <g class="fo-out o2"><circle cx="236" cy="138" r="13" fill="#cb181d"/></g>
+                            </svg>
+                            <h4>Penalización</h4>
+                            <p>Si un generador no tiene sitio a menos de 150 m, queda sin atender y el modelo suma $5 M por cada uno.</p>
+                            <div class="fo-f">$5 M × generadores sin atender</div>
+                            <div class="fo-v"><span class="cnt" data-to="120" data-dec="0" data-pre="$" data-suf=" M" data-dl="2000"></span><small>24 × $5 M</small></div>
                         </div>
                     </div>
+                    <div class="fo-total rv">
+                        <div class="fo-bar"><i class="s0" style="--w:8.58%"></i><i class="s1" style="--w:1.4%"></i><i class="s2" style="--w:90.02%"><b>la penalización pesa el 91 %</b></i></div>
+                        <div class="fo-eq">= <span class="cnt" data-to="132073831" data-dec="0" data-pre="$" data-dl="2300" data-dur="1600"></span></div>
+                    </div>
+                    <p class="fo-cap rv">Costo real de la red (1 + 2): <strong>$12,073,831</strong> · el modelo exacto y el AG minimizan esta misma suma</p>
                 </div>
             </section>
 
+
             <!-- Diapositiva 8: Reglas del juego -->
-            <section class="slide"><div class="decor"></div>
+            <section class="slide" data-d="8"><div class="decor"></div>
                 <div class="content">
                     <div class="mh rv"><h2 class="ttl">El modelo</h2><div class="sub">Optimización Matemática + Algoritmo Genético</div></div>
                     <div class="rules">
@@ -725,28 +830,8 @@
                 </div>
             </section>
 
-            <!-- Diapositiva 9: Restricciones -->
-            <section class="slide"><div class="decor"></div>
-                <div class="content">
-                    <div class="mh rv"><h2 class="ttl">El modelo</h2><div class="sub">Optimización Matemática + Algoritmo Genético</div></div>
-                    <div class="rs">
-                        <h3 class="vt ttl rv" style="color:var(--c-forest)">Restricciones</h3>
-                        <div class="equation-grid rv">
-                            <div class="eq-num">(1)</div><div>$$ \sum_{j\in J} x_{ij}=1, \quad \forall i $$</div><div class="eq-desc">cada generador va a un sólo sitio</div>
-                            <div class="eq-num">(2)</div><div>$$ x_{ij}\le y_j $$</div><div class="eq-desc">sólo sitios abiertos</div>
-                            <div class="eq-num">(3)</div><div>$$ \sum_{j\in J} y_j=p, \quad y_{j_0}=1 $$</div><div class="eq-desc">se abren p sitios; la plaza siempre está abierta</div>
-                            <div class="eq-num">(4)</div><div>$$ \sum_{i\in I} q_{ir}x_{ij}\le Q_r n_{jr}, \quad \forall j,r $$</div><div class="eq-desc">capacidad por color de contenedor</div>
-                            <div class="eq-num">(5)</div><div>$$ y_j\le n_{jr}, \quad \forall j,r $$</div><div class="eq-desc">al menos un contenedor de cada color</div>
-                            <div class="eq-num">(6)</div><div>$$ \sum_{r\in R} n_{jr}\le M_j y_j $$</div><div class="eq-desc">espacio máximo por sitio</div>
-                            <div class="eq-num">(7)</div><div>$$ x_{ij}=0 \quad \text{si } d_{ij}>D_{max} $$</div><div class="eq-desc">distancia máxima de caminata</div>
-                            <div class="eq-num">(8)</div><div>$$ x_{ij},y_j\in\{0,1\}, \quad n_{jr}\in\mathbb{Z}_{\ge 0} $$</div><div class="eq-desc">naturaleza de las variables</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             <!-- Diapositiva 10: Algoritmo -->
-            <section class="slide"><div class="decor"></div>
+            <section class="slide" data-d="10"><div class="decor"></div>
                 <div class="content">
                     <div class="mh rv"><h2 class="ttl">El modelo</h2><div class="sub">Optimización por medio de Algoritmo Genético</div></div>
                     <div class="alg">
@@ -763,9 +848,42 @@
                     </div>
                 </div>
             </section>
+            <!-- NUEVA: mapa generado -->
+            <section class="slide" data-d="map"><div class="decor"></div>
+                <div class="content mapa">
+                    <div class="mp-side">
+                        <h2 class="ttl rv">Mapa generado</h2>
+                        <div class="mp-esc rv">
+                            <div class="k">Escenario mostrado</div>
+                            <div class="v">Caso base</div>
+                            <div class="chips"><span>p = 10 sitios</span><span>M = 8 canecas</span><span>d<sub>max</sub> = 150 m</span><span>con separación</span></div>
+                        </div>
+                        <div class="mp-stats rv">
+                            <div><b class="cnt" data-to="10" data-dl="900"></b><span>sitios abiertos</span></div>
+                            <div><b class="cnt" data-to="30" data-dl="1000"></b><span>canecas</span></div>
+                            <div><b class="cnt" data-to="39" data-dl="1100"></b><span>atendidos</span></div>
+                            <div><b class="cnt" data-to="24" data-dl="1200"></b><span>sin atender</span></div>
+                        </div>
+                        <ul class="mp-ley rv">
+                            <li><i class="star">★</i>Sitio abierto</li>
+                            <li><i style="background:#e6550d"></i>Generador atendido</li>
+                            <li><i style="background:#cb181d"></i>Generador sin atender</li>
+                            <li><i style="background:#bdbdbd"></i>Candidato no elegido</li>
+                            <li><i class="ln"></i>Asignación generador → sitio</li>
+                        </ul>
+                        <p class="mp-note rv">Solución del modelo exacto. El mejor AG eligió los mismos 10 sitios.</p>
+                    </div>
+                    <div class="mp-frame rv">
+                        <div class="mp-ph"><img src="assets/mapa-relieve.webp" alt=""><p>Falta <code>assets/mapa_caso_base.html</code><br>(se genera desde el Colab)</p></div>
+                        <iframe data-src="assets/mapa_caso_base.html" title="Mapa de la solución, caso base"></iframe>
+                        <a class="mp-open" href="assets/mapa_caso_base.html" target="_blank" rel="noopener">Abrir en pestaña ↗</a>
+                    </div>
+                </div>
+            </section>
 
 
-            <section class="slide"><div class="decor"></div>
+
+            <section class="slide" data-d="11"><div class="decor"></div>
 <div class="content res">
 
                 <h2 class="ttl rv">RESULTADOS</h2>
@@ -817,7 +935,7 @@
 
             <!-- Diapositiva 12: Resultados 2 -->
 </div></section>
-            <section class="slide"><div class="decor"></div>
+            <section class="slide" data-d="12"><div class="decor"></div>
 <div class="content res">
 
                 <h2 class="ttl rv">RESULTADOS</h2>
@@ -868,7 +986,7 @@
 
             <!-- Diapositiva 13: Resultados 3 -->
 </div></section>
-            <section class="slide"><div class="decor"></div>
+            <section class="slide" data-d="13"><div class="decor"></div>
 <div class="content res">
 
                 <h2 class="ttl rv">RESULTADOS</h2>
@@ -932,7 +1050,7 @@
 
             <!-- Diapositiva 14: Resultados 4 -->
 </div></section>
-            <section class="slide"><div class="decor"></div>
+            <section class="slide" data-d="14"><div class="decor"></div>
 <div class="content res">
 
                 <h2 class="ttl rv">RESULTADOS</h2>
@@ -996,92 +1114,9 @@
 
             <!-- Diapositiva 15: Resumen final -->
 </div></section>
-            <section class="slide"><div class="decor"></div>
-<div class="content full">
-
-                <h2 class="ttl rv">Resumen final</h2>
-                <h3 class="sub3 rv">Costo total vs Cobertura — las alternativas de cada escenario</h3>
-                
-                <div class="chart-section rv" style="gap: 2rem;">
-                    <div class="chart-panel" style="padding: 1.5rem;">
-                        <div class="multi-chart-grid">
-                            
-                            <!-- E1 -->
-                            <div style="position: relative; display: flex; flex-direction: column;">
-                                <div class="chart-column-title">E1 · Separación en la fuente</div>
-                                <div class="bar-container" style="border: none;">
-                                    <div class="bar-group">
-                                        <div class="bar color-alt2" style="height: 80%;">
-                                            <span class="bar-val" style="font-size: 1.4rem;">12.07</span>
-                                        </div>
-                                        <div class="bar-label">Alt. 1<br>Con separación</div>
-                                    </div>
-                                    <div class="bar-group">
-                                        <div class="bar color-alt2" style="height: 42%;">
-                                            <span class="bar-val" style="font-size: 1.4rem;">6.31</span>
-                                        </div>
-                                        <div class="bar-label">Alt. 2<br>Sin separación</div>
-                                    </div>
-                                </div>
-                                <!-- Overlay de línea (simulado con div posicionado) -->
-                                <div style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none;">
-                                    <div style="position: absolute; top: 45%; left: 25%; width: 50%; height: 3px; background: var(--c-terra);"></div>
-                                    <div style="position: absolute; top: 45%; left: 25%; width: 15px; height: 15px; background: var(--c-terra); border: 3px solid white; border-radius: 50%; transform: translate(-50%, -50%);"></div>
-                                    <div style="position: absolute; top: 45%; left: 75%; width: 15px; height: 15px; background: var(--c-terra); border: 3px solid white; border-radius: 50%; transform: translate(-50%, -50%);"></div>
-                                    <div style="position: absolute; top: 41%; left: 25%; color: var(--c-terra); font-weight: bold; transform: translateX(-50%);">62%</div>
-                                    <div style="position: absolute; top: 41%; left: 75%; color: var(--c-terra); font-weight: bold; transform: translateX(-50%);">62%</div>
-                                </div>
-                            </div>
-
-                            <!-- E2 -->
-                            <div style="position: relative; display: flex; flex-direction: column; border-left: 2px dashed #ddd; padding-left: 1rem;">
-                                <div class="chart-column-title">E2 · Sensibilidad al espacio (M)</div>
-                                <div class="bar-container" style="border: none;">
-                                    <div class="bar-group"><div class="bar color-alt2" style="height: 80%;"><span class="bar-val" style="font-size: 1.4rem;">12.07</span></div><div class="bar-label">Alt. 1<br>M = 3</div></div>
-                                    <div class="bar-group"><div class="bar color-alt2" style="height: 80%;"><span class="bar-val" style="font-size: 1.4rem;">12.07</span></div><div class="bar-label">Alt. 2<br>M = 8 (base)</div></div>
-                                    <div class="bar-group"><div class="bar color-alt2" style="height: 80%;"><span class="bar-val" style="font-size: 1.4rem;">12.07</span></div><div class="bar-label">Alt. 3<br>M = 12</div></div>
-                                </div>
-                                <div style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none;">
-                                    <div style="position: absolute; top: 45%; left: 18%; width: 64%; height: 3px; background: var(--c-terra);"></div>
-                                    <div style="position: absolute; top: 45%; left: 18%; width: 15px; height: 15px; background: var(--c-terra); border: 3px solid white; border-radius: 50%; transform: translate(-50%, -50%);"></div>
-                                    <div style="position: absolute; top: 45%; left: 50%; width: 15px; height: 15px; background: var(--c-terra); border: 3px solid white; border-radius: 50%; transform: translate(-50%, -50%);"></div>
-                                    <div style="position: absolute; top: 45%; left: 82%; width: 15px; height: 15px; background: var(--c-terra); border: 3px solid white; border-radius: 50%; transform: translate(-50%, -50%);"></div>
-                                    <div style="position: absolute; top: 41%; left: 50%; color: var(--c-terra); font-weight: bold; transform: translateX(-50%);">62%</div>
-                                </div>
-                            </div>
-
-                            <!-- E3 -->
-                            <div style="position: relative; display: flex; flex-direction: column; border-left: 2px dashed #ddd; padding-left: 1rem;">
-                                <div class="chart-column-title">E3 · Recursos (p sitios abiertos)</div>
-                                <div class="bar-container" style="border: none;">
-                                    <div class="bar-group"><div class="bar color-alt1" style="height: 64%;"><span class="bar-val" style="font-size: 1.4rem;">9.64</span></div><div class="bar-label">Alt. 1<br>p = 8</div></div>
-                                    <div class="bar-group"><div class="bar color-alt2" style="height: 80%;"><span class="bar-val" style="font-size: 1.4rem;">12.07</span></div><div class="bar-label">Alt. 2<br>p = 10 (base)</div></div>
-                                    <div class="bar-group"><div class="bar color-alt3" style="height: 96%;"><span class="bar-val" style="font-size: 1.4rem;">14.40</span></div><div class="bar-label">Alt. 3<br>p = 12</div></div>
-                                </div>
-                                <div style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none;">
-                                    <svg width="100%" height="100%" preserveAspectRatio="none">
-                                        <line x1="18%" y1="55%" x2="50%" y2="45%" stroke="var(--c-terra)" stroke-width="3"/>
-                                        <line x1="50%" y1="45%" x2="82%" y2="39%" stroke="var(--c-terra)" stroke-width="3"/>
-                                    </svg>
-                                    <div style="position: absolute; top: 55%; left: 18%; width: 15px; height: 15px; background: var(--c-terra); border: 3px solid white; border-radius: 50%; transform: translate(-50%, -50%);"></div>
-                                    <div style="position: absolute; top: 45%; left: 50%; width: 15px; height: 15px; background: var(--c-terra); border: 3px solid white; border-radius: 50%; transform: translate(-50%, -50%);"></div>
-                                    <div style="position: absolute; top: 39%; left: 82%; width: 15px; height: 15px; background: var(--c-terra); border: 3px solid white; border-radius: 50%; transform: translate(-50%, -50%);"></div>
-                                    
-                                    <div style="position: absolute; top: 51%; left: 18%; color: var(--c-terra); font-weight: bold; transform: translateX(-50%);">52%</div>
-                                    <div style="position: absolute; top: 41%; left: 50%; color: var(--c-terra); font-weight: bold; transform: translateX(-50%);">62%</div>
-                                    <div style="position: absolute; top: 35%; left: 82%; color: var(--c-terra); font-weight: bold; transform: translateX(-50%);">68%</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="chart-summary rv">
-                        Separar cuesta el doble (E1). El espacio no limita la red (E2). Abrir más sitios sube la cobertura al 68%, pero cuesta $14.4M (E3).
-                    </div>
-                </div>
-</div></section>
 
             <!-- Diapositiva 16: Conclusión -->
-            <section class="slide"><div class="decor"></div>
+            <section class="slide" data-d="16"><div class="decor"></div>
                 <div class="content s16">
                     <h2 class="ttl rv">Resultados</h2>
                     <p class="rv">La comparación valida el modelo: el Modelo Exacto (Pyomo/HiGHS) y el Algoritmo Genético alcanzan el mismo óptimo en el caso base, con un valor de la función objetivo de $132,073,831 COP y un gap del 0.00%.</p>
@@ -1091,15 +1126,58 @@
             </section>
 
             <!-- Diapositiva 17: Cierre -->
-            <section class="slide"><div class="decor"></div>
+            <section class="slide" data-d="17"><div class="decor"></div>
                 <div class="content">
                     <div class="gr rv"><h1 class="ttl" style="color:#fff">¡Gracias!</h1></div>
                 </div>
             </section>
 
+            <!-- Diapositiva 7: Terminología -->
+            <section class="slide" data-d="7"><div class="decor"></div>
+                <div class="content anx">
+                    <div class="mh rv"><h2 class="ttl">Anexo</h2><div class="sub">Terminología clave del modelo matemático</div></div>
+                    <div class="tm">
+                        
+                        <div class="math-list">
+                            <div class="math-item rv"><div class="math-term">\(I\)</div><div>generadores (comercios que producen residuos)</div></div>
+                            <div class="math-item rv"><div class="math-term">\(J\)</div><div>sitios candidatos para instalar contenedores</div></div>
+                            <div class="math-item rv"><div class="math-term">\(R\)</div><div>flujos de residuo: orgánico, aprovechable y no aprovechable</div></div>
+                            <div class="math-item rv"><div class="math-term">\(C_R\)</div><div>costo de un contenedor del flujo \(r\) (COP)</div></div>
+                            <div class="math-item rv"><div class="math-term">\(C_T\)</div><div>coeficiente de transporte (COP por \(L \times m\))</div></div>
+                            <div class="math-item rv"><div class="math-term">\(q_{ir}\)</div><div>residuo del flujo \(r\) que produce el generador \(i\) (\(L \div \text{día}\))</div></div>
+                            <div class="math-item rv"><div class="math-term">\(d_{ij}\)</div><div>distancia del generador \(i\) al sitio \(j\) (m)</div></div>
+                            <div class="math-item rv"><div class="math-term">\(n_{jr}\)</div><div>contenedores del flujo \(r\) en el sitio \(j\) (variable entera)</div></div>
+                            <div class="math-item rv"><div class="math-term">\(x_{ij}\)</div><div>1 si el generador \(i\) usa el sitio \(j\), 0 si no (variable binaria)</div></div>
+<div class="math-item rv"><div class="math-term">\(u_i\)</div><div>1 si el generador \(i\) queda sin atender (variable binaria)</div></div>
+<div class="math-item rv"><div class="math-term">\(P\)</div><div>penalización por generador sin atender ($5.000.000 COP)</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Diapositiva 9: Restricciones -->
+            <section class="slide" data-d="9"><div class="decor"></div>
+                <div class="content">
+                    <div class="mh rv"><h2 class="ttl">Anexo</h2><div class="sub">Restricciones del modelo matemático</div></div>
+                    <div class="rs">
+                        <h3 class="vt ttl rv" style="color:var(--c-forest)">Restricciones</h3>
+                        <div class="equation-grid rv">
+                            <div class="eq-num">(1)</div><div>$$ \sum_{j\in J} x_{ij}+u_i=1, \quad \forall i $$</div><div class="eq-desc">cada generador va a un solo sitio o queda sin atender</div>
+                            <div class="eq-num">(2)</div><div>$$ x_{ij}\le y_j $$</div><div class="eq-desc">sólo sitios abiertos</div>
+                            <div class="eq-num">(3)</div><div>$$ \sum_{j\in J} y_j=p, \quad y_{j_0}=1 $$</div><div class="eq-desc">se abren p sitios; la plaza siempre está abierta</div>
+                            <div class="eq-num">(4)</div><div>$$ \sum_{i\in I} q_{ir}x_{ij}\le Q_r n_{jr}, \quad \forall j,r $$</div><div class="eq-desc">capacidad por color de contenedor</div>
+                            <div class="eq-num">(5)</div><div>$$ y_j\le n_{jr}, \quad \forall j,r $$</div><div class="eq-desc">al menos un contenedor de cada color</div>
+                            <div class="eq-num">(6)</div><div>$$ \sum_{r\in R} n_{jr}\le M_j y_j $$</div><div class="eq-desc">espacio máximo por sitio</div>
+                            <div class="eq-num">(7)</div><div>$$ x_{ij}=0 \quad \text{si } d_{ij}>D_{max} $$</div><div class="eq-desc">distancia máxima de caminata</div>
+                            <div class="eq-num">(8)</div><div>$$ x_{ij},y_j,u_i\in\{0,1\}, \quad n_{jr}\in\mathbb{Z}_{\ge 0} $$</div><div class="eq-desc">naturaleza de las variables</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <div class="controls">
                 <button class="btn-nav" id="btn-prev">❮</button>
-                <div class="counter" id="counter">1 / 17</div>
+                <div class="counter" id="counter">1 / 18</div>
                 <button class="btn-nav" id="btn-next">❯</button>
             </div>
             <div class="progress-bar" id="progress"></div>
@@ -1320,6 +1398,11 @@
                     I('cinta-papel', 'left:600px;top:10px;width:300px', { r: -6, d: 6 }),
                     I('hojas-brote', 'left:30px;top:850px;width:200px', { r: -15, sx: -1, d: 22 })],
                 5: CORN, 6: CORN, 7: CORN, 8: CORN, 9: CORN, 10: CORN,
+                fo: CORN,
+                map: [{ m: 'low' },
+                    I('hojas-brote', 'left:-50px;top:-40px;width:230px', { r: -22, sx: -1, d: 18, f: '-200px,-120px' }),
+                    I('forma-naranja', 'left:-140px;top:-130px;width:270px', { r: -30, d: 8, f: '-150px,-150px' }),
+                    I('flechas-reciclaje', 'right:20px;top:-10px;width:110px', { r: 20, d: 16 })],
                 11: RES, 12: RES, 13: RES, 14: RES,
                 15: [{ m: 'low' },
                     I('forma-arco-verde', 'left:-90px;top:-110px;width:320px', { r: -10, d: 8, f: '-150px,-150px' }),
@@ -1351,7 +1434,7 @@
                 el.style.setProperty('--fx', (cx / l * 1600).toFixed(0) + 'px'); el.style.setProperty('--fy', (cy / l * 1600).toFixed(0) + 'px');
                 el.style.setProperty('--er', (((k * 67) % 280) - 140) + 'deg'); el.style.setProperty('--od', ((k % 5) * .05) + 's'); };
             allSlides.forEach((sl, idx) => {
-                const dec = sl.querySelector('.decor'); const items = DECOR[idx + 1];
+                const dec = sl.querySelector('.decor'); const items = DECOR[sl.dataset.d || (idx + 1)];
                 if (dec && items) {
                     items.forEach(it => {
                         if (it.m) { dec.insertAdjacentHTML('beforeend', massSVG(it.m)); return; }
@@ -1378,6 +1461,15 @@
             /* contadores: los valores de las gráficas "cargan" de 0 al valor final */
             function runCounters(sl, instant) {
                 let vi = 0;
+                const fr = sl.querySelector('iframe[data-src]'); if (fr && !fr.getAttribute('src')) fr.src = fr.dataset.src;
+                sl.querySelectorAll('.cnt').forEach(t => {
+                    const to = +t.dataset.to, dec = +(t.dataset.dec || 0), pre = t.dataset.pre || '', suf = t.dataset.suf || '';
+                    const fmt = v => pre + v.toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec }) + suf;
+                    cancelAnimationFrame(t._raf); if (instant) { t.textContent = fmt(to); return; }
+                    t.textContent = fmt(0); const t0 = performance.now() + (+t.dataset.dl || 800), dur = +t.dataset.dur || 1200;
+                    const step = now => { const q = Math.min(1, Math.max(0, (now - t0) / dur)), e = 1 - Math.pow(1 - q, 3); t.textContent = fmt(to * e); if (q < 1) t._raf = requestAnimationFrame(step); };
+                    t._raf = requestAnimationFrame(step);
+                });
                 sl.querySelectorAll('.c-val, .c-linelbl').forEach(t => {
                     if (!t.dataset.f) t.dataset.f = t.textContent.trim();
                     const m = t.dataset.f.match(/^([\d.]+)(%?)$/); if (!m) return;
@@ -1419,9 +1511,24 @@
                 else if (t.matches('.bar-rect')) { pop(t); burst(e.clientX, e.clientY, 10); }
                 else { pop(t); burst(e.clientX, e.clientY, 12); if (t.matches('.math-item, .rule')) t.classList.toggle('on'); }
             });
+            /* FO por piezas: clic resalta su parte de la barra */
+            document.querySelectorAll('.fo-card').forEach(c => {
+                const box = c.closest('.fo2'), k = c.dataset.k;
+                const on = v => { box.classList.remove('hl', 'hl0', 'hl1', 'hl2'); if (v) box.classList.add('hl', 'hl' + k); };
+                c.addEventListener('mouseenter', () => { if (!box.querySelector('.fo-card.sel')) on(true); });
+                c.addEventListener('mouseleave', () => { const s = box.querySelector('.fo-card.sel'); s ? (box.classList.remove('hl0','hl1','hl2'), box.classList.add('hl', 'hl' + s.dataset.k)) : on(false); });
+                c.addEventListener('click', () => { const was = c.classList.contains('sel'); box.querySelectorAll('.fo-card').forEach(x => x.classList.remove('sel')); if (!was) c.classList.add('sel'); on(!was); });
+            });
+            /* mapa: si el archivo no existe se deja el aviso */
+            document.querySelectorAll('.mp-frame iframe').forEach(fr => fr.addEventListener('load', () => {
+                if (!fr.getAttribute('src')) return;
+                let ok = true; try { const d = fr.contentDocument; if (d && !d.querySelector('.folium-map, .leaflet-container')) ok = false; } catch (e) {}
+                fr.closest('.mp-frame').classList.toggle('ok', ok);
+            }));
             /* tooltip de barras */
             const tip = document.getElementById('tip');
             deckEl.addEventListener('mousemove', (e) => {
+                if (document.activeElement && document.activeElement.tagName === 'IFRAME') document.activeElement.blur();
                 const b = e.target.closest && e.target.closest('.bar-rect');
                 if (b && b.dataset.tip) { tip.textContent = b.dataset.tip; tip.style.left = e.clientX + 'px'; tip.style.top = e.clientY + 'px'; tip.classList.add('on'); }
                 else tip.classList.remove('on');
@@ -1430,7 +1537,7 @@
             // Navegación: transición larga, pero un segundo clic salta directo
             const slides = document.querySelectorAll('.slide');
             const totalSlides = slides.length;
-            const TITLES = ['Portada', 'Introducción', 'Generadores seleccionados', 'Puntos candidatos', 'El modelo · Objetivo', 'Función objetivo', 'Terminología', 'Reglas del juego', 'Restricciones', 'Algoritmo genético', 'Resultados · Costo y cobertura', 'Resultados · Canecas y distancia', 'E2 · Sensibilidad al espacio', 'E3 · Recursos (p sitios)', 'Resumen final', 'Conclusión', '¡Gracias!'];
+            const TITLES = ['Portada', 'Introducción', 'Generadores seleccionados', 'Puntos candidatos', 'El modelo · Objetivo', 'Función objetivo', 'La FO pieza por pieza', 'Reglas del juego', 'Cómo lo resolvemos', 'Mapa generado', 'Resultados · Costo y cobertura', 'Resultados · Canecas y distancia', 'E2 · Sensibilidad al espacio', 'E3 · Recursos (p sitios)', 'Conclusión', '¡Gracias!', 'Anexo · Terminología', 'Anexo · Restricciones'];
             let currentSlide = 0, target = 0, locked = false, timers = [];
             const btnPrev = document.getElementById('btn-prev');
             const btnNext = document.getElementById('btn-next');
